@@ -32,13 +32,13 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
   return (
     <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-md transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex justify-between items-center h-20 ${isUrdu ? 'flex-row-reverse' : 'flex-row'}`}>
+        <div className={`flex justify-between items-center h-16 md:h-20 ${isUrdu ? 'flex-row-reverse' : 'flex-row'}`}>
           
           {/* Logo Section */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center gap-2">
-              <img className="h-12 w-12 rounded-full border-2 border-brand-600 object-cover" src={LOGO_URL} alt="Safar-e-Parbat" />
-              <span className={`text-2xl font-bold text-brand-800 hidden md:block ${isUrdu ? 'font-urdu' : 'font-sans'}`}>
+              <img className="h-10 w-10 md:h-12 md:w-12 rounded-full border-2 border-brand-600 object-cover" src={LOGO_URL} alt="Safar-e-Parbat" />
+              <span className={`text-xl md:text-2xl font-bold text-brand-800 hidden sm:block ${isUrdu ? 'font-urdu' : 'font-sans'}`}>
                 {lang === 'en' ? 'Safar-e-Parbat' : 'سفر پربت'}
               </span>
             </Link>
@@ -79,15 +79,15 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
           <div className="md:hidden flex items-center">
              <button
               onClick={toggleLang}
-              className="mr-4 flex items-center gap-1 px-2 py-1 rounded border border-gray-200 text-brand-700"
+              className="mx-3 flex items-center gap-1 px-2 py-1 rounded border border-gray-200 text-brand-700 hover:bg-gray-50"
             >
               <span className="text-xs font-bold">{lang === 'en' ? 'UR' : 'EN'}</span>
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 hover:text-brand-600 focus:outline-none"
+              className="text-gray-600 hover:text-brand-600 focus:outline-none p-1"
             >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
+              {isOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
         </div>
@@ -95,14 +95,14 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 absolute w-full">
+        <div className="md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
           <div className={`px-4 pt-2 pb-6 space-y-2 flex flex-col ${isUrdu ? 'items-end' : 'items-start'}`}>
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`block w-full px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 ${isUrdu ? 'text-right font-urdu text-xl' : 'text-left'}`}
+                className={`block w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 border-b border-gray-50 last:border-0 ${isUrdu ? 'text-right font-urdu text-xl' : 'text-left'}`}
               >
                 {link.name}
               </Link>
@@ -110,7 +110,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
             <Link
               to="/contact"
               onClick={() => setIsOpen(false)}
-              className={`w-full mt-4 block text-center bg-brand-600 text-white px-3 py-3 rounded-md font-bold ${isUrdu ? 'font-urdu' : ''}`}
+              className={`w-full mt-4 block text-center bg-brand-600 text-white px-3 py-3 rounded-md font-bold shadow-md active:scale-95 transition ${isUrdu ? 'font-urdu' : ''}`}
             >
               {t.bookNow}
             </Link>

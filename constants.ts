@@ -83,7 +83,15 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
       itinerary: "Itinerary",
       inclusions: "What's Included",
       bookPackage: "Book This Package",
-      notFound: "Package not found"
+      notFound: "Package not found",
+      modalTitle: "Booking Inquiry",
+      modalDesc: "Please fill in the details below, and we will connect with you on WhatsApp to finalize your booking.",
+      labelName: "Full Name",
+      labelPhone: "Phone Number",
+      labelDate: "Preferred Date",
+      labelTravelers: "Number of Travelers",
+      labelMessage: "Special Requests / Notes",
+      submitBtn: "Send on WhatsApp"
     }
   },
   ur: {
@@ -150,7 +158,15 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
       itinerary: "سفری منصوبہ",
       inclusions: "شامل سہولیات",
       bookPackage: "یہ پیکیج بک کریں",
-      notFound: "پیکیج نہیں ملا"
+      notFound: "پیکیج نہیں ملا",
+      modalTitle: "بکنگ کی تفصیلات",
+      modalDesc: "براہ کرم نیچے دی گئی تفصیلات پر کریں، اور ہم آپ کی بکنگ کو حتمی شکل دینے کے لیے واٹس ایپ پر آپ سے رابطہ کریں گے۔",
+      labelName: "پورا نام",
+      labelPhone: "فون نمبر",
+      labelDate: "ترجیحی تاریخ",
+      labelTravelers: "مسافروں کی تعداد",
+      labelMessage: "خصوصی درخواست / نوٹ",
+      submitBtn: "واٹس ایپ پر بھیجیں"
     }
   }
 };

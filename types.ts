@@ -88,5 +88,13 @@ export interface ContentText {
     inclusions: string;
     bookPackage: string;
     notFound: string;
+    modalTitle: string;
+    modalDesc: string;
+    labelName: string;
+    labelPhone: string;
+    labelDate: string;
+    labelTravelers: string;
+    labelMessage: string;
+    submitBtn: string;
   }
 }
