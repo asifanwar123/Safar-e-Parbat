@@ -1,0 +1,92 @@
+export type Language = 'en' | 'ur';
+
+export interface TourPackage {
+  id: string;
+  titleEn: string;
+  titleUr: string;
+  locationEn: string;
+  locationUr: string;
+  price: string;
+  durationEn: string;
+  durationUr: string;
+  image: string;
+  rating: number;
+  // New detailed fields
+  descriptionEn: string;
+  descriptionUr: string;
+  itineraryEn: string[];
+  itineraryUr: string[];
+  inclusionsEn: string[];
+  inclusionsUr: string[];
+}
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  location: string;
+  textEn: string;
+  textUr: string;
+  rating: number;
+}
+
+export interface ContentText {
+  nav: {
+    home: string;
+    about: string;
+    packages: string;
+    gallery: string;
+    contact: string;
+    bookNow: string;
+  };
+  hero: {
+    title: string;
+    subtitle: string;
+    cta: string;
+  };
+  about: {
+    title: string;
+    desc: string;
+    subDesc: string;
+  };
+  aboutPage: {
+    title: string;
+    storyTitle: string;
+    storyText: string;
+    missionTitle: string;
+    missionText: string;
+    whyUsTitle: string;
+    whyUsPoints: string[];
+    ceo: {
+      title: string;
+      name: string;
+      role: string;
+      message: string;
+    };
+  };
+  features: {
+    adventure: string;
+    cultural: string;
+    family: string;
+  };
+  testimonials: {
+    title: string;
+    subtitle: string;
+  };
+  contact: {
+    title: string;
+    address: string;
+    phone: string;
+    email: string;
+    sendMessage: string;
+    name: string;
+    message: string;
+    submit: string;
+  };
+  packageDetails: {
+    overview: string;
+    itinerary: string;
+    inclusions: string;
+    bookPackage: string;
+    notFound: string;
+  }
+}
