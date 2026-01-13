@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useData } from '../context/DataContext';
 import { JSONBIN_API_KEY, JSONBIN_BIN_ID, GALLERY_IMAGES, PACKAGES, INITIAL_HISTORY } from '../constants';
-import { Trash2, Plus, Lock, X, Users, Settings, Database, Copy, Check, Save, Edit, Globe, Clock, Smartphone, MapPin, Activity, RefreshCw, Cloud } from 'lucide-react';
+import { Trash2, Plus, Lock, X, Users, Settings, Database, Copy, Check, Save, Edit, Globe, Clock, Smartphone, MapPin, Activity, RefreshCw, Cloud, HardDrive } from 'lucide-react';
 import { TourPackage, TravelHistoryItem, CloudData } from '../types';
 
 const Admin: React.FC = () => {
@@ -245,10 +245,11 @@ const Admin: React.FC = () => {
   // Get status icon and color
   const getStatusDisplay = () => {
       switch(saveStatus) {
-          case 'saving': return <span className="text-yellow-600 flex items-center gap-1"><RefreshCw size={14} className="animate-spin" /> Saving...</span>;
-          case 'saved': return <span className="text-green-600 flex items-center gap-1"><Check size={14} /> Saved</span>;
-          case 'error': return <span className="text-red-600 flex items-center gap-1"><X size={14} /> Save Failed</span>;
-          default: return <span className="text-gray-400 flex items-center gap-1"><Cloud size={14} /> Ready</span>;
+          case 'saving': return <span className="text-yellow-600 flex items-center gap-1 bg-yellow-50 px-3 py-1 rounded-full border border-yellow-100"><RefreshCw size={14} className="animate-spin" /> Saving...</span>;
+          case 'saved': return <span className="text-green-600 flex items-center gap-1 bg-green-50 px-3 py-1 rounded-full border border-green-100"><Check size={14} /> Saved (Cloud)</span>;
+          case 'saved-local': return <span className="text-orange-600 flex items-center gap-1 bg-orange-50 px-3 py-1 rounded-full border border-orange-100"><HardDrive size={14} /> Saved (Local Only)</span>;
+          case 'error': return <span className="text-red-600 flex items-center gap-1 bg-red-50 px-3 py-1 rounded-full border border-red-100"><X size={14} /> Save Failed</span>;
+          default: return <span className="text-gray-500 flex items-center gap-1 bg-gray-50 px-3 py-1 rounded-full border border-gray-200"><Cloud size={14} /> Ready</span>;
       }
   };
 
@@ -258,7 +259,7 @@ const Admin: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div className="flex items-center gap-4">
                 <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-                <div className="bg-white px-3 py-1 rounded-full shadow-sm border text-sm font-medium">
+                <div>
                     {getStatusDisplay()}
                 </div>
             </div>
@@ -267,7 +268,7 @@ const Admin: React.FC = () => {
                  {/* Cast to string to avoid TS error about unintentional comparison with literal types */}
                  {(JSONBIN_BIN_ID as string) === "REPLACE_WITH_YOUR_BIN_ID" && (
                     <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-2">
-                        <Lock size={14} /> DB Not Configured
+                        <Lock size={14} /> Cloud DB Not Configured
                     </span>
                  )}
                 
@@ -390,6 +391,7 @@ const Admin: React.FC = () => {
                     </h2>
                     <p className="text-gray-600 mb-6">
                         To save your website data (Packages, History, Comments) permanently, you need a <strong>Bin ID</strong> from Jsonbin.io.
+                        Currently, data is being saved to <strong>{saveStatus === 'saved' ? 'Cloud & Local' : 'LocalStorage Only'}</strong>.
                     </p>
                 </div>
 

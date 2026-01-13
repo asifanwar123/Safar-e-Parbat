@@ -12,6 +12,34 @@ interface HomeProps {
   lang: Language;
 }
 
+// Partner Logo Component with Fallback
+const PartnerLogo = ({ partner }: { partner: any }) => {
+  const [imgError, setImgError] = useState(false);
+
+  // If we have a logo URL and no error occurred loading it
+  if (partner.logo && !imgError) {
+    return (
+      <img 
+        src={partner.logo} 
+        alt={partner.name} 
+        className="h-12 md:h-16 w-auto max-w-[150px] object-contain filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300" 
+        onError={() => setImgError(true)}
+        loading="lazy"
+      />
+    );
+  }
+
+  // Fallback to Icon + Text
+  return (
+    <div className={`flex items-center gap-3 ${partner.color} opacity-80 group-hover:opacity-100 transition`}>
+      {partner.icon}
+      <span className="text-lg font-black italic tracking-tighter uppercase group-hover:tracking-normal transition-all duration-300">
+        {partner.name}
+      </span>
+    </div>
+  );
+};
+
 const Home: React.FC<HomeProps> = ({ lang }) => {
   const t = CONTENT[lang];
   const isUrdu = lang === 'ur';
@@ -45,9 +73,9 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
   }, []);
 
   const features = [
-    { icon: <Mountain size={40} />, title: t.features.adventure, color: "bg-blue-100 text-blue-600" },
-    { icon: <Camera size={40} />, title: t.features.cultural, color: "bg-amber-100 text-amber-600" },
-    { icon: <Users size={40} />, title: t.features.family, color: "bg-green-100 text-green-600" },
+    { icon: <Mountain size={32} />, title: t.features.adventure, color: "bg-blue-100 text-blue-600" },
+    { icon: <Camera size={32} />, title: t.features.cultural, color: "bg-amber-100 text-amber-600" },
+    { icon: <Users size={32} />, title: t.features.family, color: "bg-green-100 text-green-600" },
   ];
 
   // Pick top 3 images for grid
@@ -64,15 +92,43 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
   // Use first 3 history items
   const displayHistory = history.slice(0, 3);
 
-  // Partners Data
+  // Partners Data with Logos (and fallbacks)
   const partners = [
-    { name: "Faisal Movers", color: "text-red-700", bg: "bg-red-50", border: "border-red-200", icon: <Bus size={24}/> },
-    { name: "Daewoo Express", color: "text-blue-800", bg: "bg-blue-50", border: "border-blue-200", icon: <Zap size={24}/> },
-    { name: "Al Makkah", color: "text-emerald-700", bg: "bg-emerald-50", border: "border-emerald-200", icon: <Moon size={24}/> },
-    { name: "Madina Transport", color: "text-green-600", bg: "bg-green-50", border: "border-green-200", icon: <MapPin size={24}/> },
-    { name: "Kainat Travels", color: "text-orange-600", bg: "bg-orange-50", border: "border-orange-200", icon: <Compass size={24}/> },
-    { name: "Rajput Travels", color: "text-rose-800", bg: "bg-rose-50", border: "border-rose-200", icon: <Shield size={24}/> },
-    { name: "Skyways", color: "text-sky-600", bg: "bg-sky-50", border: "border-sky-200", icon: <Wind size={24}/> }
+    { 
+        name: "Faisal Movers", 
+        logo: "https://faisalmovers.com/wp-content/uploads/2021/04/FM-Logo.png", 
+        color: "text-red-700", bg: "bg-white", border: "border-gray-200", icon: <Bus size={24}/> 
+    },
+    { 
+        name: "Daewoo Express", 
+        logo: "https://daewoo.com.pk/assets/images/logo.png", 
+        color: "text-blue-800", bg: "bg-white", border: "border-gray-200", icon: <Zap size={24}/> 
+    },
+    { 
+        name: "Kainat Travels", 
+        logo: "https://kainattravels.com/assets/img/logo.png", 
+        color: "text-orange-600", bg: "bg-white", border: "border-gray-200", icon: <Compass size={24}/> 
+    },
+    { 
+        name: "Skyways", 
+        logo: "https://skyways.pk/assets/images/logo.png", 
+        color: "text-sky-600", bg: "bg-white", border: "border-gray-200", icon: <Wind size={24}/> 
+    },
+    { 
+        name: "Rajput Travels", 
+        logo: "https://rajputtravels.com/assets/images/logo.png", 
+        color: "text-rose-800", bg: "bg-white", border: "border-gray-200", icon: <Shield size={24}/> 
+    },
+    { 
+        name: "Al Makkah", 
+        // No reliable public logo URL found, will use elegant fallback
+        color: "text-emerald-700", bg: "bg-white", border: "border-gray-200", icon: <Moon size={24}/> 
+    },
+    { 
+        name: "Madina Transport", 
+        // No reliable public logo URL found, will use elegant fallback
+        color: "text-green-600", bg: "bg-white", border: "border-gray-200", icon: <MapPin size={24}/> 
+    }
   ];
 
   return (
@@ -92,52 +148,109 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
             <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
             <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
 
-            <div className="flex w-max animate-scroll hover:[animation-play-state:paused]">
+            <div className="flex w-max animate-scroll hover:[animation-play-state:paused] items-center">
                 {/* Triple the list for seamless looping on wide screens */}
                 {[...partners, ...partners, ...partners].map((partner, index) => (
-                    <div key={index} className={`mx-4 md:mx-6 px-6 py-4 rounded-xl border-2 ${partner.border} ${partner.bg} flex items-center justify-center gap-3 min-w-[240px] shadow-sm transform transition hover:scale-105 hover:shadow-md cursor-default group`}>
-                        <div className={`${partner.color} opacity-80 group-hover:opacity-100 transition`}>
-                          {partner.icon}
-                        </div>
-                        <span className={`text-lg font-black italic tracking-tighter ${partner.color} uppercase group-hover:tracking-normal transition-all duration-300`}>
-                            {partner.name}
-                        </span>
+                    <div key={index} className={`mx-4 md:mx-6 px-6 py-4 rounded-xl border-2 ${partner.border} ${partner.bg} flex items-center justify-center min-w-[200px] md:min-w-[240px] h-24 shadow-sm transform transition hover:scale-105 hover:shadow-md cursor-default group`}>
+                        <PartnerLogo partner={partner} />
                     </div>
                 ))}
             </div>
           </div>
       </section>
 
-      {/* About / Intro Section */}
-      <section className="py-12 md:py-20 px-4 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16 space-y-4">
-          <h2 className={`text-3xl md:text-5xl font-bold text-brand-900 ${isUrdu ? 'font-urdu' : ''}`}>
-            {t.about.title}
-          </h2>
-          <div className={`w-24 h-1 bg-brand-500 mx-auto rounded-full`}></div>
-          <p className={`text-lg md:text-xl text-gray-600 leading-relaxed ${isUrdu ? 'font-urdu text-right md:text-center' : ''}`} dir={isUrdu ? 'rtl' : 'ltr'}>
-            {t.about.desc}
-          </p>
-          <p className={`text-gray-500 ${isUrdu ? 'font-urdu text-lg text-right md:text-center' : ''}`} dir={isUrdu ? 'rtl' : 'ltr'}>
-            {t.about.subDesc}
-          </p>
-        </div>
+      {/* Updated Discover the North Section */}
+      <section className="relative py-16 md:py-24 overflow-hidden bg-white">
+          {/* Decorative Background Blobs */}
+          <div className="absolute top-0 left-0 w-64 h-64 bg-brand-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 translate-x-1/3 translate-y-1/3"></div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
-          {features.map((feature, idx) => (
-            <div key={idx} className="bg-white p-6 md:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center border border-gray-100">
-              <div className={`p-4 rounded-full mb-6 ${feature.color}`}>
-                {feature.icon}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+              <div className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-20 ${isUrdu ? 'lg:flex-row-reverse' : ''}`}>
+                  
+                  {/* Image Composition */}
+                  <div className="w-full lg:w-1/2 relative group px-4 lg:px-0">
+                      <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl transform transition duration-500 hover:scale-[1.02]">
+                          <img 
+                            src="https://images.pexels.com/photos/19442078/pexels-photo-19442078.jpeg" 
+                            alt="Northern Pakistan Landscape" 
+                            className="w-full h-[400px] lg:h-[500px] object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                          <div className={`absolute bottom-6 left-6 right-6 text-white ${isUrdu ? 'text-right' : ''}`}>
+                             <div className="flex items-center gap-2 mb-2 text-brand-300 font-bold uppercase tracking-widest text-xs">
+                                <MapPin size={14} /> Gilgit-Baltistan
+                             </div>
+                             <p className={`text-lg font-medium opacity-90 ${isUrdu ? 'font-urdu' : ''}`}>
+                               {isUrdu ? 'زمین پر جنت کا تجربہ کریں' : 'Experience heaven on earth'}
+                             </p>
+                          </div>
+                      </div>
+                      
+                      {/* Floating secondary image */}
+                      <div className={`absolute -bottom-10 -right-4 lg:-right-10 w-40 h-40 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-xl border-4 border-white z-20 hidden md:block transform transition duration-500 hover:scale-105 hover:rotate-3 ${isUrdu ? '-left-10 right-auto' : ''}`}>
+                          <img src={GALLERY_IMAGES[0]} alt="Detail" className="w-full h-full object-cover" />
+                      </div>
+
+                      {/* Decoration dots */}
+                      <div className={`absolute -top-4 -left-4 w-24 h-24 bg-[url('https://www.transparenttextures.com/patterns/dot-grid.png')] opacity-40 z-0 ${isUrdu ? '-right-4 left-auto' : ''}`}></div>
+                  </div>
+
+                  {/* Text Content */}
+                  <div className={`w-full lg:w-1/2 space-y-8 ${isUrdu ? 'text-right' : 'text-left'}`}>
+                      <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-700 font-bold text-sm ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                         <Compass size={16} />
+                         <span>{isUrdu ? 'شمال کی تلاش' : 'Explore the North'}</span>
+                      </div>
+
+                      <h2 className={`text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight ${isUrdu ? 'font-urdu' : ''}`}>
+                        {t.about.title}
+                      </h2>
+                      
+                      <p className={`text-lg text-gray-600 leading-relaxed ${isUrdu ? 'font-urdu' : ''}`}>
+                        {t.about.desc}
+                      </p>
+                      
+                      <div className={`p-6 bg-gray-50 rounded-2xl border-l-4 border-brand-500 ${isUrdu ? 'border-r-4 border-l-0' : ''}`}>
+                          <p className={`text-gray-700 italic font-medium ${isUrdu ? 'font-urdu' : ''}`}>
+                             "{t.about.subDesc}"
+                          </p>
+                      </div>
+
+                      <div className={`flex flex-wrap gap-4 ${isUrdu ? 'justify-end' : ''}`}>
+                         <Link to="/about" className={`px-8 py-3 rounded-full bg-brand-600 text-white font-bold hover:bg-brand-700 transition shadow-lg flex items-center gap-2 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                            {isUrdu ? 'مزید جانیں' : 'Learn More'}
+                            {isUrdu ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
+                         </Link>
+                      </div>
+                  </div>
               </div>
-              <h3 className={`text-xl font-bold text-gray-800 ${isUrdu ? 'font-urdu text-2xl' : ''}`}>
-                {feature.title}
-              </h3>
-            </div>
-          ))}
-        </div>
 
-        {/* Featured Tours Preview */}
+              {/* Features Grid (Improved) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {features.map((feature, idx) => (
+                    <div key={idx} className="group relative bg-white p-8 rounded-3xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+                        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${feature.color.includes('blue') ? 'from-blue-50 to-blue-100' : feature.color.includes('amber') ? 'from-amber-50 to-amber-100' : 'from-green-50 to-green-100'} rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150`}></div>
+                        
+                        <div className="relative z-10 flex flex-col items-center text-center">
+                            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-md transform group-hover:rotate-12 transition-transform duration-300 ${feature.color}`}>
+                                {feature.icon}
+                            </div>
+                            <h3 className={`text-xl font-bold text-gray-800 mb-2 ${isUrdu ? 'font-urdu text-2xl' : ''}`}>
+                                {feature.title}
+                            </h3>
+                            <p className={`text-gray-500 text-sm ${isUrdu ? 'font-urdu' : ''}`}>
+                                {isUrdu ? 'بہترین تجربہ اور یادگار لمحات۔' : 'Curated experiences designed for unforgettable memories.'}
+                            </p>
+                        </div>
+                    </div>
+                  ))}
+              </div>
+          </div>
+      </section>
+
+      {/* Featured Tours Preview */}
+      <section className="py-12 md:py-20 px-4 max-w-7xl mx-auto">
         <div className="mb-16 md:mb-20">
           <div className={`flex flex-col sm:flex-row justify-between items-end mb-6 md:mb-10 ${isUrdu ? 'sm:flex-row-reverse' : ''} gap-2`}>
             <h2 className={`text-2xl md:text-3xl font-bold text-brand-900 w-full sm:w-auto ${isUrdu ? 'font-urdu text-right' : ''}`}>

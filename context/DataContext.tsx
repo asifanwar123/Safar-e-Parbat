@@ -9,7 +9,7 @@ interface DataContextType {
   comments: Comment[];
   visitorLogs: VisitorLog[];
   isLoading: boolean;
-  saveStatus: 'idle' | 'saving' | 'saved' | 'error';
+  saveStatus: 'idle' | 'saving' | 'saved' | 'saved-local' | 'error';
   
   // Actions
   addPackage: (pkg: TourPackage) => Promise<void>;
@@ -28,68 +28,102 @@ interface DataContextType {
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
+const LOCAL_STORAGE_KEY = 'safar_data_v1';
+
 export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [packages, setPackages] = useState<TourPackage[]>(PACKAGES);
   const [history, setHistory] = useState<TravelHistoryItem[]>(INITIAL_HISTORY);
   const [comments, setComments] = useState<Comment[]>([]);
   const [visitorLogs, setVisitorLogs] = useState<VisitorLog[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'saved-local' | 'error'>('idle');
 
   // Cast to string to prevent TS error about comparison with literal types
   const isConfigured = (JSONBIN_BIN_ID as string) !== "REPLACE_WITH_YOUR_BIN_ID" && (JSONBIN_API_KEY as string) !== "REPLACE_WITH_YOUR_API_KEY";
 
-  // Load Data from Cloud
+  // Load Data (Hybrid: Cloud -> Local -> Default)
   const fetchData = async () => {
-    if (!isConfigured) return;
-    
     setIsLoading(true);
-    try {
-      const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-        headers: { 'X-Master-Key': JSONBIN_API_KEY }
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        const record = data.record;
+    let loaded = false;
 
-        // Check if it's the new structure (CloudData) or legacy (Array of comments)
-        if (Array.isArray(record)) {
-             // Legacy mode: It's just comments
-             setComments(record);
-             // Keep packages/history as defaults
-        } else if (record.packages || record.history) {
-             // New CloudData structure
-             if (record.packages) setPackages(record.packages);
-             if (record.history) setHistory(record.history);
-             if (record.comments) setComments(record.comments);
-             if (record.visitorLogs) setVisitorLogs(record.visitorLogs);
+    // 1. Try Cloud First (if configured)
+    if (isConfigured) {
+      try {
+        // Add timestamp to prevent caching
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest?t=${Date.now()}`, {
+          headers: { 
+              'X-Master-Key': JSONBIN_API_KEY,
+              'Cache-Control': 'no-cache'
+          }
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          const record = data.record;
+          updateState(record);
+          
+          // Sync Cloud data to LocalStorage for backup
+          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(record));
+          loaded = true;
+        } else {
+            console.warn("Cloud fetch failed, falling back to local storage.");
         }
-      } else {
-          console.error("Fetch failed:", response.statusText);
-          setSaveStatus('error');
+      } catch (error) {
+        console.error("Failed to fetch data from cloud:", error);
       }
-    } catch (error) {
-      console.error("Failed to fetch data:", error);
-      setSaveStatus('error');
-    } finally {
-        setIsLoading(false);
     }
+
+    // 2. Fallback to LocalStorage if Cloud failed or not configured
+    if (!loaded) {
+        const local = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (local) {
+            try {
+                const parsed = JSON.parse(local);
+                updateState(parsed);
+                console.log("Loaded data from LocalStorage");
+            } catch (e) {
+                console.error("Failed to parse local storage", e);
+            }
+        }
+    }
+    
+    setIsLoading(false);
   };
 
-  // Initial Load ONLY (No Interval Polling)
+  const updateState = (record: any) => {
+      // Handle legacy structure (array of comments) vs new structure (CloudData)
+      if (Array.isArray(record)) {
+           setComments(record);
+      } else {
+           if (record.packages) setPackages(record.packages);
+           if (record.history) setHistory(record.history);
+           if (record.comments) setComments(record.comments);
+           if (record.visitorLogs) setVisitorLogs(record.visitorLogs);
+      }
+  };
+
   useEffect(() => {
     fetchData();
-    // Removed setInterval to prevent overwriting local state with stale server data
   }, []);
 
-  // Helper to save everything to cloud
-  const saveToCloud = async (newData: CloudData) => {
+  // Helper to save everything
+  const saveData = async (newData: CloudData) => {
+    setSaveStatus('saving');
+    
+    // 1. Always Save to LocalStorage (Instant)
+    try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newData));
+    } catch (e) {
+        console.error("Local storage save failed (quota exceeded?)", e);
+    }
+
+    // 2. Try Save to Cloud
     if (!isConfigured) {
+       setSaveStatus('saved-local');
+       setTimeout(() => setSaveStatus('idle'), 2000);
        return;
     }
 
-    setSaveStatus('saving');
     try {
       const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
         method: 'PUT',
@@ -102,75 +136,74 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       
       if(response.ok) {
           setSaveStatus('saved');
-          // Reset to idle after 2 seconds
-          setTimeout(() => setSaveStatus('idle'), 2000);
       } else {
-          console.error("Save failed:", await response.text());
-          setSaveStatus('error');
+          console.error("Cloud save failed:", await response.text());
+          setSaveStatus('saved-local'); // Fallback status
       }
     } catch (error) {
       console.error("Failed to save to cloud:", error);
-      setSaveStatus('error');
+      setSaveStatus('saved-local'); // Fallback status
+    } finally {
+      setTimeout(() => setSaveStatus('idle'), 2000);
     }
   };
 
   const addPackage = async (pkg: TourPackage) => {
     const newPackages = [pkg, ...packages];
     setPackages(newPackages);
-    await saveToCloud({ packages: newPackages, history, comments, visitorLogs });
+    await saveData({ packages: newPackages, history, comments, visitorLogs });
   };
 
   const updatePackage = async (updatedPkg: TourPackage) => {
     const newPackages = packages.map(p => p.id === updatedPkg.id ? updatedPkg : p);
     setPackages(newPackages);
-    await saveToCloud({ packages: newPackages, history, comments, visitorLogs });
+    await saveData({ packages: newPackages, history, comments, visitorLogs });
   };
 
   const deletePackage = async (id: string) => {
     const newPackages = packages.filter(p => p.id !== id);
     setPackages(newPackages);
-    await saveToCloud({ packages: newPackages, history, comments, visitorLogs });
+    await saveData({ packages: newPackages, history, comments, visitorLogs });
   };
 
   const addHistory = async (item: TravelHistoryItem) => {
     const newHistory = [item, ...history];
     setHistory(newHistory);
-    await saveToCloud({ packages, history: newHistory, comments, visitorLogs });
+    await saveData({ packages, history: newHistory, comments, visitorLogs });
   };
 
   const updateHistory = async (updatedItem: TravelHistoryItem) => {
     const newHistory = history.map(h => h.id === updatedItem.id ? updatedItem : h);
     setHistory(newHistory);
-    await saveToCloud({ packages, history: newHistory, comments, visitorLogs });
+    await saveData({ packages, history: newHistory, comments, visitorLogs });
   };
 
   const deleteHistory = async (id: string) => {
     const newHistory = history.filter(h => h.id !== id);
     setHistory(newHistory);
-    await saveToCloud({ packages, history: newHistory, comments, visitorLogs });
+    await saveData({ packages, history: newHistory, comments, visitorLogs });
   };
 
   const addComment = async (comment: Comment) => {
     const newComments = [comment, ...comments];
     setComments(newComments);
-    await saveToCloud({ packages, history, comments: newComments, visitorLogs });
+    await saveData({ packages, history, comments: newComments, visitorLogs });
   };
 
   const deleteComment = async (id: number) => {
     const newComments = comments.filter(c => c.id !== id);
     setComments(newComments);
-    await saveToCloud({ packages, history, comments: newComments, visitorLogs });
+    await saveData({ packages, history, comments: newComments, visitorLogs });
   };
 
   const logVisitor = async (log: VisitorLog) => {
-     // Prevent adding if it's the exact same IP as the most recent one (simple debounce)
      if (visitorLogs.length > 0 && visitorLogs[0].ip === log.ip) {
         return; 
      }
-
-     const newLogs = [log, ...visitorLogs].slice(0, 100); // Keep last 100
+     const newLogs = [log, ...visitorLogs].slice(0, 100);
      setVisitorLogs(newLogs);
-     await saveToCloud({ packages, history, comments, visitorLogs: newLogs });
+     // Don't await visitor logs to prevent UI lag
+     saveData({ packages, history, comments, visitorLogs: newLogs });
   };
 
   return (

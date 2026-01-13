@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  MapPin, Calendar, Users, Star, 
-  Home, Coffee, Compass, Camera
+  MapPin, Star, 
+  Home, Coffee, Compass, Camera, Search
 } from 'lucide-react';
 import { CONTENT, HERO_SLIDES } from '../constants';
 import { Language } from '../types';
@@ -17,8 +18,6 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
   const navigate = useNavigate();
 
   const [location, setLocation] = useState('');
-  const [date, setDate] = useState('');
-  const [guests, setGuests] = useState('2');
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Auto-play slider
@@ -30,7 +29,13 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
   }, []);
 
   const handleSearch = () => {
-    navigate(`/packages?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&guests=${encodeURIComponent(guests)}`);
+    navigate(`/packages?location=${encodeURIComponent(location)}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+        handleSearch();
+    }
   };
 
   const accentColorClass = HERO_SLIDES[currentSlide].accentColor || "text-amber-300";
@@ -59,7 +64,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
              </div>
           </div>
 
-          {/* Floating Badges (Repositioned to corners/sides to avoid overlapping) */}
+          {/* Floating Badges */}
           <div className="hidden lg:block absolute top-[15%] left-[5%] animate-float-slow z-10">
              <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2.5 rounded-full text-white flex items-center gap-3 hover:bg-white/20 transition cursor-default shadow-lg">
                 <Compass size={18} className={accentColorClass.replace('text-', 'text-opacity-80 text-')} />
@@ -89,7 +94,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
 
 
           {/* Central Content */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20 pb-40 md:pb-32">
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20 pb-20">
              <h1 className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight drop-shadow-2xl mb-6 leading-tight transition-colors duration-1000 ${isUrdu ? 'font-urdu' : ''}`}>
                {t.title.includes(' ') ? (
                  <>
@@ -99,80 +104,42 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
                  <span className={`${accentColorClass} transition-colors duration-1000`}>{t.title}</span>
                )}
              </h1>
-             <p className={`text-lg md:text-2xl text-gray-100 max-w-2xl mx-auto drop-shadow-lg leading-relaxed font-medium mb-8 ${isUrdu ? 'font-urdu' : ''}`}>
+             <p className={`text-lg md:text-2xl text-gray-100 max-w-2xl mx-auto drop-shadow-lg leading-relaxed font-medium mb-12 ${isUrdu ? 'font-urdu' : ''}`}>
                {t.subtitle}
              </p>
+
+             {/* Simple Search Bar */}
+             <div className="w-full max-w-2xl mx-auto px-4 relative z-40">
+                 <div className="bg-white/95 backdrop-blur-xl p-2 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/50 flex items-center transition-all focus-within:ring-4 focus-within:ring-white/30 focus-within:scale-105">
+                     <div className="pl-4 md:pl-6 text-gray-400">
+                         <Search size={24} />
+                     </div>
+                     <input 
+                        type="text" 
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        placeholder={isUrdu ? "آپ کہاں جانا چاہتے ہیں؟" : "Where would you like to go?"}
+                        className={`flex-grow bg-transparent border-none focus:ring-0 text-gray-800 text-lg md:text-xl placeholder-gray-500 py-3 md:py-4 px-3 md:px-4 outline-none w-full ${isUrdu ? 'text-right font-urdu' : ''}`}
+                     />
+                     <button 
+                        onClick={handleSearch}
+                        className={`${accentColorClass.replace('text-', 'bg-').replace('300', '500')} hover:brightness-110 text-white px-6 md:px-10 py-3 md:py-4 rounded-full font-bold shadow-lg transform active:scale-95 transition-all whitespace-nowrap text-base md:text-lg`}
+                     >
+                        {isUrdu ? 'تلاش' : 'Search'}
+                     </button>
+                 </div>
+             </div>
           </div>
 
           {/* Bottom Elements Wrapper with responsive layout */}
           <div className="absolute bottom-0 left-0 right-0 p-4 md:p-10 flex flex-col items-center justify-end h-full pointer-events-none z-30">
              
-             {/* Search Bar (Responsive) */}
-             <div className="pointer-events-auto bg-white/95 backdrop-blur rounded-[2rem] p-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-w-5xl w-full mx-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/50 relative z-40 mt-10">
-                
-                {/* Location Input */}
-                <div className="flex-1 w-full md:w-auto px-4 md:px-6 py-2 md:py-4 md:border-r border-b md:border-b-0 border-gray-200 hover:bg-gray-50 rounded-2xl transition cursor-pointer group/item relative">
-                   <div className="flex items-center gap-2 text-gray-500 mb-1">
-                      <MapPin size={16} className="text-brand-600" />
-                      <span className="font-bold text-xs uppercase tracking-widest">Location</span>
-                   </div>
-                   <input 
-                      type="text" 
-                      placeholder={isUrdu ? "کہاں جانا ہے؟" : "Where to?"}
-                      className="w-full bg-transparent border-none focus:ring-0 p-0 text-gray-900 font-bold text-lg placeholder-gray-400 outline-none"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                   />
-                </div>
-
-                {/* Date Input */}
-                <div className="flex-1 w-full md:w-auto px-4 md:px-6 py-2 md:py-4 md:border-r border-b md:border-b-0 border-gray-200 hover:bg-gray-50 rounded-2xl transition cursor-pointer group/item relative">
-                   <div className="flex items-center gap-2 text-gray-500 mb-1">
-                      <Calendar size={16} className="text-brand-600" />
-                      <span className="font-bold text-xs uppercase tracking-widest">Check-in</span>
-                   </div>
-                   <input 
-                      type="date"
-                      className="w-full bg-transparent border-none focus:ring-0 p-0 text-gray-900 font-bold text-lg outline-none cursor-pointer"
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)}
-                   />
-                </div>
-
-                {/* Guests Input */}
-                <div className="flex-1 w-full md:w-auto px-4 md:px-6 py-2 md:py-4 hover:bg-gray-50 rounded-2xl transition cursor-pointer group/item relative">
-                   <div className="flex items-center gap-2 text-gray-500 mb-1">
-                      <Users size={16} className="text-brand-600" />
-                      <span className="font-bold text-xs uppercase tracking-widest">Guests</span>
-                   </div>
-                   <div className="flex items-center">
-                     <input 
-                        type="number" 
-                        min="1"
-                        className="w-16 bg-transparent border-none focus:ring-0 p-0 text-gray-900 font-bold text-lg outline-none"
-                        value={guests}
-                        onChange={(e) => setGuests(e.target.value)}
-                     />
-                     <span className="text-lg font-bold text-gray-900 ml-1">Adults</span>
-                   </div>
-                </div>
-
-                {/* Search Button */}
-                <button 
-                  onClick={handleSearch}
-                  className={`w-full md:w-auto ${accentColorClass.replace('text-', 'bg-').replace('300', '400').replace('400', '500').replace('500', '500')} hover:brightness-110 text-black px-10 py-4 md:py-5 rounded-[1.5rem] font-bold shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-3 whitespace-nowrap`}
-                >
-                   {isUrdu ? 'تلاش کریں' : 'Book Your Stay'}
-                </button>
-             </div>
-
-
              {/* Bottom Corners */}
              <div className="w-full flex justify-between items-end px-2 md:px-6 pb-2 md:pb-4 pointer-events-none">
                 
                 {/* Map Circle (Left) */}
                 <div className="hidden lg:flex pointer-events-auto items-center justify-center w-28 h-28 rounded-full bg-gray-100 border-4 border-white/80 shadow-2xl overflow-hidden hover:scale-110 transition cursor-pointer relative group/map z-30">
-                   {/* Fake Map Background */}
                    <div className="absolute inset-0 bg-blue-100 opacity-80 group-hover/map:opacity-100 transition">
                       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-1 bg-gray-300 rotate-45"></div>
                       <div className="absolute top-1/2 left-1/3 w-1 h-full bg-gray-300"></div>
