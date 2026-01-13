@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useData } from '../context/DataContext';
 import { JSONBIN_API_KEY, JSONBIN_BIN_ID, GALLERY_IMAGES, PACKAGES, INITIAL_HISTORY } from '../constants';
-import { Trash2, Plus, Lock, X, Users, Settings, Database, Copy, Check, Save, Edit, Globe, Clock, Smartphone, MapPin, Activity } from 'lucide-react';
+import { Trash2, Plus, Lock, X, Users, Settings, Database, Copy, Check, Save, Edit, Globe, Clock, Smartphone, MapPin, Activity, RefreshCw, Cloud } from 'lucide-react';
 import { TourPackage, TravelHistoryItem, CloudData } from '../types';
 
 const Admin: React.FC = () => {
@@ -14,7 +14,7 @@ const Admin: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'comments' | 'packages' | 'history' | 'visitors' | 'settings'>('comments');
   
   // Use Context Data
-  const { packages, deletePackage, addPackage, updatePackage, history, addHistory, updateHistory, deleteHistory, comments, deleteComment, visitorLogs } = useData();
+  const { packages, deletePackage, addPackage, updatePackage, history, addHistory, updateHistory, deleteHistory, comments, deleteComment, visitorLogs, refreshData, saveStatus, isLoading } = useData();
 
   // Forms State
   const [showPackageForm, setShowPackageForm] = useState(false);
@@ -48,9 +48,6 @@ const Admin: React.FC = () => {
 
   // Statistics Calculation
   const last24hLogs = visitorLogs.filter(log => {
-      // Need to parse the date/time string from local string which might vary. 
-      // Relying on `id` which is a timestamp is safer if we control it.
-      // In visitor log, id is Date.now().toString()
       const logTime = parseInt(log.id);
       const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
       return logTime > oneDayAgo;
@@ -245,11 +242,27 @@ const Admin: React.FC = () => {
     );
   }
 
+  // Get status icon and color
+  const getStatusDisplay = () => {
+      switch(saveStatus) {
+          case 'saving': return <span className="text-yellow-600 flex items-center gap-1"><RefreshCw size={14} className="animate-spin" /> Saving...</span>;
+          case 'saved': return <span className="text-green-600 flex items-center gap-1"><Check size={14} /> Saved</span>;
+          case 'error': return <span className="text-red-600 flex items-center gap-1"><X size={14} /> Save Failed</span>;
+          default: return <span className="text-gray-400 flex items-center gap-1"><Cloud size={14} /> Ready</span>;
+      }
+  };
+
   return (
     <div className="pt-24 pb-20 min-h-screen bg-gray-50 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div className="flex items-center gap-4">
+                <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+                <div className="bg-white px-3 py-1 rounded-full shadow-sm border text-sm font-medium">
+                    {getStatusDisplay()}
+                </div>
+            </div>
+            
             <div className="flex gap-4 items-center">
                  {/* Cast to string to avoid TS error about unintentional comparison with literal types */}
                  {(JSONBIN_BIN_ID as string) === "REPLACE_WITH_YOUR_BIN_ID" && (
@@ -257,6 +270,16 @@ const Admin: React.FC = () => {
                         <Lock size={14} /> DB Not Configured
                     </span>
                  )}
+                
+                <button 
+                    onClick={refreshData} 
+                    disabled={isLoading}
+                    className="flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-100 font-semibold disabled:opacity-50"
+                >
+                    <RefreshCw size={18} className={isLoading ? "animate-spin" : ""} />
+                    {isLoading ? 'Syncing...' : 'Refresh Data'}
+                </button>
+
                 <button onClick={handleLogout} className="text-red-600 font-bold hover:underline">Logout</button>
             </div>
         </div>

@@ -9,6 +9,7 @@ interface DataContextType {
   comments: Comment[];
   visitorLogs: VisitorLog[];
   isLoading: boolean;
+  saveStatus: 'idle' | 'saving' | 'saved' | 'error';
   
   // Actions
   addPackage: (pkg: TourPackage) => Promise<void>;
@@ -33,6 +34,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [comments, setComments] = useState<Comment[]>([]);
   const [visitorLogs, setVisitorLogs] = useState<VisitorLog[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
 
   // Cast to string to prevent TS error about comparison with literal types
   const isConfigured = (JSONBIN_BIN_ID as string) !== "REPLACE_WITH_YOUR_BIN_ID" && (JSONBIN_API_KEY as string) !== "REPLACE_WITH_YOUR_API_KEY";
@@ -41,8 +43,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const fetchData = async () => {
     if (!isConfigured) return;
     
-    // Don't set loading on poll/refresh to avoid UI flicker, only initial could be handled if needed
-    // But here we might want to know if it's syncing
+    setIsLoading(true);
     try {
       const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
         headers: { 'X-Master-Key': JSONBIN_API_KEY }
@@ -64,28 +65,33 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
              if (record.comments) setComments(record.comments);
              if (record.visitorLogs) setVisitorLogs(record.visitorLogs);
         }
+      } else {
+          console.error("Fetch failed:", response.statusText);
+          setSaveStatus('error');
       }
     } catch (error) {
       console.error("Failed to fetch data:", error);
+      setSaveStatus('error');
+    } finally {
+        setIsLoading(false);
     }
   };
 
-  // Initial Load & Poll
+  // Initial Load ONLY (No Interval Polling)
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 10000); // Poll every 10s for new comments/updates
-    return () => clearInterval(interval);
+    // Removed setInterval to prevent overwriting local state with stale server data
   }, []);
 
   // Helper to save everything to cloud
   const saveToCloud = async (newData: CloudData) => {
     if (!isConfigured) {
-       // If not configured, just update local state (already done in handlers)
        return;
     }
 
+    setSaveStatus('saving');
     try {
-      await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+      const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -93,9 +99,18 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         },
         body: JSON.stringify(newData)
       });
+      
+      if(response.ok) {
+          setSaveStatus('saved');
+          // Reset to idle after 2 seconds
+          setTimeout(() => setSaveStatus('idle'), 2000);
+      } else {
+          console.error("Save failed:", await response.text());
+          setSaveStatus('error');
+      }
     } catch (error) {
       console.error("Failed to save to cloud:", error);
-      // Silent fail in production often better than alerting on every auto-save
+      setSaveStatus('error');
     }
   };
 
@@ -150,11 +165,10 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const logVisitor = async (log: VisitorLog) => {
      // Prevent adding if it's the exact same IP as the most recent one (simple debounce)
      if (visitorLogs.length > 0 && visitorLogs[0].ip === log.ip) {
-        // Just update local state to avoid flicker but don't save duplicates
         return; 
      }
 
-     const newLogs = [log, ...visitorLogs].slice(0, 100); // Keep last 100 to allow for better 24h stats
+     const newLogs = [log, ...visitorLogs].slice(0, 100); // Keep last 100
      setVisitorLogs(newLogs);
      await saveToCloud({ packages, history, comments, visitorLogs: newLogs });
   };
@@ -166,6 +180,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       comments,
       visitorLogs,
       isLoading,
+      saveStatus,
       addPackage,
       updatePackage,
       deletePackage,
