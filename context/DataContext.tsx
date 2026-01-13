@@ -154,7 +154,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return; 
      }
 
-     const newLogs = [log, ...visitorLogs].slice(0, 20); // Keep last 20
+     const newLogs = [log, ...visitorLogs].slice(0, 100); // Keep last 100 to allow for better 24h stats
      setVisitorLogs(newLogs);
      await saveToCloud({ packages, history, comments, visitorLogs: newLogs });
   };

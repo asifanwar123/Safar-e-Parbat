@@ -2,16 +2,19 @@
 import React, { useState } from 'react';
 import { useData } from '../context/DataContext';
 import { JSONBIN_API_KEY, JSONBIN_BIN_ID, GALLERY_IMAGES, PACKAGES, INITIAL_HISTORY } from '../constants';
-import { Trash2, Plus, Lock, X, Users, Settings, Database, Copy, Check, Save, Edit } from 'lucide-react';
+import { Trash2, Plus, Lock, X, Users, Settings, Database, Copy, Check, Save, Edit, Globe, Clock, Smartphone, MapPin, Activity } from 'lucide-react';
 import { TourPackage, TravelHistoryItem, CloudData } from '../types';
 
 const Admin: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Initialize auth state from localStorage
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+      return localStorage.getItem('admin_session') === 'true';
+  });
   const [password, setPassword] = useState('');
-  const [activeTab, setActiveTab] = useState<'comments' | 'packages' | 'history' | 'settings'>('comments');
+  const [activeTab, setActiveTab] = useState<'comments' | 'packages' | 'history' | 'visitors' | 'settings'>('comments');
   
   // Use Context Data
-  const { packages, deletePackage, addPackage, updatePackage, history, addHistory, updateHistory, deleteHistory, comments, deleteComment } = useData();
+  const { packages, deletePackage, addPackage, updatePackage, history, addHistory, updateHistory, deleteHistory, comments, deleteComment, visitorLogs } = useData();
 
   // Forms State
   const [showPackageForm, setShowPackageForm] = useState(false);
@@ -43,13 +46,29 @@ const Admin: React.FC = () => {
   const [generatedBinId, setGeneratedBinId] = useState('');
   const [isCreatingBin, setIsCreatingBin] = useState(false);
 
+  // Statistics Calculation
+  const last24hLogs = visitorLogs.filter(log => {
+      // Need to parse the date/time string from local string which might vary. 
+      // Relying on `id` which is a timestamp is safer if we control it.
+      // In visitor log, id is Date.now().toString()
+      const logTime = parseInt(log.id);
+      const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
+      return logTime > oneDayAgo;
+  });
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === 'admin123') { // Simple hardcoded password
       setIsAuthenticated(true);
+      localStorage.setItem('admin_session', 'true');
     } else {
       alert('Invalid Password');
     }
+  };
+
+  const handleLogout = () => {
+      setIsAuthenticated(false);
+      localStorage.removeItem('admin_session');
   };
 
   // --- SETTINGS LOGIC ---
@@ -238,7 +257,7 @@ const Admin: React.FC = () => {
                         <Lock size={14} /> DB Not Configured
                     </span>
                  )}
-                <button onClick={() => setIsAuthenticated(false)} className="text-red-600 font-bold hover:underline">Logout</button>
+                <button onClick={handleLogout} className="text-red-600 font-bold hover:underline">Logout</button>
             </div>
         </div>
 
@@ -248,6 +267,7 @@ const Admin: React.FC = () => {
                 {id: 'comments', label: 'Comments'}, 
                 {id: 'packages', label: 'Packages'}, 
                 {id: 'history', label: 'History'},
+                {id: 'visitors', label: 'Visitors', icon: <Globe size={18} />},
                 {id: 'settings', label: 'Settings', icon: <Settings size={18}/>}
             ].map(tab => (
                 <button
@@ -259,6 +279,84 @@ const Admin: React.FC = () => {
                 </button>
             ))}
         </div>
+
+        {/* --- VISITORS TAB --- */}
+        {activeTab === 'visitors' && (
+            <div className="space-y-6">
+                
+                {/* Stats Card */}
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-lg flex items-center justify-between">
+                    <div>
+                        <h3 className="text-blue-100 font-medium mb-1 flex items-center gap-2">
+                            <Activity size={18} /> Visitors (Last 24h)
+                        </h3>
+                        <p className="text-4xl font-bold">{last24hLogs.length}</p>
+                    </div>
+                    <div className="bg-white/20 p-3 rounded-full">
+                        <Globe size={32} />
+                    </div>
+                </div>
+
+                {/* Table Card */}
+                <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+                    <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                        <h3 className="text-xl font-bold text-gray-800">Last 20 Visitors</h3>
+                        <span className="text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded-full animate-pulse">Live Updates</span>
+                    </div>
+                    
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-gray-50 text-gray-500 text-sm uppercase tracking-wider">
+                                    <th className="px-6 py-3 font-semibold">Location</th>
+                                    <th className="px-6 py-3 font-semibold">Time</th>
+                                    <th className="px-6 py-3 font-semibold">Device Info</th>
+                                    <th className="px-6 py-3 font-semibold">IP Address</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-100">
+                                {visitorLogs.length > 0 ? (
+                                    visitorLogs.slice(0, 20).map((log) => (
+                                        <tr key={log.id} className="hover:bg-gray-50 transition">
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-2 text-gray-900 font-medium">
+                                                    <MapPin size={16} className="text-brand-500" />
+                                                    {log.location}
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="flex flex-col">
+                                                    <span className="text-sm font-medium text-gray-900">{log.date}</span>
+                                                    <span className="text-xs text-gray-500 flex items-center gap-1">
+                                                        <Clock size={12} /> {log.time}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                                    <Smartphone size={16} className="text-gray-400" />
+                                                    <span className="font-semibold">{log.device}</span>
+                                                    <span className="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-500">{log.browser}</span>
+                                                </div>
+                                            </td>
+                                             <td className="px-6 py-4 text-sm text-gray-500 font-mono">
+                                                {log.ip}
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={4} className="px-6 py-12 text-center text-gray-400">
+                                            No visitor logs yet.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        )}
 
         {/* --- SETTINGS TAB --- */}
         {activeTab === 'settings' && (
