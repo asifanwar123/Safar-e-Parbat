@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { User, Send, MessageSquare, Clock, Star } from 'lucide-react';
+import { User, Send, MessageSquare, Clock, Star, Loader2, AlertCircle } from 'lucide-react';
 import { CONTENT } from '../constants';
 import { Language } from '../types';
+
+// ==========================================
+// CONFIGURATION: JSONBIN.IO
+// 1. Create an account at https://jsonbin.io/
+// 2. Create a new Bin with content: []
+// 3. Paste your Bin ID and API Key (X-Master-Key) below
+// ==========================================
+const BIN_ID: string = "6965e904ae596e708fd8d706"; 
+const API_KEY: string = "$2a$10$/qi1Zoc8utnIY0RYjMNFru34QUTYbjaoJx5wozQy/Uinlo3zXVvnG";
+// ==========================================
 
 interface Comment {
   id: number;
@@ -30,40 +40,56 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
   const [text, setText] = useState('');
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
-  // Load comments from localStorage on mount
+  // Helper to check if keys are configured
+  const isConfigured = BIN_ID !== "REPLACE_WITH_YOUR_BIN_ID" && API_KEY !== "REPLACE_WITH_YOUR_API_KEY";
+
+  // Fetch comments
   useEffect(() => {
-    const saved = localStorage.getItem('safareparbat_comments');
-    if (saved) {
-      setComments(JSON.parse(saved));
-    } else {
-        // Initial dummy data
-        const initialComments = [
-            { 
-              id: 1, 
-              name: 'Fatima Zahra', 
-              text: 'Visited Hunza last summer with Safar-e-Parbat. The guides were extremely helpful!', 
-              date: new Date(Date.now() - 86400000 * 2).toLocaleDateString(),
-              avatarColor: 'bg-pink-500',
-              rating: 5
-            },
-            { 
-              id: 2, 
-              name: 'Michael Chen', 
-              text: 'The Skardu trip was a dream come true. Highly recommended service.', 
-              date: new Date(Date.now() - 86400000 * 5).toLocaleDateString(),
-              avatarColor: 'bg-blue-500',
-              rating: 4
-            }
-        ];
-        setComments(initialComments);
-        localStorage.setItem('safareparbat_comments', JSON.stringify(initialComments));
-    }
-  }, []);
+    const fetchComments = async () => {
+      if (!isConfigured) {
+        // Fallback to LocalStorage
+        const saved = localStorage.getItem('safareparbat_comments');
+        if (saved) setComments(JSON.parse(saved));
+        return;
+      }
 
-  const handleSubmit = (e: React.FormEvent) => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+          headers: {
+            'X-Master-Key': API_KEY
+          }
+        });
+        
+        if (!response.ok) throw new Error("Failed to fetch");
+        
+        const data = await response.json();
+        // Jsonbin v3 wraps content in a 'record' property
+        const remoteComments = Array.isArray(data.record) ? data.record : [];
+        setComments(remoteComments);
+      } catch (err) {
+        console.error("Error fetching comments:", err);
+        // Fallback to local on error to show something
+        const saved = localStorage.getItem('safareparbat_comments');
+        if (saved) setComments(JSON.parse(saved));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchComments();
+  }, [isConfigured]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !text.trim()) return;
+
+    setIsSubmitting(true);
+    setError('');
 
     const newComment: Comment = {
       id: Date.now(),
@@ -75,12 +101,42 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
     };
 
     const updatedComments = [newComment, ...comments];
-    setComments(updatedComments);
-    localStorage.setItem('safareparbat_comments', JSON.stringify(updatedComments));
-    
-    setName('');
-    setText('');
-    setRating(5);
+
+    try {
+      if (isConfigured) {
+        // Save to Jsonbin
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': API_KEY
+          },
+          body: JSON.stringify(updatedComments)
+        });
+
+        if (!response.ok) throw new Error("Failed to save to cloud");
+      }
+      
+      // Always save to local as backup/cache
+      setComments(updatedComments);
+      localStorage.setItem('safareparbat_comments', JSON.stringify(updatedComments));
+      
+      // Reset form
+      setName('');
+      setText('');
+      setRating(5);
+    } catch (err) {
+      console.error("Error saving comment:", err);
+      setError('Could not save to server. Saved locally instead.');
+      
+      // Still update UI locally even if server fails
+      setComments(updatedComments);
+      localStorage.setItem('safareparbat_comments', JSON.stringify(updatedComments));
+      setName('');
+      setText('');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -104,6 +160,14 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                     <MessageSquare className="text-brand-500" />
                     {t.submitBtn}
                 </h3>
+                
+                {!isConfigured && (
+                  <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-xs">
+                    <p className="font-bold flex items-center gap-1"><AlertCircle size={14}/> Setup Required</p>
+                    <p>To save comments permanently, please configure the BIN_ID and API_KEY in <code>CommentsSection.tsx</code>.</p>
+                  </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <input 
@@ -111,7 +175,8 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                             placeholder={t.namePlaceholder}
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className={`w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-500 outline-none transition ${isUrdu ? 'text-right font-urdu' : ''}`}
+                            disabled={isSubmitting}
+                            className={`w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-500 outline-none transition disabled:opacity-50 ${isUrdu ? 'text-right font-urdu' : ''}`}
                             required
                         />
                     </div>
@@ -129,7 +194,8 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                                     onClick={() => setRating(star)}
                                     onMouseEnter={() => setHoverRating(star)}
                                     onMouseLeave={() => setHoverRating(0)}
-                                    className="focus:outline-none transition-transform hover:scale-110"
+                                    disabled={isSubmitting}
+                                    className="focus:outline-none transition-transform hover:scale-110 disabled:cursor-not-allowed"
                                 >
                                     <Star 
                                         size={24} 
@@ -146,16 +212,27 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                             placeholder={t.commentPlaceholder}
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className={`w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-500 outline-none transition resize-none ${isUrdu ? 'text-right font-urdu' : ''}`}
+                            disabled={isSubmitting}
+                            className={`w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-500 outline-none transition resize-none disabled:opacity-50 ${isUrdu ? 'text-right font-urdu' : ''}`}
                             required
                         ></textarea>
                     </div>
+                    
+                    {error && <p className="text-red-500 text-sm">{error}</p>}
+
                     <button 
                         type="submit" 
-                        className={`w-full bg-brand-600 text-white font-bold py-3 rounded-xl shadow-md hover:bg-brand-700 transition flex items-center justify-center gap-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
+                        disabled={isSubmitting}
+                        className={`w-full bg-brand-600 text-white font-bold py-3 rounded-xl shadow-md hover:bg-brand-700 transition flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
                     >
-                        {t.submitBtn}
-                        <Send size={18} />
+                        {isSubmitting ? (
+                          <>Processing...</>
+                        ) : (
+                          <>
+                            {t.submitBtn}
+                            <Send size={18} />
+                          </>
+                        )}
                     </button>
                 </form>
             </div>
@@ -166,6 +243,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                     <h3 className={`text-xl font-bold text-gray-800 ${isUrdu ? 'font-urdu' : ''}`}>
                         {t.recentComments} <span className="text-gray-400 font-normal text-base ml-2">({comments.length})</span>
                     </h3>
+                    {isLoading && <Loader2 className="animate-spin text-brand-600" />}
                 </div>
 
                 <div className="space-y-6 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
@@ -203,7 +281,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                         </div>
                     ))}
                     
-                    {comments.length === 0 && (
+                    {!isLoading && comments.length === 0 && (
                         <div className="text-center py-10 text-gray-400">
                             <p>No comments yet. Be the first to share your story!</p>
                         </div>
