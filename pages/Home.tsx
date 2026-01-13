@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import CommentsSection from '../components/CommentsSection';
-import { Mountain, Users, Camera, Star, Quote, MapPin } from 'lucide-react';
+import { Mountain, Users, Camera, Star, Quote, MapPin, Bus, Zap, Moon, Compass, Shield, Wind } from 'lucide-react';
 import { Language, Comment } from '../types';
 import { CONTENT, GALLERY_IMAGES, TESTIMONIALS, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
 import { Link } from 'react-router-dom';
@@ -61,9 +61,49 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
   // Use only first 3 packages for home page
   const displayPackages = packages.slice(0, 3);
 
+  // Partners Data
+  const partners = [
+    { name: "Faisal Movers", color: "text-red-700", bg: "bg-red-50", border: "border-red-200", icon: <Bus size={24}/> },
+    { name: "Daewoo Express", color: "text-blue-800", bg: "bg-blue-50", border: "border-blue-200", icon: <Zap size={24}/> },
+    { name: "Al Makkah", color: "text-emerald-700", bg: "bg-emerald-50", border: "border-emerald-200", icon: <Moon size={24}/> },
+    { name: "Madina Transport", color: "text-green-600", bg: "bg-green-50", border: "border-green-200", icon: <MapPin size={24}/> },
+    { name: "Kainat Travels", color: "text-orange-600", bg: "bg-orange-50", border: "border-orange-200", icon: <Compass size={24}/> },
+    { name: "Rajput Travels", color: "text-rose-800", bg: "bg-rose-50", border: "border-rose-200", icon: <Shield size={24}/> },
+    { name: "Skyways", color: "text-sky-600", bg: "bg-sky-50", border: "border-sky-200", icon: <Wind size={24}/> }
+  ];
+
   return (
     <div className="bg-gray-50">
       <Hero lang={lang} />
+
+      {/* Trusted Partners Section */}
+      <section className="bg-white py-10 border-b border-gray-100 overflow-hidden relative">
+          <div className="max-w-7xl mx-auto px-4 mb-8 text-center">
+            <p className={`text-sm md:text-base font-bold text-gray-400 uppercase tracking-[0.2em] ${isUrdu ? 'font-urdu' : ''}`}>
+               {isUrdu ? 'ہمارے قابل اعتماد سفری شراکت دار' : 'Our Trusted Travel Partners'}
+            </p>
+          </div>
+          
+          <div className="relative w-full">
+            {/* Gradient Masks */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+
+            <div className="flex w-max animate-scroll hover:[animation-play-state:paused]">
+                {/* Triple the list for seamless looping on wide screens */}
+                {[...partners, ...partners, ...partners].map((partner, index) => (
+                    <div key={index} className={`mx-4 md:mx-6 px-6 py-4 rounded-xl border-2 ${partner.border} ${partner.bg} flex items-center justify-center gap-3 min-w-[240px] shadow-sm transform transition hover:scale-105 hover:shadow-md cursor-default group`}>
+                        <div className={`${partner.color} opacity-80 group-hover:opacity-100 transition`}>
+                          {partner.icon}
+                        </div>
+                        <span className={`text-lg font-black italic tracking-tighter ${partner.color} uppercase group-hover:tracking-normal transition-all duration-300`}>
+                            {partner.name}
+                        </span>
+                    </div>
+                ))}
+            </div>
+          </div>
+      </section>
 
       {/* About / Intro Section */}
       <section className="py-12 md:py-20 px-4 max-w-7xl mx-auto">
