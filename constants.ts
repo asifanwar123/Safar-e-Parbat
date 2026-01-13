@@ -2,8 +2,41 @@ import { ContentText, TourPackage, Testimonial } from './types';
 
 // Images provided by user
 export const LOGO_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUK_9ZCdRlExTL1aNv63P2ncbFpEO60hL4XA&s";
-export const HERO_BG = "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/472095010_122156148068316046_9065231726440164483_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=103&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=ha53_RpHOzMQ7kNvwFhMXJa&_nc_oc=AdnxpohmE0egaz2C_ZrK3NFbsxyJcNvmeXItOSGflUJL1HhKSJWxpf5daIPl1SSKf94&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=IkvU2gm6OaPXv5d91SnJcg&oh=00_AfqEfSPCkXL7Zd-yqFNvQOPaS6uDfsyGRe6LWRhSCRkvBw&oe=696836B9";
+export const HERO_BG = "https://images.squarespace-cdn.com/content/v1/5a815ad2e45a7c1f4ef40fb8/1532605992397-SQJ512NRWU905CM1VUUL/k2-banner.jpg";
 export const CEO_IMAGE = "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/474011630_595323836477441_8647772785241706978_n.jpg?_nc_cat=103&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=8Fguev1sTJwQ7kNvwHZqCkS&_nc_oc=AdnlQ-41Q7PLdP7AMCFfD7kqnb8T5Wssp5E0bowUQ89OXpKjy4WrRrJK2gDW-CfGDXU&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=k--UBOw_-5q--6_3UtWDZg&oh=00_Afr-wt3UIe65W8Nw9mQOJ6904BXRmj1B3lDFdngqy9w-zw&oe=69683EE8";
+
+export const HERO_SLIDES = [
+  {
+    image: "https://images.wallpapersden.com/image/download/pakistan-lake-saif-ul-malik-2014_ZmtlamaUmZqaraWkpJRma21lrWZlamU.jpg",
+    name: "Saif-ul-Malook Lake",
+    accentColor: "text-cyan-300"
+  },
+  {
+    image: "https://images.pexels.com/photos/815880/pexels-photo-815880.jpeg",
+    name: "Qila Darawar",
+    accentColor: "text-amber-500"
+  },
+  {
+    image: "https://images.pexels.com/photos/19442078/pexels-photo-19442078.jpeg",
+    name: "Shangrila Lake",
+    accentColor: "text-emerald-400"
+  },
+  {
+    image: "https://images.pexels.com/photos/35171324/pexels-photo-35171324.jpeg",
+    name: "Gilgit Valley",
+    accentColor: "text-orange-300"
+  },
+  {
+    image: "https://images.pexels.com/photos/186985/pexels-photo-186985.jpeg",
+    name: "Kashmir Valley",
+    accentColor: "text-green-300"
+  },
+  {
+    image: "https://images.pexels.com/photos/9782466/pexels-photo-9782466.jpeg",
+    name: "Passu Cones",
+    accentColor: "text-yellow-400"
+  }
+];
 
 export const GALLERY_IMAGES = [
   "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/475483685_122161925906316046_6305929784421672905_n.jpg?stp=dst-jpg_p180x540_tt6&_nc_cat=102&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VBs2vLNFEvgQ7kNvwFhI0oA&_nc_oc=AdmKreUIBACQTo5-BH3czLHMj0F_tn_tV2Ry1DPpPHIzGeM9GjyYYIYxp98javHHaO8&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=r-QoTLbFnzBA52QOq1hoIw&oh=00_AfrqDgbEjNv8v7wJmniMyNKcHGno42fYcTt6gSaGJ9HucQ&oe=69683EB1",
