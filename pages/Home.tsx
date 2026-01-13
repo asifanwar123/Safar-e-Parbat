@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import CommentsSection from '../components/CommentsSection';
-import { Mountain, Users, Camera, Star, Quote, MapPin, Bus, Zap, Moon, Compass, Shield, Wind } from 'lucide-react';
+import { Mountain, Users, Camera, Star, Quote, MapPin, Bus, Zap, Moon, Compass, Shield, Wind, Calendar, ArrowRight, ArrowLeft } from 'lucide-react';
 import { Language, Comment } from '../types';
 import { CONTENT, GALLERY_IMAGES, TESTIMONIALS, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ lang }) => {
   const t = CONTENT[lang];
   const isUrdu = lang === 'ur';
-  const { packages } = useData(); // Use dynamic data
+  const { packages, history } = useData(); // Use dynamic data
   const [recentComments, setRecentComments] = useState<Comment[]>([]);
 
   // Fetch comments for the Testimonials section
@@ -60,6 +60,9 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
 
   // Use only first 3 packages for home page
   const displayPackages = packages.slice(0, 3);
+  
+  // Use first 3 history items
+  const displayHistory = history.slice(0, 3);
 
   // Partners Data
   const partners = [
@@ -267,6 +270,69 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
           </div>
         </section>
 
+      </section>
+
+      {/* Recent Travel History Section */}
+      <section className="py-16 md:py-24 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className={`flex flex-col md:flex-row justify-between items-end mb-10 gap-4 ${isUrdu ? 'md:flex-row-reverse' : ''}`}>
+            <div className={`text-center md:text-left ${isUrdu ? 'md:text-right w-full' : 'w-full'}`}>
+              <h2 className={`text-3xl md:text-5xl font-bold text-brand-900 mb-2 ${isUrdu ? 'font-urdu' : ''}`}>
+                {t.nav.travelHistory}
+              </h2>
+              <p className={`text-gray-500 ${isUrdu ? 'font-urdu' : ''}`}>
+                 {isUrdu ? 'ہمارے حالیہ دوروں کی جھلکیاں' : 'Memories from our recent expeditions'}
+              </p>
+            </div>
+            <Link 
+              to="/travel-history" 
+              className={`flex-shrink-0 bg-brand-100 text-brand-700 px-6 py-2 rounded-full font-bold hover:bg-brand-200 transition flex items-center gap-2 ${isUrdu ? 'flex-row-reverse' : ''}`}
+            >
+              {isUrdu ? 'سب دیکھیں' : 'View All'}
+              {isUrdu ? <ArrowLeft size={18} /> : <ArrowRight size={18} />} 
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {displayHistory.length > 0 ? (
+              displayHistory.map((item) => (
+                <Link key={item.id} to="/travel-history" className="group block bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                  <div className="h-64 relative overflow-hidden">
+                    <img 
+                      src={item.images[0]} 
+                      alt={item.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute top-4 left-4 bg-black/60 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md flex items-center gap-1">
+                      <Calendar size={12} />
+                      {item.date}
+                    </div>
+                  </div>
+                  <div className={`p-6 ${isUrdu ? 'text-right' : ''}`}>
+                    <h3 className={`text-xl font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-brand-700 transition ${isUrdu ? 'font-urdu' : ''}`}>
+                      {item.title}
+                    </h3>
+                    <div className={`flex items-center gap-2 text-sm text-gray-500 mb-4 ${isUrdu ? 'flex-row-reverse justify-start' : ''}`}>
+                       <MapPin size={14} className="text-brand-500" />
+                       <span>{item.location}</span>
+                    </div>
+                    <p className={`text-gray-600 line-clamp-2 text-sm ${isUrdu ? 'font-urdu' : ''}`}>
+                      {item.description}
+                    </p>
+                    <div className={`mt-4 pt-4 border-t border-gray-200 flex items-center gap-2 text-xs font-bold text-brand-600 uppercase tracking-wider ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                       <Users size={14} />
+                       <span>{item.visitors.length} {isUrdu ? 'مسافر' : 'Travelers'}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+                <div className="col-span-3 text-center py-10 text-gray-400">
+                   <p>{isUrdu ? 'کوئی تاریخ دستیاب نہیں' : 'No travel history yet.'}</p>
+                </div>
+            )}
+          </div>
+        </div>
       </section>
 
       {/* Live Comments Section */}
