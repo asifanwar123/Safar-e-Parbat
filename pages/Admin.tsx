@@ -65,7 +65,8 @@ const Admin: React.FC = () => {
     const initialData: CloudData = {
         packages: PACKAGES,
         history: INITIAL_HISTORY,
-        comments: []
+        comments: [],
+        visitorLogs: []
     };
 
     try {

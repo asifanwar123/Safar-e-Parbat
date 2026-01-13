@@ -1,4 +1,5 @@
 
+
 export type Language = 'en' | 'ur';
 
 export interface TourPackage {
@@ -54,11 +55,22 @@ export interface Comment {
   rating: number;
 }
 
+export interface VisitorLog {
+  id: string;
+  location: string;
+  date: string;
+  time: string;
+  device: string;
+  browser: string;
+  ip: string; // Used for identifying unique sessions, maybe hidden in UI
+}
+
 // Global Storage Structure
 export interface CloudData {
   packages: TourPackage[];
   history: TravelHistoryItem[];
   comments: Comment[];
+  visitorLogs: VisitorLog[];
 }
 
 export interface ContentText {
