@@ -1,19 +1,17 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useData } from '../context/DataContext';
-import { JSONBIN_BIN_ID, JSONBIN_API_KEY, GALLERY_IMAGES } from '../constants';
-import { Trash2, Plus, Edit2, Lock, Save, X, Image as ImageIcon, Users } from 'lucide-react';
-import { TourPackage, TravelHistoryItem, Comment } from '../types';
+import { JSONBIN_API_KEY, JSONBIN_BIN_ID, GALLERY_IMAGES, PACKAGES, INITIAL_HISTORY } from '../constants';
+import { Trash2, Plus, Lock, X, Users, Settings, Database, Copy, Check, Save } from 'lucide-react';
+import { TourPackage, TravelHistoryItem, CloudData } from '../types';
 
 const Admin: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
-  const [activeTab, setActiveTab] = useState<'comments' | 'packages' | 'history'>('comments');
-  const { packages, deletePackage, addPackage, history, addHistory, deleteHistory } = useData();
-
-  // Comments State (fetched separately here to allow delete)
-  const [adminComments, setAdminComments] = useState<Comment[]>([]);
-  const [loadingComments, setLoadingComments] = useState(false);
+  const [activeTab, setActiveTab] = useState<'comments' | 'packages' | 'history' | 'settings'>('comments');
+  
+  // Use Context Data
+  const { packages, deletePackage, addPackage, history, addHistory, deleteHistory, comments, deleteComment } = useData();
 
   // Forms State
   const [showPackageForm, setShowPackageForm] = useState(false);
@@ -36,49 +34,68 @@ const Admin: React.FC = () => {
   });
   const [visitorInput, setVisitorInput] = useState({ name: '', details: '' });
 
+  // Settings State
+  const [apiKey, setApiKey] = useState(JSONBIN_API_KEY);
+  const [generatedBinId, setGeneratedBinId] = useState('');
+  const [isCreatingBin, setIsCreatingBin] = useState(false);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === 'admin123') { // Simple hardcoded password
       setIsAuthenticated(true);
-      fetchComments();
     } else {
       alert('Invalid Password');
     }
   };
 
-  // --- COMMENTS LOGIC ---
-  const fetchComments = async () => {
-    setLoadingComments(true);
+  // --- SETTINGS LOGIC ---
+  const handleCreateBin = async () => {
+    if(!apiKey || apiKey === "REPLACE_WITH_YOUR_API_KEY") {
+        alert("Please enter a valid Jsonbin API Key first.");
+        return;
+    }
+
+    setIsCreatingBin(true);
+    
+    // Initial Data Payload
+    const initialData: CloudData = {
+        packages: PACKAGES,
+        history: INITIAL_HISTORY,
+        comments: []
+    };
+
     try {
-      const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-          headers: { 'X-Master-Key': JSONBIN_API_KEY }
-      });
-      const data = await response.json();
-      setAdminComments(Array.isArray(data.record) ? data.record : []);
-    } catch (error) {
-      console.error(error);
+        const response = await fetch('https://api.jsonbin.io/v3/b', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': apiKey,
+                'X-Bin-Name': 'Safar-e-Parbat DB'
+            },
+            body: JSON.stringify(initialData)
+        });
+
+        if(response.ok) {
+            const data = await response.json();
+            setGeneratedBinId(data.metadata.id);
+        } else {
+            alert("Failed to create bin. Check API Key.");
+        }
+    } catch(err) {
+        console.error(err);
+        alert("Error connecting to Jsonbin.");
     } finally {
-      setLoadingComments(false);
+        setIsCreatingBin(false);
     }
   };
 
-  const handleDeleteComment = async (id: number) => {
-    if (!window.confirm("Are you sure?")) return;
-    const updated = adminComments.filter(c => c.id !== id);
-    setAdminComments(updated);
-    // Sync to Cloud
-    await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Master-Key': JSONBIN_API_KEY
-      },
-      body: JSON.stringify(updated)
-    });
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    alert("Copied to clipboard!");
   };
 
   // --- PACKAGES LOGIC ---
-  const handleAddPackage = (e: React.FormEvent) => {
+  const handleAddPackage = async (e: React.FormEvent) => {
       e.preventDefault();
       const pkg: TourPackage = {
           id: Date.now().toString(),
@@ -93,13 +110,13 @@ const Admin: React.FC = () => {
           rating: 5,
           descriptionEn: newPkg.descriptionEn || '',
           descriptionUr: newPkg.descriptionUr || '',
-          itineraryEn: (newPkg.itineraryEn as any)?.split('\n') || [],
-          itineraryUr: (newPkg.itineraryUr as any)?.split('\n') || [],
-          inclusionsEn: (newPkg.inclusionsEn as any)?.split('\n') || [],
-          inclusionsUr: (newPkg.inclusionsUr as any)?.split('\n') || [],
+          itineraryEn: typeof newPkg.itineraryEn === 'string' ? (newPkg.itineraryEn as string).split('\n') : [],
+          itineraryUr: typeof newPkg.itineraryUr === 'string' ? (newPkg.itineraryUr as string).split('\n') : [],
+          inclusionsEn: typeof newPkg.inclusionsEn === 'string' ? (newPkg.inclusionsEn as string).split('\n') : [],
+          inclusionsUr: typeof newPkg.inclusionsUr === 'string' ? (newPkg.inclusionsUr as string).split('\n') : [],
           dates: newPkg.dates || ''
       };
-      addPackage(pkg);
+      await addPackage(pkg);
       setShowPackageForm(false);
       setNewPkg({});
   };
@@ -115,7 +132,7 @@ const Admin: React.FC = () => {
       }
   };
 
-  const handleAddHistory = (e: React.FormEvent) => {
+  const handleAddHistory = async (e: React.FormEvent) => {
       e.preventDefault();
       const item: TravelHistoryItem = {
           id: Date.now().toString(),
@@ -126,7 +143,7 @@ const Admin: React.FC = () => {
           images: newHistory.images || [],
           visitors: newHistory.visitors || []
       };
-      addHistory(item);
+      await addHistory(item);
       setShowHistoryForm(false);
       setNewHistory({ images: [GALLERY_IMAGES[0]], visitors: [] });
   };
@@ -162,48 +179,120 @@ const Admin: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-            <button onClick={() => setIsAuthenticated(false)} className="text-red-600 font-bold hover:underline">Logout</button>
+            <div className="flex gap-4 items-center">
+                 {/* Cast to string to avoid TS error about unintentional comparison with literal types */}
+                 {(JSONBIN_BIN_ID as string) === "REPLACE_WITH_YOUR_BIN_ID" && (
+                    <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-2">
+                        <Lock size={14} /> DB Not Configured
+                    </span>
+                 )}
+                <button onClick={() => setIsAuthenticated(false)} className="text-red-600 font-bold hover:underline">Logout</button>
+            </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-4 mb-8 overflow-x-auto pb-2">
-            {['comments', 'packages', 'history'].map(tab => (
+        <div className="flex gap-2 md:gap-4 mb-8 overflow-x-auto pb-2">
+            {[
+                {id: 'comments', label: 'Comments'}, 
+                {id: 'packages', label: 'Packages'}, 
+                {id: 'history', label: 'History'},
+                {id: 'settings', label: 'Settings', icon: <Settings size={18}/>}
+            ].map(tab => (
                 <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab as any)}
-                    className={`px-6 py-2 rounded-full font-bold capitalize whitespace-nowrap transition ${activeTab === tab ? 'bg-brand-600 text-white shadow-md' : 'bg-white text-gray-600 hover:bg-gray-100'}`}
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`px-4 md:px-6 py-2 rounded-full font-bold capitalize whitespace-nowrap transition flex items-center gap-2 ${activeTab === tab.id ? 'bg-brand-600 text-white shadow-md' : 'bg-white text-gray-600 hover:bg-gray-100'}`}
                 >
-                    {tab === 'history' ? 'Travel History' : tab}
+                    {tab.icon} {tab.label}
                 </button>
             ))}
         </div>
+
+        {/* --- SETTINGS TAB --- */}
+        {activeTab === 'settings' && (
+            <div className="bg-white rounded-2xl shadow p-6 md:p-8 space-y-8">
+                <div>
+                    <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Database className="text-brand-600" /> Database Configuration
+                    </h2>
+                    <p className="text-gray-600 mb-6">
+                        To save your website data (Packages, History, Comments) permanently, you need a <strong>Bin ID</strong> from Jsonbin.io.
+                    </p>
+                </div>
+
+                {/* Step 1 */}
+                <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <h3 className="font-bold text-lg mb-3">Step 1: Enter API Key</h3>
+                    <p className="text-sm text-gray-500 mb-4">Get your Master Key from <a href="https://jsonbin.io/app/api-keys" target="_blank" className="text-blue-600 hover:underline">Jsonbin.io API Keys</a>.</p>
+                    <input 
+                        type="text" 
+                        value={apiKey} 
+                        onChange={(e) => setApiKey(e.target.value)}
+                        placeholder="e.g. $2a$10$..." 
+                        className="w-full border p-3 rounded-lg font-mono text-sm"
+                    />
+                </div>
+
+                {/* Step 2 */}
+                <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <h3 className="font-bold text-lg mb-3">Step 2: Create Database Bin</h3>
+                    <p className="text-sm text-gray-500 mb-4">This will create a new storage container for your website data.</p>
+                    <button 
+                        onClick={handleCreateBin} 
+                        disabled={isCreatingBin}
+                        className="bg-brand-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-brand-700 transition flex items-center gap-2 disabled:opacity-50"
+                    >
+                        {isCreatingBin ? 'Creating...' : 'Create Database Bin'}
+                    </button>
+                </div>
+
+                {/* Step 3 */}
+                {generatedBinId && (
+                    <div className="bg-green-50 p-6 rounded-xl border border-green-200 animate-fade-in-up">
+                        <h3 className="font-bold text-lg mb-3 text-green-800 flex items-center gap-2">
+                            <Check className="bg-green-200 rounded-full p-1" /> Bin Created Successfully!
+                        </h3>
+                        <p className="text-sm text-green-700 mb-4">
+                            Copy this ID and replace <code>JSONBIN_BIN_ID</code> in your <code>src/constants.ts</code> file.
+                        </p>
+                        
+                        <div className="flex gap-2">
+                            <code className="flex-grow bg-white border border-green-200 p-3 rounded-lg font-mono text-green-900 font-bold">
+                                {generatedBinId}
+                            </code>
+                            <button onClick={() => copyToClipboard(generatedBinId)} className="bg-green-600 text-white px-4 rounded-lg hover:bg-green-700">
+                                <Copy size={20} />
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </div>
+        )}
 
         {/* --- COMMENTS TAB --- */}
         {activeTab === 'comments' && (
             <div className="bg-white rounded-2xl shadow p-6">
                 <div className="flex justify-between mb-6">
-                    <h2 className="text-xl font-bold">Manage Comments</h2>
-                    <button onClick={fetchComments} className="text-brand-600 text-sm font-bold">Refresh</button>
+                    <h2 className="text-xl font-bold">Manage Comments ({comments.length})</h2>
                 </div>
-                {loadingComments ? <p>Loading...</p> : (
-                    <div className="space-y-4">
-                        {adminComments.map(c => (
-                            <div key={c.id} className="border p-4 rounded-lg flex justify-between items-start hover:bg-gray-50">
-                                <div>
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <span className="font-bold">{c.name}</span>
-                                        <span className="text-xs text-gray-400">{c.date}</span>
-                                        <span className="text-xs bg-yellow-100 text-yellow-700 px-2 rounded-full">★ {c.rating}</span>
-                                    </div>
-                                    <p className="text-gray-600 text-sm">{c.text}</p>
+                <div className="space-y-4">
+                    {comments.map(c => (
+                        <div key={c.id} className="border p-4 rounded-lg flex justify-between items-start hover:bg-gray-50">
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <span className="font-bold">{c.name}</span>
+                                    <span className="text-xs text-gray-400">{c.date}</span>
+                                    <span className="text-xs bg-yellow-100 text-yellow-700 px-2 rounded-full">★ {c.rating}</span>
                                 </div>
-                                <button onClick={() => handleDeleteComment(c.id)} className="text-red-500 hover:bg-red-50 p-2 rounded">
-                                    <Trash2 size={18} />
-                                </button>
+                                <p className="text-gray-600 text-sm">{c.text}</p>
                             </div>
-                        ))}
-                    </div>
-                )}
+                            <button onClick={() => {if(window.confirm('Delete?')) deleteComment(c.id)}} className="text-red-500 hover:bg-red-50 p-2 rounded">
+                                <Trash2 size={18} />
+                            </button>
+                        </div>
+                    ))}
+                    {comments.length === 0 && <p className="text-gray-400 text-center py-4">No comments yet.</p>}
+                </div>
             </div>
         )}
 
@@ -211,7 +300,7 @@ const Admin: React.FC = () => {
         {activeTab === 'packages' && (
             <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                    <h2 className="text-xl font-bold">Current Packages</h2>
+                    <h2 className="text-xl font-bold">Current Packages ({packages.length})</h2>
                     <button onClick={() => setShowPackageForm(true)} className="bg-brand-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-bold hover:bg-brand-700">
                         <Plus size={18} /> Add Package
                     </button>
@@ -274,7 +363,7 @@ const Admin: React.FC = () => {
         {activeTab === 'history' && (
             <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                    <h2 className="text-xl font-bold">Travel History</h2>
+                    <h2 className="text-xl font-bold">Travel History ({history.length})</h2>
                     <button onClick={() => setShowHistoryForm(true)} className="bg-brand-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-bold hover:bg-brand-700">
                         <Plus size={18} /> Add History
                     </button>

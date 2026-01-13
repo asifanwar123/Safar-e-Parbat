@@ -18,7 +18,6 @@ export interface TourPackage {
   itineraryUr: string[];
   inclusionsEn: string[];
   inclusionsUr: string[];
-  // New fields for Admin
   dates?: string; // For "Date, Time"
 }
 
@@ -55,6 +54,13 @@ export interface Comment {
   rating: number;
 }
 
+// Global Storage Structure
+export interface CloudData {
+  packages: TourPackage[];
+  history: TravelHistoryItem[];
+  comments: Comment[];
+}
+
 export interface ContentText {
   nav: {
     home: string;
@@ -63,7 +69,7 @@ export interface ContentText {
     gallery: string;
     contact: string;
     bookNow: string;
-    travelHistory: string; // New
+    travelHistory: string; 
   };
   hero: {
     title: string;

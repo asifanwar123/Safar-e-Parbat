@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 import TravelHistory from './pages/TravelHistory';
 import WhatsAppButton from './components/WhatsAppButton';
+import AdminButton from './components/AdminButton';
 import { Language } from './types';
 import { DataProvider } from './context/DataContext';
 
@@ -46,6 +47,7 @@ const App: React.FC = () => {
             </Routes>
             </main>
             <WhatsAppButton />
+            <AdminButton />
             <Footer lang={lang} />
         </div>
         </Router>

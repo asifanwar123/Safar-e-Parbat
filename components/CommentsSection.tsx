@@ -1,15 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { User, Send, MessageSquare, Clock, Star, Loader2, AlertCircle, ArrowDown } from 'lucide-react';
-import { CONTENT, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
-import { Language, Comment } from '../types';
 
-// ==========================================
-// CONFIGURATION: JSONBIN.IO
-// Used from constants.ts
-// ==========================================
-const BIN_ID: string = JSONBIN_BIN_ID; 
-const API_KEY: string = JSONBIN_API_KEY;
-// ==========================================
+import React, { useState, useEffect, useRef } from 'react';
+import { Send, MessageSquare, Clock, Star, Loader2, AlertCircle, ArrowDown } from 'lucide-react';
+import { CONTENT, JSONBIN_BIN_ID } from '../constants';
+import { Language, Comment } from '../types';
+import { useData } from '../context/DataContext';
 
 interface CommentsSectionProps {
   lang: Language;
@@ -24,81 +18,26 @@ const COLORS = [
 const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
   const t = CONTENT[lang].commentsSection;
   const isUrdu = lang === 'ur';
-  const [comments, setComments] = useState<Comment[]>([]);
+  
+  // Use Context
+  const { comments, addComment } = useData();
+  
   const [name, setName] = useState('');
   const [text, setText] = useState('');
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
   const [showNotification, setShowNotification] = useState(false);
-  
-  // Refs for polling and scrolling
+  const prevCommentsLength = useRef(comments.length);
   const commentsListRef = useRef<HTMLDivElement>(null);
-  const commentsRef = useRef<Comment[]>([]);
 
-  // Update ref whenever comments state changes to avoid stale closures in polling
+  // Check for new comments (polling handled by Context, we just react to prop change)
   useEffect(() => {
-    commentsRef.current = comments;
+    if (comments.length > prevCommentsLength.current && prevCommentsLength.current !== 0) {
+        setShowNotification(true);
+    }
+    prevCommentsLength.current = comments.length;
   }, [comments]);
-
-  // Helper to check if keys are configured
-  const isConfigured = BIN_ID !== "REPLACE_WITH_YOUR_BIN_ID" && API_KEY !== "REPLACE_WITH_YOUR_API_KEY";
-
-  const fetchComments = async (isPolling = false) => {
-      if (!isConfigured) {
-        if (!isPolling) {
-            const saved = localStorage.getItem('safareparbat_comments');
-            if (saved) setComments(JSON.parse(saved));
-        }
-        return;
-      }
-
-      if (!isPolling) setIsLoading(true);
-      try {
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-          headers: {
-            'X-Master-Key': API_KEY
-          }
-        });
-        
-        if (!response.ok) throw new Error("Failed to fetch");
-        
-        const data = await response.json();
-        const remoteComments = Array.isArray(data.record) ? data.record : [];
-        
-        if (isPolling) {
-            // If remote has more comments than what we currently have
-            if (remoteComments.length > commentsRef.current.length) {
-                setComments(remoteComments);
-                setShowNotification(true);
-            }
-        } else {
-            setComments(remoteComments);
-        }
-      } catch (err) {
-        console.error("Error fetching comments:", err);
-        if (!isPolling) {
-            const saved = localStorage.getItem('safareparbat_comments');
-            if (saved) setComments(JSON.parse(saved));
-        }
-      } finally {
-        if (!isPolling) setIsLoading(false);
-      }
-  };
-
-  // Poll for comments
-  useEffect(() => {
-    fetchComments(); // Initial fetch
-
-    // Poll every 10 seconds
-    const interval = setInterval(() => {
-        fetchComments(true);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, [isConfigured]);
 
   const handleScrollToComments = () => {
     commentsListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -110,7 +49,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
     if (!name.trim() || !text.trim()) return;
 
     setIsSubmitting(true);
-    setError('');
 
     const newComment: Comment = {
       id: Date.now(),
@@ -121,44 +59,16 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
       rating: rating
     };
 
-    const updatedComments = [newComment, ...comments];
-
-    try {
-      if (isConfigured) {
-        // Save to Jsonbin
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Master-Key': API_KEY
-          },
-          body: JSON.stringify(updatedComments)
-        });
-
-        if (!response.ok) throw new Error("Failed to save to cloud");
-      }
-      
-      // Always save to local as backup/cache
-      setComments(updatedComments);
-      localStorage.setItem('safareparbat_comments', JSON.stringify(updatedComments));
-      
-      // Reset form
-      setName('');
-      setText('');
-      setRating(5);
-    } catch (err) {
-      console.error("Error saving comment:", err);
-      setError('Could not save to server. Saved locally instead.');
-      
-      // Still update UI locally even if server fails
-      setComments(updatedComments);
-      localStorage.setItem('safareparbat_comments', JSON.stringify(updatedComments));
-      setName('');
-      setText('');
-    } finally {
-      setIsSubmitting(false);
-    }
+    await addComment(newComment);
+    
+    setName('');
+    setText('');
+    setRating(5);
+    setIsSubmitting(false);
   };
+
+  // Cast to string to prevent TS error about comparison with literal type
+  const isConfigured = (JSONBIN_BIN_ID as string) !== "REPLACE_WITH_YOUR_BIN_ID";
 
   return (
     <section className="py-12 md:py-20 bg-white relative">
@@ -197,7 +107,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                 {!isConfigured && (
                   <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-xs">
                     <p className="font-bold flex items-center gap-1"><AlertCircle size={14}/> Setup Required</p>
-                    <p>To save comments permanently, please configure the BIN_ID and API_KEY in <code>CommentsSection.tsx</code>.</p>
+                    <p>Go to Admin Portal &gt; Settings to create your Bin ID.</p>
                   </div>
                 )}
 
@@ -250,8 +160,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                             required
                         ></textarea>
                     </div>
-                    
-                    {error && <p className="text-red-500 text-sm">{error}</p>}
 
                     <button 
                         type="submit" 
@@ -276,7 +184,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                     <h3 className={`text-xl font-bold text-gray-800 ${isUrdu ? 'font-urdu' : ''}`}>
                         {t.recentComments} <span className="text-gray-400 font-normal text-base ml-2">({comments.length})</span>
                     </h3>
-                    {isLoading && <Loader2 className="animate-spin text-brand-600" />}
                 </div>
 
                 <div className="space-y-6 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
@@ -314,7 +221,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
                         </div>
                     ))}
                     
-                    {!isLoading && comments.length === 0 && (
+                    {comments.length === 0 && (
                         <div className="text-center py-10 text-gray-400">
                             <p>No comments yet. Be the first to share your story!</p>
                         </div>

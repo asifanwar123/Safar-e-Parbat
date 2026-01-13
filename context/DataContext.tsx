@@ -1,69 +1,132 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { TourPackage, TravelHistoryItem, Comment } from '../types';
-import { PACKAGES, INITIAL_HISTORY } from '../constants';
+import { TourPackage, TravelHistoryItem, Comment, CloudData } from '../types';
+import { PACKAGES, INITIAL_HISTORY, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
 
 interface DataContextType {
   packages: TourPackage[];
   history: TravelHistoryItem[];
-  comments: Comment[]; // We manage local state of comments here too for admin view
-  addPackage: (pkg: TourPackage) => void;
-  deletePackage: (id: string) => void;
-  addHistory: (item: TravelHistoryItem) => void;
-  deleteHistory: (id: string) => void;
-  setComments: (comments: Comment[]) => void; // Used by CommentsSection or Admin to sync
+  comments: Comment[];
+  isLoading: boolean;
+  
+  // Actions
+  addPackage: (pkg: TourPackage) => Promise<void>;
+  deletePackage: (id: string) => Promise<void>;
+  addHistory: (item: TravelHistoryItem) => Promise<void>;
+  deleteHistory: (id: string) => Promise<void>;
+  addComment: (comment: Comment) => Promise<void>;
+  deleteComment: (id: number) => Promise<void>;
+  
+  // Utility
+  refreshData: () => Promise<void>;
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
 export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [packages, setPackages] = useState<TourPackage[]>([]);
-  const [history, setHistory] = useState<TravelHistoryItem[]>([]);
+  const [packages, setPackages] = useState<TourPackage[]>(PACKAGES);
+  const [history, setHistory] = useState<TravelHistoryItem[]>(INITIAL_HISTORY);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Initialize Data
+  // Cast to string to prevent TS error about comparison with literal types
+  const isConfigured = (JSONBIN_BIN_ID as string) !== "REPLACE_WITH_YOUR_BIN_ID" && (JSONBIN_API_KEY as string) !== "REPLACE_WITH_YOUR_API_KEY";
+
+  // Load Data from Cloud
+  const fetchData = async () => {
+    if (!isConfigured) return;
+    
+    // Don't set loading on poll/refresh to avoid UI flicker, only initial could be handled if needed
+    // But here we might want to know if it's syncing
+    try {
+      const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+        headers: { 'X-Master-Key': JSONBIN_API_KEY }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        const record = data.record;
+
+        // Check if it's the new structure (CloudData) or legacy (Array of comments)
+        if (Array.isArray(record)) {
+             // Legacy mode: It's just comments
+             setComments(record);
+             // Keep packages/history as defaults
+        } else if (record.packages || record.history) {
+             // New CloudData structure
+             if (record.packages) setPackages(record.packages);
+             if (record.history) setHistory(record.history);
+             if (record.comments) setComments(record.comments);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
+  };
+
+  // Initial Load & Poll
   useEffect(() => {
-    // Packages
-    const storedPackages = localStorage.getItem('safareparbat_packages');
-    if (storedPackages) {
-      setPackages(JSON.parse(storedPackages));
-    } else {
-      setPackages(PACKAGES); // Seed from constants
-      localStorage.setItem('safareparbat_packages', JSON.stringify(PACKAGES));
-    }
-
-    // History
-    const storedHistory = localStorage.getItem('safareparbat_history');
-    if (storedHistory) {
-      setHistory(JSON.parse(storedHistory));
-    } else {
-      setHistory(INITIAL_HISTORY); // Seed
-      localStorage.setItem('safareparbat_history', JSON.stringify(INITIAL_HISTORY));
-    }
+    fetchData();
+    const interval = setInterval(fetchData, 10000); // Poll every 10s for new comments/updates
+    return () => clearInterval(interval);
   }, []);
 
-  const addPackage = (pkg: TourPackage) => {
-    const updated = [pkg, ...packages];
-    setPackages(updated);
-    localStorage.setItem('safareparbat_packages', JSON.stringify(updated));
+  // Helper to save everything to cloud
+  const saveToCloud = async (newData: CloudData) => {
+    if (!isConfigured) {
+       // If not configured, just update local state (already done in handlers)
+       return;
+    }
+
+    try {
+      await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': JSONBIN_API_KEY
+        },
+        body: JSON.stringify(newData)
+      });
+    } catch (error) {
+      console.error("Failed to save to cloud:", error);
+      alert("Failed to save changes to the server. Please check your internet connection.");
+    }
   };
 
-  const deletePackage = (id: string) => {
-    const updated = packages.filter(p => p.id !== id);
-    setPackages(updated);
-    localStorage.setItem('safareparbat_packages', JSON.stringify(updated));
+  const addPackage = async (pkg: TourPackage) => {
+    const newPackages = [pkg, ...packages];
+    setPackages(newPackages);
+    await saveToCloud({ packages: newPackages, history, comments });
   };
 
-  const addHistory = (item: TravelHistoryItem) => {
-    const updated = [item, ...history];
-    setHistory(updated);
-    localStorage.setItem('safareparbat_history', JSON.stringify(updated));
+  const deletePackage = async (id: string) => {
+    const newPackages = packages.filter(p => p.id !== id);
+    setPackages(newPackages);
+    await saveToCloud({ packages: newPackages, history, comments });
   };
 
-  const deleteHistory = (id: string) => {
-    const updated = history.filter(h => h.id !== id);
-    setHistory(updated);
-    localStorage.setItem('safareparbat_history', JSON.stringify(updated));
+  const addHistory = async (item: TravelHistoryItem) => {
+    const newHistory = [item, ...history];
+    setHistory(newHistory);
+    await saveToCloud({ packages, history: newHistory, comments });
+  };
+
+  const deleteHistory = async (id: string) => {
+    const newHistory = history.filter(h => h.id !== id);
+    setHistory(newHistory);
+    await saveToCloud({ packages, history: newHistory, comments });
+  };
+
+  const addComment = async (comment: Comment) => {
+    const newComments = [comment, ...comments];
+    setComments(newComments);
+    await saveToCloud({ packages, history, comments: newComments });
+  };
+
+  const deleteComment = async (id: number) => {
+    const newComments = comments.filter(c => c.id !== id);
+    setComments(newComments);
+    await saveToCloud({ packages, history, comments: newComments });
   };
 
   return (
@@ -71,11 +134,14 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       packages,
       history,
       comments,
+      isLoading,
       addPackage,
       deletePackage,
       addHistory,
       deleteHistory,
-      setComments
+      addComment,
+      deleteComment,
+      refreshData: fetchData
     }}>
       {children}
     </DataContext.Provider>
