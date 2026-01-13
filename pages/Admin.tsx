@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useData } from '../context/DataContext';
 import { JSONBIN_API_KEY, JSONBIN_BIN_ID, GALLERY_IMAGES, PACKAGES, INITIAL_HISTORY } from '../constants';
-import { Trash2, Plus, Lock, X, Users, Settings, Database, Copy, Check, Save } from 'lucide-react';
+import { Trash2, Plus, Lock, X, Users, Settings, Database, Copy, Check, Save, Edit } from 'lucide-react';
 import { TourPackage, TravelHistoryItem, CloudData } from '../types';
 
 const Admin: React.FC = () => {
@@ -11,12 +11,16 @@ const Admin: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'comments' | 'packages' | 'history' | 'settings'>('comments');
   
   // Use Context Data
-  const { packages, deletePackage, addPackage, history, addHistory, deleteHistory, comments, deleteComment } = useData();
+  const { packages, deletePackage, addPackage, updatePackage, history, addHistory, updateHistory, deleteHistory, comments, deleteComment } = useData();
 
   // Forms State
   const [showPackageForm, setShowPackageForm] = useState(false);
   const [showHistoryForm, setShowHistoryForm] = useState(false);
   
+  // Editing State
+  const [editPkgId, setEditPkgId] = useState<string | null>(null);
+  const [editHistoryId, setEditHistoryId] = useState<string | null>(null);
+
   // New Package State
   const [newPkg, setNewPkg] = useState<Partial<TourPackage>>({
     image: GALLERY_IMAGES[0],
@@ -95,10 +99,10 @@ const Admin: React.FC = () => {
   };
 
   // --- PACKAGES LOGIC ---
-  const handleAddPackage = async (e: React.FormEvent) => {
+  const handleSavePackage = async (e: React.FormEvent) => {
       e.preventDefault();
       const pkg: TourPackage = {
-          id: Date.now().toString(),
+          id: editPkgId || Date.now().toString(),
           titleEn: newPkg.titleEn || 'New Package',
           titleUr: newPkg.titleUr || 'نیا پیکیج',
           locationEn: newPkg.locationEn || '',
@@ -107,17 +111,40 @@ const Admin: React.FC = () => {
           durationEn: newPkg.durationEn || '',
           durationUr: newPkg.durationUr || '',
           image: newPkg.image || '',
-          rating: 5,
+          rating: newPkg.rating || 5,
           descriptionEn: newPkg.descriptionEn || '',
           descriptionUr: newPkg.descriptionUr || '',
-          itineraryEn: typeof newPkg.itineraryEn === 'string' ? (newPkg.itineraryEn as string).split('\n') : [],
-          itineraryUr: typeof newPkg.itineraryUr === 'string' ? (newPkg.itineraryUr as string).split('\n') : [],
-          inclusionsEn: typeof newPkg.inclusionsEn === 'string' ? (newPkg.inclusionsEn as string).split('\n') : [],
-          inclusionsUr: typeof newPkg.inclusionsUr === 'string' ? (newPkg.inclusionsUr as string).split('\n') : [],
+          itineraryEn: typeof newPkg.itineraryEn === 'string' ? (newPkg.itineraryEn as string).split('\n') : (newPkg.itineraryEn || []),
+          itineraryUr: typeof newPkg.itineraryUr === 'string' ? (newPkg.itineraryUr as string).split('\n') : (newPkg.itineraryUr || []),
+          inclusionsEn: typeof newPkg.inclusionsEn === 'string' ? (newPkg.inclusionsEn as string).split('\n') : (newPkg.inclusionsEn || []),
+          inclusionsUr: typeof newPkg.inclusionsUr === 'string' ? (newPkg.inclusionsUr as string).split('\n') : (newPkg.inclusionsUr || []),
           dates: newPkg.dates || ''
       };
-      await addPackage(pkg);
+
+      if (editPkgId) {
+          await updatePackage(pkg);
+      } else {
+          await addPackage(pkg);
+      }
+      
+      closePackageForm();
+  };
+
+  const startEditPackage = (pkg: TourPackage) => {
+      setEditPkgId(pkg.id);
+      setNewPkg({
+          ...pkg,
+          itineraryEn: pkg.itineraryEn.join('\n') as any,
+          itineraryUr: pkg.itineraryUr.join('\n') as any,
+          inclusionsEn: pkg.inclusionsEn.join('\n') as any,
+          inclusionsUr: pkg.inclusionsUr.join('\n') as any,
+      });
+      setShowPackageForm(true);
+  };
+
+  const closePackageForm = () => {
       setShowPackageForm(false);
+      setEditPkgId(null);
       setNewPkg({});
   };
 
@@ -132,10 +159,17 @@ const Admin: React.FC = () => {
       }
   };
 
-  const handleAddHistory = async (e: React.FormEvent) => {
+  const removeVisitor = (index: number) => {
+      setNewHistory(prev => ({
+          ...prev,
+          visitors: prev.visitors?.filter((_, i) => i !== index)
+      }));
+  };
+
+  const handleSaveHistory = async (e: React.FormEvent) => {
       e.preventDefault();
       const item: TravelHistoryItem = {
-          id: Date.now().toString(),
+          id: editHistoryId || Date.now().toString(),
           title: newHistory.title || '',
           date: newHistory.date || '',
           location: newHistory.location || '',
@@ -143,8 +177,25 @@ const Admin: React.FC = () => {
           images: newHistory.images || [],
           visitors: newHistory.visitors || []
       };
-      await addHistory(item);
+
+      if (editHistoryId) {
+          await updateHistory(item);
+      } else {
+          await addHistory(item);
+      }
+      
+      closeHistoryForm();
+  };
+
+  const startEditHistory = (item: TravelHistoryItem) => {
+      setEditHistoryId(item.id);
+      setNewHistory(item);
+      setShowHistoryForm(true);
+  };
+
+  const closeHistoryForm = () => {
       setShowHistoryForm(false);
+      setEditHistoryId(null);
       setNewHistory({ images: [GALLERY_IMAGES[0]], visitors: [] });
   };
 
@@ -308,8 +359,11 @@ const Admin: React.FC = () => {
 
                 {showPackageForm && (
                     <div className="bg-white p-6 rounded-2xl shadow-xl border-2 border-brand-100">
-                        <h3 className="font-bold text-lg mb-4">Add New Package</h3>
-                        <form onSubmit={handleAddPackage} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="font-bold text-lg">{editPkgId ? 'Edit Package' : 'Add New Package'}</h3>
+                            <button onClick={closePackageForm} className="text-gray-400 hover:text-gray-600"><X size={20}/></button>
+                        </div>
+                        <form onSubmit={handleSavePackage} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input required placeholder="Title (English)" className="border p-2 rounded" value={newPkg.titleEn} onChange={e => setNewPkg({...newPkg, titleEn: e.target.value})} />
                             <input required placeholder="Title (Urdu)" className="border p-2 rounded text-right" value={newPkg.titleUr} onChange={e => setNewPkg({...newPkg, titleUr: e.target.value})} />
                             
@@ -330,12 +384,14 @@ const Admin: React.FC = () => {
                             <textarea required placeholder="Description (English)" className="border p-2 rounded md:col-span-2" rows={3} value={newPkg.descriptionEn} onChange={e => setNewPkg({...newPkg, descriptionEn: e.target.value})} />
                             <textarea required placeholder="Description (Urdu)" className="border p-2 rounded md:col-span-2 text-right" rows={3} value={newPkg.descriptionUr} onChange={e => setNewPkg({...newPkg, descriptionUr: e.target.value})} />
 
-                            <textarea placeholder="Itinerary (One item per line)" className="border p-2 rounded md:col-span-2" rows={4} onChange={e => setNewPkg({...newPkg, itineraryEn: e.target.value as any})} />
-                            <textarea placeholder="Inclusions (One item per line)" className="border p-2 rounded md:col-span-2" rows={4} onChange={e => setNewPkg({...newPkg, inclusionsEn: e.target.value as any})} />
+                            <textarea placeholder="Itinerary (One item per line)" className="border p-2 rounded md:col-span-2" rows={4} value={typeof newPkg.itineraryEn === 'string' ? newPkg.itineraryEn : (newPkg.itineraryEn as string[] | undefined)?.join('\n')} onChange={e => setNewPkg({...newPkg, itineraryEn: e.target.value as any})} />
+                            <textarea placeholder="Inclusions (One item per line)" className="border p-2 rounded md:col-span-2" rows={4} value={typeof newPkg.inclusionsEn === 'string' ? newPkg.inclusionsEn : (newPkg.inclusionsEn as string[] | undefined)?.join('\n')} onChange={e => setNewPkg({...newPkg, inclusionsEn: e.target.value as any})} />
 
                             <div className="md:col-span-2 flex gap-2 justify-end">
-                                <button type="button" onClick={() => setShowPackageForm(false)} className="px-4 py-2 text-gray-600">Cancel</button>
-                                <button type="submit" className="bg-brand-600 text-white px-6 py-2 rounded-lg font-bold">Save Package</button>
+                                <button type="button" onClick={closePackageForm} className="px-4 py-2 text-gray-600">Cancel</button>
+                                <button type="submit" className="bg-brand-600 text-white px-6 py-2 rounded-lg font-bold">
+                                    {editPkgId ? 'Update Package' : 'Save Package'}
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -350,9 +406,14 @@ const Admin: React.FC = () => {
                                 <p className="text-sm text-gray-500">{pkg.price} • {pkg.durationEn}</p>
                                 <p className="text-xs text-brand-600 font-bold mt-1">{pkg.dates}</p>
                             </div>
-                            <button onClick={() => {if(window.confirm('Delete?')) deletePackage(pkg.id)}} className="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition">
-                                <Trash2 size={16} />
-                            </button>
+                            <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition">
+                                <button onClick={() => startEditPackage(pkg)} className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
+                                    <Edit size={16} />
+                                </button>
+                                <button onClick={() => {if(window.confirm('Delete?')) deletePackage(pkg.id)}} className="bg-red-600 text-white p-2 rounded-full hover:bg-red-700">
+                                    <Trash2 size={16} />
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -371,8 +432,11 @@ const Admin: React.FC = () => {
 
                 {showHistoryForm && (
                     <div className="bg-white p-6 rounded-2xl shadow-xl border-2 border-brand-100">
-                        <h3 className="font-bold text-lg mb-4">Add Travel Event</h3>
-                        <form onSubmit={handleAddHistory} className="space-y-4">
+                        <div className="flex justify-between items-center mb-4">
+                             <h3 className="font-bold text-lg">{editHistoryId ? 'Edit Travel Event' : 'Add Travel Event'}</h3>
+                             <button onClick={closeHistoryForm} className="text-gray-400 hover:text-gray-600"><X size={20}/></button>
+                        </div>
+                        <form onSubmit={handleSaveHistory} className="space-y-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <input required placeholder="Trip Title (e.g., Winter Tour 2024)" className="border p-2 rounded" value={newHistory.title} onChange={e => setNewHistory({...newHistory, title: e.target.value})} />
                                 <input required placeholder="Date (e.g., Dec 2023)" className="border p-2 rounded" value={newHistory.date} onChange={e => setNewHistory({...newHistory, date: e.target.value})} />
@@ -391,16 +455,19 @@ const Admin: React.FC = () => {
                                 </div>
                                 <div className="flex flex-wrap gap-2">
                                     {newHistory.visitors?.map((v, idx) => (
-                                        <span key={idx} className="bg-white border px-3 py-1 rounded-full text-sm flex items-center gap-2">
-                                            {v.name} <span className="text-gray-400">({v.details})</span>
-                                        </span>
+                                        <div key={idx} className="bg-white border px-3 py-1 rounded-full text-sm flex items-center gap-2 group">
+                                            <span>{v.name} <span className="text-gray-400">({v.details})</span></span>
+                                            <button type="button" onClick={() => removeVisitor(idx)} className="text-red-500 opacity-50 group-hover:opacity-100"><X size={14}/></button>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
 
                             <div className="flex gap-2 justify-end">
-                                <button type="button" onClick={() => setShowHistoryForm(false)} className="px-4 py-2 text-gray-600">Cancel</button>
-                                <button type="submit" className="bg-brand-600 text-white px-6 py-2 rounded-lg font-bold">Save History</button>
+                                <button type="button" onClick={closeHistoryForm} className="px-4 py-2 text-gray-600">Cancel</button>
+                                <button type="submit" className="bg-brand-600 text-white px-6 py-2 rounded-lg font-bold">
+                                    {editHistoryId ? 'Update History' : 'Save History'}
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -421,9 +488,14 @@ const Admin: React.FC = () => {
                                      <Users size={16} /> {item.visitors.length} Visitors
                                  </div>
                              </div>
-                             <button onClick={() => {if(window.confirm('Delete?')) deleteHistory(item.id)}} className="absolute top-4 right-4 bg-red-100 text-red-600 p-2 rounded hover:bg-red-200 transition">
-                                <Trash2 size={20} />
-                             </button>
+                             <div className="absolute top-4 right-4 flex gap-2">
+                                <button onClick={() => startEditHistory(item)} className="bg-blue-100 text-blue-600 p-2 rounded hover:bg-blue-200 transition">
+                                    <Edit size={20} />
+                                </button>
+                                <button onClick={() => {if(window.confirm('Delete?')) deleteHistory(item.id)}} className="bg-red-100 text-red-600 p-2 rounded hover:bg-red-200 transition">
+                                    <Trash2 size={20} />
+                                </button>
+                             </div>
                         </div>
                     ))}
                 </div>

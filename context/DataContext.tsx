@@ -11,8 +11,10 @@ interface DataContextType {
   
   // Actions
   addPackage: (pkg: TourPackage) => Promise<void>;
+  updatePackage: (pkg: TourPackage) => Promise<void>;
   deletePackage: (id: string) => Promise<void>;
   addHistory: (item: TravelHistoryItem) => Promise<void>;
+  updateHistory: (item: TravelHistoryItem) => Promise<void>;
   deleteHistory: (id: string) => Promise<void>;
   addComment: (comment: Comment) => Promise<void>;
   deleteComment: (id: number) => Promise<void>;
@@ -99,6 +101,12 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     await saveToCloud({ packages: newPackages, history, comments });
   };
 
+  const updatePackage = async (updatedPkg: TourPackage) => {
+    const newPackages = packages.map(p => p.id === updatedPkg.id ? updatedPkg : p);
+    setPackages(newPackages);
+    await saveToCloud({ packages: newPackages, history, comments });
+  };
+
   const deletePackage = async (id: string) => {
     const newPackages = packages.filter(p => p.id !== id);
     setPackages(newPackages);
@@ -107,6 +115,12 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const addHistory = async (item: TravelHistoryItem) => {
     const newHistory = [item, ...history];
+    setHistory(newHistory);
+    await saveToCloud({ packages, history: newHistory, comments });
+  };
+
+  const updateHistory = async (updatedItem: TravelHistoryItem) => {
+    const newHistory = history.map(h => h.id === updatedItem.id ? updatedItem : h);
     setHistory(newHistory);
     await saveToCloud({ packages, history: newHistory, comments });
   };
@@ -136,8 +150,10 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       comments,
       isLoading,
       addPackage,
+      updatePackage,
       deletePackage,
       addHistory,
+      updateHistory,
       deleteHistory,
       addComment,
       deleteComment,
