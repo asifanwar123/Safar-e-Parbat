@@ -1,10 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import CommentsSection from '../components/CommentsSection';
 import { Mountain, Users, Camera, Star, Quote, MapPin } from 'lucide-react';
 import { Language, Comment } from '../types';
-import { CONTENT, PACKAGES, GALLERY_IMAGES, TESTIMONIALS, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
+import { CONTENT, GALLERY_IMAGES, TESTIMONIALS, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
 import { Link } from 'react-router-dom';
+import { useData } from '../context/DataContext';
 
 interface HomeProps {
   lang: Language;
@@ -13,6 +15,7 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ lang }) => {
   const t = CONTENT[lang];
   const isUrdu = lang === 'ur';
+  const { packages } = useData(); // Use dynamic data
   const [recentComments, setRecentComments] = useState<Comment[]>([]);
 
   // Fetch comments for the Testimonials section
@@ -54,6 +57,9 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
   const showDynamicTestimonials = recentComments.length > 0;
   // Get top 3 latest comments
   const dynamicTestimonials = recentComments.slice(0, 3);
+
+  // Use only first 3 packages for home page
+  const displayPackages = packages.slice(0, 3);
 
   return (
     <div className="bg-gray-50">
@@ -100,7 +106,7 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {PACKAGES.map((pkg) => (
+            {displayPackages.map((pkg) => (
               <Link key={pkg.id} to={`/packages/${pkg.id}`} className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="h-56 md:h-64 overflow-hidden relative">
                    <img src={pkg.image} alt={pkg.titleEn} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />

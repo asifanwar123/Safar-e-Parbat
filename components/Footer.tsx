@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, ChevronRight, ChevronLeft } from 'lucide-react';
+import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, ChevronRight, ChevronLeft, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CONTENT, LOGO_URL } from '../constants';
 import { Language } from '../types';
@@ -16,6 +17,7 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
     { name: CONTENT[lang].nav.home, path: "/" },
     { name: CONTENT[lang].nav.about, path: "/about" },
     { name: CONTENT[lang].nav.packages, path: "/packages" },
+    { name: CONTENT[lang].nav.travelHistory, path: "/travel-history" },
     { name: CONTENT[lang].nav.gallery, path: "/gallery" },
     { name: CONTENT[lang].nav.contact, path: "/contact" },
   ];
@@ -110,9 +112,10 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
 
         <div className="border-t border-brand-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm gap-4">
           <p className={isUrdu ? 'font-urdu' : ''}>© {new Date().getFullYear()} Safar-e-Parbat. All rights reserved.</p>
-          <div className="flex gap-6">
+          <div className="flex gap-6 items-center">
             <Link to="/about" className="hover:text-white transition">Privacy Policy</Link>
             <Link to="/contact" className="hover:text-white transition">Terms of Service</Link>
+            <Link to="/admin" className="hover:text-white transition text-brand-700 hover:text-brand-500"><Lock size={12}/></Link>
           </div>
         </div>
       </div>

@@ -1,7 +1,9 @@
+
 import React from 'react';
-import { PACKAGES, CONTENT } from '../constants';
+import { CONTENT } from '../constants';
 import { Language } from '../types';
-import { MapPin, Clock, Star, ArrowRight, ArrowLeft } from 'lucide-react';
+import { useData } from '../context/DataContext';
+import { MapPin, Clock, Star, ArrowRight, ArrowLeft, Calendar } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 interface PackagesProps {
@@ -10,13 +12,14 @@ interface PackagesProps {
 
 const Packages: React.FC<PackagesProps> = ({ lang }) => {
   const isUrdu = lang === 'ur';
+  const { packages } = useData(); // USE CONTEXT instead of constant
   const [searchParams] = useSearchParams();
   const locationQuery = searchParams.get('location')?.toLowerCase() || '';
 
-  const filteredPackages = PACKAGES.filter(pkg => {
+  const filteredPackages = packages.filter(pkg => {
     if (!locationQuery) return true;
     
-    // Check both English and Urdu fields, and check if the location matches
+    // Check both English and Urdu fields
     const matchesTitle = pkg.titleEn.toLowerCase().includes(locationQuery) || pkg.titleUr.includes(locationQuery);
     const matchesLocation = pkg.locationEn.toLowerCase().includes(locationQuery) || pkg.locationUr.includes(locationQuery);
     
@@ -68,10 +71,17 @@ const Packages: React.FC<PackagesProps> = ({ lang }) => {
                           <span className={isUrdu ? 'font-urdu' : ''}>{isUrdu ? pkg.locationUr : pkg.locationEn}</span>
                       </div>
 
-                      <div className={`flex items-center gap-2 text-gray-500 mb-6 bg-gray-50 p-2 rounded-lg inline-block w-full ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                      <div className={`flex items-center gap-2 text-gray-500 mb-2 bg-gray-50 p-2 rounded-lg inline-block w-full ${isUrdu ? 'flex-row-reverse' : ''}`}>
                           <Clock size={18} className="text-brand-500" />
                           <span className={isUrdu ? 'font-urdu' : ''}>{isUrdu ? pkg.durationUr : pkg.durationEn}</span>
                       </div>
+
+                      {pkg.dates && (
+                        <div className={`flex items-center gap-2 text-brand-700 text-sm font-medium mb-4 px-2 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                            <Calendar size={16} />
+                            <span>{pkg.dates}</span>
+                        </div>
+                      )}
                   </div>
 
                   <div className={`border-t border-gray-100 pt-6 mt-2 flex items-center justify-between ${isUrdu ? 'flex-row-reverse' : ''}`}>

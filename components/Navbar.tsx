@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Menu, X, Phone, Globe } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -23,6 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
     { name: t.home, path: "/" },
     { name: t.about, path: "/about" },
     { name: t.packages, path: "/packages" },
+    { name: t.travelHistory, path: "/travel-history" },
     { name: t.gallery, path: "/gallery" },
     { name: t.contact, path: "/contact" },
   ];
@@ -45,14 +47,14 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
           </div>
 
           {/* Desktop Nav */}
-          <div className={`hidden md:flex items-center space-x-8 ${isUrdu ? 'flex-row-reverse space-x-reverse' : ''}`}>
+          <div className={`hidden md:flex items-center space-x-6 lg:space-x-8 ${isUrdu ? 'flex-row-reverse space-x-reverse' : ''}`}>
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 className={`${
                   isActive(link.path) ? 'text-brand-600 font-bold' : 'text-gray-600 hover:text-brand-600'
-                } transition-colors duration-200 ${isUrdu ? 'font-urdu text-xl' : 'font-sans text-base'}`}
+                } transition-colors duration-200 whitespace-nowrap ${isUrdu ? 'font-urdu text-lg' : 'font-sans text-sm lg:text-base'}`}
               >
                 {link.name}
               </Link>
@@ -68,7 +70,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
 
             <Link
               to="/contact"
-              className={`bg-brand-600 text-white px-5 py-2 rounded-full hover:bg-brand-700 transition shadow-lg flex items-center gap-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
+              className={`bg-brand-600 text-white px-4 lg:px-5 py-2 rounded-full hover:bg-brand-700 transition shadow-lg flex items-center gap-2 whitespace-nowrap ${isUrdu ? 'flex-row-reverse font-urdu' : 'text-sm'}`}
             >
               <Phone size={16} />
               {t.bookNow}

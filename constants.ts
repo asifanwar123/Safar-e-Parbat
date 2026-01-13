@@ -1,5 +1,5 @@
 
-import { ContentText, TourPackage, Testimonial } from './types';
+import { ContentText, TourPackage, Testimonial, TravelHistoryItem } from './types';
 
 // API Configuration
 export const JSONBIN_BIN_ID = "6965e904ae596e708fd8d706";
@@ -64,7 +64,8 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
       packages: "Packages",
       gallery: "Gallery",
       contact: "Contact",
-      bookNow: "Book Now"
+      bookNow: "Book Now",
+      travelHistory: "Travel History"
     },
     hero: {
       title: "Safar-e-Parbat",
@@ -147,7 +148,8 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
       packages: "پیکیجز",
       gallery: "گیلری",
       contact: "رابطہ کریں",
-      bookNow: "بکنگ کریں"
+      bookNow: "بکنگ کریں",
+      travelHistory: "سفری تاریخ"
     },
     hero: {
       title: "سفر پربت",
@@ -254,7 +256,8 @@ export const PACKAGES: TourPackage[] = [
       "دن 5: اسلام آباد کی واپسی کا سفر۔"
     ],
     inclusionsEn: ["Luxury Transport", "Hotel Accommodation", "Breakfast & Dinner", "Tour Guide", "Jeep Safari"],
-    inclusionsUr: ["پرتعیش ٹرانسپورٹ", "ہوٹل کی رہائش", "ناشتہ اور رات کا کھانا", "ٹور گائیڈ", "جیپ سفاری"]
+    inclusionsUr: ["پرتعیش ٹرانسپورٹ", "ہوٹل کی رہائش", "ناشتہ اور رات کا کھانا", "ٹور گائیڈ", "جیپ سفاری"],
+    dates: "Every Friday"
   },
   {
     id: "2",
@@ -288,7 +291,8 @@ export const PACKAGES: TourPackage[] = [
       "دن 7: روانگی۔"
     ],
     inclusionsEn: ["Transport (Prado/Land Cruiser)", "Hotel Stays", "2 Meals Daily", "Entry Tickets", "Bonfire Night"],
-    inclusionsUr: ["ٹرانسپورٹ (پراڈو/لینڈ کروزر)", "ہوٹل کا قیام", "روزانہ 2 کھانے", "انٹری ٹکٹ", "بون فائر نائٹ"]
+    inclusionsUr: ["ٹرانسپورٹ (پراڈو/لینڈ کروزر)", "ہوٹل کا قیام", "روزانہ 2 کھانے", "انٹری ٹکٹ", "بون فائر نائٹ"],
+    dates: "Every Saturday"
   },
   {
     id: "3",
@@ -316,7 +320,8 @@ export const PACKAGES: TourPackage[] = [
       "دن 4: مہوڈنڈ جھیل کا دورہ اور واپسی۔",
     ],
     inclusionsEn: ["AC Coaster/Car", "Accommodation", "Breakfast", "Photography", "First Aid Kit"],
-    inclusionsUr: ["اے سی کوسٹر/کار", "رہائش", "ناشتہ", "فوٹوگرافی", "فرسٹ ایڈ کٹ"]
+    inclusionsUr: ["اے سی کوسٹر/کار", "رہائش", "ناشتہ", "فوٹوگرافی", "فرسٹ ایڈ کٹ"],
+    dates: "On Request"
   }
 ];
 
@@ -345,4 +350,20 @@ export const TESTIMONIALS: Testimonial[] = [
     textUr: "ایڈونچر کے شوقین افراد کے لیے انتہائی سفارش کی جاتی ہے۔ دیوسائی کے لیے جیپ سفاری ہمارے سفر کی خاص بات تھی۔",
     rating: 4
   }
+];
+
+export const INITIAL_HISTORY: TravelHistoryItem[] = [
+    {
+        id: "h1",
+        title: "Kashmir Group Tour 2024",
+        date: "Jan 15, 2024",
+        location: "Kashmir",
+        description: "A wonderful winter expedition with 20 amazing travelers. We explored Arang Kel and Taobat.",
+        images: [GALLERY_IMAGES[4], GALLERY_IMAGES[5]],
+        visitors: [
+            { name: "Ali Raza", details: "Lahore" },
+            { name: "Sara Khan", details: "Karachi" },
+            { name: "John Doe", details: "UK" }
+        ]
+    }
 ];

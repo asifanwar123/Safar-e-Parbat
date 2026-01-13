@@ -12,13 +12,29 @@ export interface TourPackage {
   durationUr: string;
   image: string;
   rating: number;
-  // New detailed fields
   descriptionEn: string;
   descriptionUr: string;
   itineraryEn: string[];
   itineraryUr: string[];
   inclusionsEn: string[];
   inclusionsUr: string[];
+  // New fields for Admin
+  dates?: string; // For "Date, Time"
+}
+
+export interface Visitor {
+  name: string;
+  details: string; // e.g., "From Lahore"
+}
+
+export interface TravelHistoryItem {
+  id: string;
+  title: string;
+  date: string;
+  location: string;
+  description: string;
+  images: string[];
+  visitors: Visitor[];
 }
 
 export interface Testimonial {
@@ -47,6 +63,7 @@ export interface ContentText {
     gallery: string;
     contact: string;
     bookNow: string;
+    travelHistory: string; // New
   };
   hero: {
     title: string;

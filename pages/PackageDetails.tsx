@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { PACKAGES, CONTENT } from '../constants';
+import { CONTENT } from '../constants';
 import { Language } from '../types';
+import { useData } from '../context/DataContext';
 import { MapPin, Clock, Star, Phone, CheckCircle, Calendar, Users, X, Send } from 'lucide-react';
 
 interface PackageDetailsProps {
@@ -10,7 +12,8 @@ interface PackageDetailsProps {
 
 const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
   const { id } = useParams<{ id: string }>();
-  const pkg = PACKAGES.find((p) => p.id === id);
+  const { packages } = useData(); // Use dynamic data
+  const pkg = packages.find((p) => p.id === id);
   const t = CONTENT[lang].packageDetails;
   const isUrdu = lang === 'ur';
 
@@ -108,6 +111,16 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
                         {isUrdu ? pkg.descriptionUr : pkg.descriptionEn}
                     </p>
                 </section>
+
+                {/* Dates Info (New) */}
+                {pkg.dates && (
+                  <section className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                      <div className={`flex items-center gap-3 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                          <Calendar className="text-brand-600" />
+                          <span className="font-bold text-brand-800">{isUrdu ? 'دستیابی:' : 'Availability:'} {pkg.dates}</span>
+                      </div>
+                  </section>
+                )}
 
                 {/* Itinerary */}
                 <section>
