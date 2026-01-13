@@ -2,7 +2,7 @@
 import { ContentText, TourPackage, Testimonial, TravelHistoryItem } from './types';
 
 // API Configuration
-export const JSONBIN_BIN_ID = "6965e904ae596e708fd8d706";
+export const JSONBIN_BIN_ID = "696603b143b1c97be92d2f6b";
 export const JSONBIN_API_KEY = "$2a$10$/qi1Zoc8utnIY0RYjMNFru34QUTYbjaoJx5wozQy/Uinlo3zXVvnG";
 
 // Images provided by user
