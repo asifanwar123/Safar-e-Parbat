@@ -72,7 +72,7 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
             <div className="max-w-7xl mx-auto">
                 <div className={`flex flex-col gap-2 md:gap-4 ${isUrdu ? 'items-end text-right' : 'items-start'}`}>
                     <div className="flex items-center gap-2 bg-brand-600/90 px-3 py-1 rounded-full text-xs md:text-sm font-bold backdrop-blur-sm">
-                        <Star size={14} md:size={16} fill="currentColor" className="text-amber-400" />
+                        <Star fill="currentColor" className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-400" />
                         <span>{pkg.rating} / 5.0</span>
                     </div>
                     <h1 className={`text-2xl md:text-5xl font-bold leading-tight ${isUrdu ? 'font-urdu' : ''}`}>

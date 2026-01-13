@@ -52,7 +52,7 @@ const About: React.FC<AboutProps> = ({ lang }) => {
                       <img src={CEO_IMAGE} alt={t.ceo.name} className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500" />
                   </div>
                   <div className={`absolute bottom-2 md:bottom-4 right-1/2 translate-x-1/2 md:translate-x-0 md:right-4 bg-brand-600 text-white p-2 rounded-full shadow-lg ${isUrdu ? 'md:left-4 md:right-auto' : ''}`}>
-                      <Quote size={20} md:size={24} fill="currentColor" />
+                      <Quote className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" />
                   </div>
               </div>
               
@@ -99,7 +99,7 @@ const About: React.FC<AboutProps> = ({ lang }) => {
               {t.whyUsPoints.map((point, idx) => (
                  <div key={idx} className={`bg-white border border-gray-100 p-5 md:p-6 rounded-xl shadow-md hover:shadow-xl transition flex items-center gap-4 ${isUrdu ? 'flex-row-reverse text-right' : ''}`}>
                     <div className="bg-brand-100 p-3 rounded-full text-brand-600 flex-shrink-0">
-                       <CheckCircle size={20} md:size={24} />
+                       <CheckCircle className="w-5 h-5 md:w-6 md:h-6" />
                     </div>
                     <span className={`font-semibold text-gray-800 text-base md:text-lg ${isUrdu ? 'font-urdu' : ''}`}>
                        {point}
