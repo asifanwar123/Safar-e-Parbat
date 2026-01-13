@@ -30,6 +30,15 @@ export interface Testimonial {
   rating: number;
 }
 
+export interface Comment {
+  id: number;
+  name: string;
+  text: string;
+  date: string;
+  avatarColor: string;
+  rating: number;
+}
+
 export interface ContentText {
   nav: {
     home: string;

@@ -1,26 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { User, Send, MessageSquare, Clock, Star, Loader2, AlertCircle } from 'lucide-react';
-import { CONTENT } from '../constants';
-import { Language } from '../types';
+import React, { useState, useEffect, useRef } from 'react';
+import { User, Send, MessageSquare, Clock, Star, Loader2, AlertCircle, ArrowDown } from 'lucide-react';
+import { CONTENT, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
+import { Language, Comment } from '../types';
 
 // ==========================================
 // CONFIGURATION: JSONBIN.IO
-// 1. Create an account at https://jsonbin.io/
-// 2. Create a new Bin with content: []
-// 3. Paste your Bin ID and API Key (X-Master-Key) below
+// Used from constants.ts
 // ==========================================
-const BIN_ID: string = "6965e904ae596e708fd8d706"; 
-const API_KEY: string = "$2a$10$/qi1Zoc8utnIY0RYjMNFru34QUTYbjaoJx5wozQy/Uinlo3zXVvnG";
+const BIN_ID: string = JSONBIN_BIN_ID; 
+const API_KEY: string = JSONBIN_API_KEY;
 // ==========================================
-
-interface Comment {
-  id: number;
-  name: string;
-  text: string;
-  date: string;
-  avatarColor: string;
-  rating: number;
-}
 
 interface CommentsSectionProps {
   lang: Language;
@@ -43,21 +32,30 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [showNotification, setShowNotification] = useState(false);
+  
+  // Refs for polling and scrolling
+  const commentsListRef = useRef<HTMLDivElement>(null);
+  const commentsRef = useRef<Comment[]>([]);
+
+  // Update ref whenever comments state changes to avoid stale closures in polling
+  useEffect(() => {
+    commentsRef.current = comments;
+  }, [comments]);
 
   // Helper to check if keys are configured
   const isConfigured = BIN_ID !== "REPLACE_WITH_YOUR_BIN_ID" && API_KEY !== "REPLACE_WITH_YOUR_API_KEY";
 
-  // Fetch comments
-  useEffect(() => {
-    const fetchComments = async () => {
+  const fetchComments = async (isPolling = false) => {
       if (!isConfigured) {
-        // Fallback to LocalStorage
-        const saved = localStorage.getItem('safareparbat_comments');
-        if (saved) setComments(JSON.parse(saved));
+        if (!isPolling) {
+            const saved = localStorage.getItem('safareparbat_comments');
+            if (saved) setComments(JSON.parse(saved));
+        }
         return;
       }
 
-      setIsLoading(true);
+      if (!isPolling) setIsLoading(true);
       try {
         const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
           headers: {
@@ -68,21 +66,44 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
         if (!response.ok) throw new Error("Failed to fetch");
         
         const data = await response.json();
-        // Jsonbin v3 wraps content in a 'record' property
         const remoteComments = Array.isArray(data.record) ? data.record : [];
-        setComments(remoteComments);
+        
+        if (isPolling) {
+            // If remote has more comments than what we currently have
+            if (remoteComments.length > commentsRef.current.length) {
+                setComments(remoteComments);
+                setShowNotification(true);
+            }
+        } else {
+            setComments(remoteComments);
+        }
       } catch (err) {
         console.error("Error fetching comments:", err);
-        // Fallback to local on error to show something
-        const saved = localStorage.getItem('safareparbat_comments');
-        if (saved) setComments(JSON.parse(saved));
+        if (!isPolling) {
+            const saved = localStorage.getItem('safareparbat_comments');
+            if (saved) setComments(JSON.parse(saved));
+        }
       } finally {
-        setIsLoading(false);
+        if (!isPolling) setIsLoading(false);
       }
-    };
+  };
 
-    fetchComments();
+  // Poll for comments
+  useEffect(() => {
+    fetchComments(); // Initial fetch
+
+    // Poll every 10 seconds
+    const interval = setInterval(() => {
+        fetchComments(true);
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, [isConfigured]);
+
+  const handleScrollToComments = () => {
+    commentsListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setShowNotification(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,7 +161,19 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
   };
 
   return (
-    <section className="py-12 md:py-20 bg-white">
+    <section className="py-12 md:py-20 bg-white relative">
+      {/* New Comments Notification */}
+      {showNotification && (
+        <button 
+            onClick={handleScrollToComments}
+            className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 bg-brand-600 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-2 animate-bounce hover:bg-brand-700 transition-colors cursor-pointer border-2 border-white ring-2 ring-brand-200"
+        >
+            <MessageSquare size={20} fill="currentColor" className="text-white" />
+            <span className="font-bold whitespace-nowrap">New Comments</span>
+            <ArrowDown size={20} />
+        </button>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center mb-12">
@@ -238,7 +271,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ lang }) => {
             </div>
 
             {/* Comments List */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2" ref={commentsListRef}>
                 <div className={`flex items-center justify-between mb-6 ${isUrdu ? 'flex-row-reverse' : ''}`}>
                     <h3 className={`text-xl font-bold text-gray-800 ${isUrdu ? 'font-urdu' : ''}`}>
                         {t.recentComments} <span className="text-gray-400 font-normal text-base ml-2">({comments.length})</span>

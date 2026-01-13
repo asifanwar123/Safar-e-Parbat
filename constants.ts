@@ -1,4 +1,9 @@
+
 import { ContentText, TourPackage, Testimonial } from './types';
+
+// API Configuration
+export const JSONBIN_BIN_ID = "6965e904ae596e708fd8d706";
+export const JSONBIN_API_KEY = "$2a$10$/qi1Zoc8utnIY0RYjMNFru34QUTYbjaoJx5wozQy/Uinlo3zXVvnG";
 
 // Images provided by user
 export const LOGO_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUK_9ZCdRlExTL1aNv63P2ncbFpEO60hL4XA&s";

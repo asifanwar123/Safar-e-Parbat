@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import CommentsSection from '../components/CommentsSection';
 import { Mountain, Users, Camera, Star, Quote, MapPin } from 'lucide-react';
-import { Language } from '../types';
-import { CONTENT, PACKAGES, GALLERY_IMAGES, TESTIMONIALS } from '../constants';
+import { Language, Comment } from '../types';
+import { CONTENT, PACKAGES, GALLERY_IMAGES, TESTIMONIALS, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
 import { Link } from 'react-router-dom';
 
 interface HomeProps {
@@ -13,6 +13,33 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ lang }) => {
   const t = CONTENT[lang];
   const isUrdu = lang === 'ur';
+  const [recentComments, setRecentComments] = useState<Comment[]>([]);
+
+  // Fetch comments for the Testimonials section
+  useEffect(() => {
+    const fetchComments = async () => {
+      // Don't fetch if keys are not set
+      if ((JSONBIN_BIN_ID as string) === "REPLACE_WITH_YOUR_BIN_ID" || (JSONBIN_API_KEY as string) === "REPLACE_WITH_YOUR_API_KEY") return;
+
+      try {
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+          headers: {
+            'X-Master-Key': JSONBIN_API_KEY
+          }
+        });
+        
+        if (!response.ok) return; // Silent fail, fall back to static
+        
+        const data = await response.json();
+        const remoteComments = Array.isArray(data.record) ? data.record : [];
+        setRecentComments(remoteComments);
+      } catch (err) {
+        console.error("Error fetching comments for testimonials:", err);
+      }
+    };
+
+    fetchComments();
+  }, []);
 
   const features = [
     { icon: <Mountain size={40} />, title: t.features.adventure, color: "bg-blue-100 text-blue-600" },
@@ -22,6 +49,11 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
 
   // Pick top 3 images for grid
   const showcaseImages = GALLERY_IMAGES.slice(0, 3);
+
+  // Determine what to show in testimonials (Dynamic vs Static)
+  const showDynamicTestimonials = recentComments.length > 0;
+  // Get top 3 latest comments
+  const dynamicTestimonials = recentComments.slice(0, 3);
 
   return (
     <div className="bg-gray-50">
@@ -119,36 +151,73 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {TESTIMONIALS.map((testimonial) => (
-               <div key={testimonial.id} className="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-gray-100 relative mt-4 md:mt-0">
-                 <div className={`absolute -top-4 ${isUrdu ? 'right-8' : 'left-8'} bg-brand-500 text-white p-3 rounded-full shadow-lg`}>
-                   <Quote size={20} fill="currentColor" />
-                 </div>
-                 <div className={`pt-4 ${isUrdu ? 'text-right' : ''}`}>
-                   <p className={`text-gray-600 italic mb-6 leading-relaxed ${isUrdu ? 'font-urdu text-lg' : ''}`}>
-                     "{isUrdu ? testimonial.textUr : testimonial.textEn}"
-                   </p>
-                   
-                   <div className={`flex items-center gap-3 md:gap-4 ${isUrdu ? 'flex-row-reverse' : ''}`}>
-                     <div className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 font-bold text-xl flex-shrink-0">
-                       {testimonial.name.charAt(0)}
+            {showDynamicTestimonials ? (
+                // Dynamic Testimonials from Comments
+                dynamicTestimonials.map((comment) => (
+                   <div key={comment.id} className="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-gray-100 relative mt-4 md:mt-0">
+                     <div className={`absolute -top-4 ${isUrdu ? 'right-8' : 'left-8'} bg-brand-500 text-white p-3 rounded-full shadow-lg`}>
+                       <Quote size={20} fill="currentColor" />
                      </div>
-                     <div>
-                       <h4 className={`font-bold text-gray-900 ${isUrdu ? 'font-urdu' : ''}`}>{testimonial.name}</h4>
-                       <div className={`flex items-center text-xs md:text-sm text-gray-500 gap-1 ${isUrdu ? 'flex-row-reverse justify-end' : ''}`}>
-                         <MapPin size={12} />
-                         <span>{testimonial.location}</span>
+                     <div className={`pt-4 ${isUrdu ? 'text-right' : ''}`}>
+                       <p className={`text-gray-600 italic mb-6 leading-relaxed line-clamp-3 ${isUrdu ? 'font-urdu text-lg' : ''}`}>
+                         "{comment.text}"
+                       </p>
+                       
+                       <div className={`flex items-center gap-3 md:gap-4 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                         <div className={`h-10 w-10 md:h-12 md:w-12 rounded-full ${comment.avatarColor} text-white flex items-center justify-center font-bold text-xl flex-shrink-0`}>
+                           {comment.name.charAt(0).toUpperCase()}
+                         </div>
+                         <div>
+                           <h4 className={`font-bold text-gray-900 ${isUrdu ? 'font-urdu' : ''}`}>{comment.name}</h4>
+                           <div className={`flex items-center text-xs md:text-sm text-gray-500 gap-1 ${isUrdu ? 'flex-row-reverse justify-end' : ''}`}>
+                             <MapPin size={12} />
+                             <span>{comment.date}</span>
+                           </div>
+                         </div>
+                         <div className={`flex-grow flex ${isUrdu ? 'justify-start' : 'justify-end'}`}>
+                            <div className="flex text-amber-400">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} size={14} className={i < (comment.rating || 5) ? "fill-current" : "text-gray-300"} />
+                              ))}
+                            </div>
+                         </div>
                        </div>
                      </div>
-                     <div className={`flex-grow flex ${isUrdu ? 'justify-start' : 'justify-end'}`}>
-                        <div className="flex text-amber-400">
-                          {[...Array(testimonial.rating)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                        </div>
+                   </div>
+                ))
+            ) : (
+                // Static Fallback Testimonials
+                TESTIMONIALS.map((testimonial) => (
+                   <div key={testimonial.id} className="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-gray-100 relative mt-4 md:mt-0">
+                     <div className={`absolute -top-4 ${isUrdu ? 'right-8' : 'left-8'} bg-brand-500 text-white p-3 rounded-full shadow-lg`}>
+                       <Quote size={20} fill="currentColor" />
+                     </div>
+                     <div className={`pt-4 ${isUrdu ? 'text-right' : ''}`}>
+                       <p className={`text-gray-600 italic mb-6 leading-relaxed ${isUrdu ? 'font-urdu text-lg' : ''}`}>
+                         "{isUrdu ? testimonial.textUr : testimonial.textEn}"
+                       </p>
+                       
+                       <div className={`flex items-center gap-3 md:gap-4 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                         <div className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 font-bold text-xl flex-shrink-0">
+                           {testimonial.name.charAt(0)}
+                         </div>
+                         <div>
+                           <h4 className={`font-bold text-gray-900 ${isUrdu ? 'font-urdu' : ''}`}>{testimonial.name}</h4>
+                           <div className={`flex items-center text-xs md:text-sm text-gray-500 gap-1 ${isUrdu ? 'flex-row-reverse justify-end' : ''}`}>
+                             <MapPin size={12} />
+                             <span>{testimonial.location}</span>
+                           </div>
+                         </div>
+                         <div className={`flex-grow flex ${isUrdu ? 'justify-start' : 'justify-end'}`}>
+                            <div className="flex text-amber-400">
+                              {[...Array(testimonial.rating)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+                            </div>
+                         </div>
+                       </div>
                      </div>
                    </div>
-                 </div>
-               </div>
-            ))}
+                ))
+            )}
           </div>
         </section>
 
