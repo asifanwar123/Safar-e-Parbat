@@ -101,6 +101,14 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
       title: "What Our Travelers Say",
       subtitle: "Real stories from those who have explored with us"
     },
+    commentsSection: {
+      title: "Traveller's Community",
+      subtitle: "Share your thoughts and experiences with us live!",
+      namePlaceholder: "Your Name",
+      commentPlaceholder: "Share your experience...",
+      submitBtn: "Post Comment",
+      recentComments: "Recent Comments"
+    },
     contact: {
       title: "Get in Touch",
       address: "Kabirwala, 58250",
@@ -175,6 +183,14 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
     testimonials: {
       title: "ہمارے مسافر کیا کہتے ہیں",
       subtitle: "ان لوگوں کی حقیقی کہانیاں جنہوں نے ہمارے ساتھ سفر کیا"
+    },
+    commentsSection: {
+      title: "مسافروں کی کمیونٹی",
+      subtitle: "اپنے خیالات اور تجربات ہمارے ساتھ شیئر کریں!",
+      namePlaceholder: "آپ کا نام",
+      commentPlaceholder: "اپنا تجربہ بیان کریں...",
+      submitBtn: "تبصرہ بھیجیں",
+      recentComments: "تازہ ترین تبصرے"
     },
     contact: {
       title: "ہم سے رابطہ کریں",

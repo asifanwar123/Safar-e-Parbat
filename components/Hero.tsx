@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   MapPin, Calendar, Users, Star, 
-  Wifi, Coffee, Compass
+  Home, Coffee, Compass, Camera
 } from 'lucide-react';
 import { CONTENT, HERO_SLIDES } from '../constants';
 import { Language } from '../types';
@@ -68,15 +68,22 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
           </div>
           <div className="hidden lg:block absolute top-[15%] right-[12%] animate-float-delayed z-10">
              <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2.5 rounded-full text-white flex items-center gap-3 hover:bg-white/20 transition cursor-default shadow-lg">
-                <Wifi size={18} className={accentColorClass.replace('text-', 'text-opacity-80 text-')} />
-                <span className="text-sm font-semibold tracking-wide">Fast Wifi</span>
+                <Home size={18} className={accentColorClass.replace('text-', 'text-opacity-80 text-')} />
+                <span className="text-sm font-semibold tracking-wide">Accommodation</span>
              </div>
           </div>
-          {/* Moved lower left badge higher up or further left to avoid search bar and text */}
+          
           <div className="hidden lg:block absolute bottom-[40%] left-[5%] animate-float z-10">
              <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2.5 rounded-full text-white flex items-center gap-3 hover:bg-white/20 transition cursor-default shadow-lg">
                 <Coffee size={18} className={accentColorClass.replace('text-', 'text-opacity-80 text-')} />
                 <span className="text-sm font-semibold tracking-wide">Breakfast</span>
+             </div>
+          </div>
+
+           <div className="hidden lg:block absolute bottom-[35%] right-[10%] animate-float-slow z-10" style={{ animationDelay: '2s' }}>
+             <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2.5 rounded-full text-white flex items-center gap-3 hover:bg-white/20 transition cursor-default shadow-lg">
+                <Camera size={18} className={accentColorClass.replace('text-', 'text-opacity-80 text-')} />
+                <span className="text-sm font-semibold tracking-wide">Photography</span>
              </div>
           </div>
 

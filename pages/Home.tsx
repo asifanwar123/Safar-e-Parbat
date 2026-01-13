@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from '../components/Hero';
+import CommentsSection from '../components/CommentsSection';
 import { Mountain, Users, Camera, Star, Quote, MapPin } from 'lucide-react';
 import { Language } from '../types';
 import { CONTENT, PACKAGES, GALLERY_IMAGES, TESTIMONIALS } from '../constants';
@@ -152,6 +153,9 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
         </section>
 
       </section>
+
+      {/* Live Comments Section */}
+      <CommentsSection lang={lang} />
     </div>
   );
 };

@@ -1,3 +1,4 @@
+
 export type Language = 'en' | 'ur';
 
 export interface TourPackage {
@@ -71,6 +72,14 @@ export interface ContentText {
   testimonials: {
     title: string;
     subtitle: string;
+  };
+  commentsSection: {
+    title: string;
+    subtitle: string;
+    namePlaceholder: string;
+    commentPlaceholder: string;
+    submitBtn: string;
+    recentComments: string;
   };
   contact: {
     title: string;
