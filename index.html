@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUK_9ZCdRlExTL1aNv63P2ncbFpEO60hL4XA&s" />
+    <link rel="icon" href="https://asifanwar.online/wp-content/uploads/2025/04/cropped-asifanwar.online1.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Safar-e-Parbat | Pakistan Tourism</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,14 +36,25 @@
               'float': 'float 6s ease-in-out infinite',
               'float-slow': 'float 8s ease-in-out infinite',
               'float-delayed': 'float 7s ease-in-out 3s infinite',
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'scale-up': 'scaleUp 0.3s ease-out',
               'fade-in-up': 'fadeInUp 0.8s ease-out',
               'spin-slow': 'spin 3s linear infinite',
               'scroll': 'scroll 40s linear infinite',
+              'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
             },
             keyframes: {
               float: {
                 '0%, 100%': { transform: 'translateY(0)' },
                 '50%': { transform: 'translateY(-20px)' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              scaleUp: {
+                 '0%': { opacity: '0.5', transform: 'scale(0.9)' },
+                 '100%': { opacity: '1', transform: 'scale(1)' },
               },
               fadeInUp: {
                 '0%': { opacity: '0', transform: 'translateY(20px)' },
@@ -52,6 +63,12 @@
               scroll: {
                 '0%': { transform: 'translateX(0)' },
                 '100%': { transform: 'translateX(-50%)' },
+              },
+              shake: {
+                '10%, 90%': { transform: 'translateX(-1px)' },
+                '20%, 80%': { transform: 'translateX(2px)' },
+                '30%, 50%, 70%': { transform: 'translateX(-4px)' },
+                '40%, 60%': { transform: 'translateX(4px)' },
               }
             }
           },
