@@ -111,7 +111,21 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
         </div>
 
         <div className="border-t border-brand-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm gap-4">
-          <p className={isUrdu ? 'font-urdu' : ''}>© {new Date().getFullYear()} Safar-e-Parbat. All rights reserved.</p>
+          <div className={`flex flex-col sm:flex-row items-center gap-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+            <p>© {new Date().getFullYear()} Safar-e-Parbat. All rights reserved.</p>
+            <span className="hidden sm:inline opacity-30">|</span>
+            <p className="flex items-center gap-1">
+              {isUrdu ? 'تیار کردہ: ' : 'Developed by '}
+              <a 
+                href="https://www.asifanwar.online" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-brand-500 hover:text-brand-300 transition-colors font-bold border-b border-brand-500/30"
+              >
+                asifanwar.online
+              </a>
+            </p>
+          </div>
           <div className="flex gap-6 items-center">
             <Link to="/about" className="hover:text-white transition">Privacy Policy</Link>
             <Link to="/contact" className="hover:text-white transition">Terms of Service</Link>

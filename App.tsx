@@ -13,7 +13,6 @@ import Admin from './pages/Admin';
 import TravelHistory from './pages/TravelHistory';
 import WhatsAppButton from './components/WhatsAppButton';
 import AdminButton from './components/AdminButton';
-import PinEntry from './components/PinEntry';
 import { Language, VisitorLog } from './types';
 import { DataProvider, useData } from './context/DataContext';
 
@@ -100,47 +99,31 @@ const VisitorTracker = () => {
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>('en');
-  const [isUnlocked, setIsUnlocked] = useState(false);
-
-  useEffect(() => {
-    // Check session storage on initial load
-    if (sessionStorage.getItem('site_unlocked') === 'true') {
-      setIsUnlocked(true);
-    }
-  }, []);
-
-  const handleUnlock = () => {
-    sessionStorage.setItem('site_unlocked', 'true');
-    setIsUnlocked(true);
-  };
 
   return (
     <DataProvider>
-      {!isUnlocked && <PinEntry onUnlock={handleUnlock} />}
-      <div className={`transition-filter duration-500 ${!isUnlocked ? 'blur-lg pointer-events-none' : ''}`}>
-        <VisitorTracker />
-        <Router>
-          <ScrollToTop />
-          <div className={`min-h-screen flex flex-col font-sans text-gray-900 ${lang === 'ur' ? 'font-urdu' : ''}`}>
-              <Navbar lang={lang} setLang={setLang} />
-              <main className="flex-grow">
-              <Routes>
-                  <Route path="/" element={<Home lang={lang} />} />
-                  <Route path="/about" element={<About lang={lang} />} />
-                  <Route path="/packages" element={<Packages lang={lang} />} />
-                  <Route path="/packages/:id" element={<PackageDetails lang={lang} />} />
-                  <Route path="/gallery" element={<Gallery lang={lang} />} />
-                  <Route path="/contact" element={<Contact lang={lang} />} />
-                  <Route path="/travel-history" element={<TravelHistory lang={lang} />} />
-                  <Route path="/admin" element={<Admin />} />
-              </Routes>
-              </main>
-              <WhatsAppButton />
-              <AdminButton />
-              <Footer lang={lang} />
-          </div>
-        </Router>
-      </div>
+      <VisitorTracker />
+      <Router>
+        <ScrollToTop />
+        <div className={`min-h-screen flex flex-col font-sans text-gray-900 ${lang === 'ur' ? 'font-urdu' : ''}`}>
+            <Navbar lang={lang} setLang={setLang} />
+            <main className="flex-grow">
+            <Routes>
+                <Route path="/" element={<Home lang={lang} />} />
+                <Route path="/about" element={<About lang={lang} />} />
+                <Route path="/packages" element={<Packages lang={lang} />} />
+                <Route path="/packages/:id" element={<PackageDetails lang={lang} />} />
+                <Route path="/gallery" element={<Gallery lang={lang} />} />
+                <Route path="/contact" element={<Contact lang={lang} />} />
+                <Route path="/travel-history" element={<TravelHistory lang={lang} />} />
+                <Route path="/admin" element={<Admin />} />
+            </Routes>
+            </main>
+            <WhatsAppButton />
+            <AdminButton />
+            <Footer lang={lang} />
+        </div>
+      </Router>
     </DataProvider>
   );
 };
