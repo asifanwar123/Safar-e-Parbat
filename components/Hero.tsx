@@ -49,9 +49,15 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
           {HERO_SLIDES.map((slide, index) => (
              <div 
                key={index}
-               className={`absolute inset-0 bg-cover bg-center transition-all duration-[1500ms] ease-in-out ${index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}`}
-               style={{ backgroundImage: `url(${slide.image})` }}
+               className={`absolute inset-0 transition-all duration-[1500ms] ease-in-out ${index === currentSlide ? 'opacity-100 scale-100 z-0' : 'opacity-0 scale-110 -z-10'}`}
              >
+                <img 
+                  src={slide.image} 
+                  alt={slide.name} 
+                  className="w-full h-full object-cover" 
+                  loading="eager"
+                  referrerPolicy="no-referrer"
+                />
                 {/* Gradient Overlay for text readability */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70"></div>
              </div>

@@ -64,7 +64,7 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
                 src={src} 
                 alt={`Safar-e-Parbat Gallery ${index + 1}`} 
                 className="w-full h-auto transform group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
+                loading={index < 6 ? "eager" : "lazy"}
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">

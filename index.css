@@ -1,0 +1,15 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom keyframes and animations are handled in index.html for now */
+/* But we can add global styles here if needed */
+
+.font-urdu {
+    line-height: 2.0 !important;
+}
+
+img {
+    max-width: 100%;
+}

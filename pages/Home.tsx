@@ -24,7 +24,7 @@ const PartnerLogo = ({ partner }: { partner: any }) => {
         alt={partner.name} 
         className="h-12 md:h-16 w-auto max-w-[150px] object-contain filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300" 
         onError={() => setImgError(true)}
-        loading="lazy"
+        loading="eager"
         referrerPolicy="no-referrer"
       />
     );
@@ -149,7 +149,7 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
             <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
             <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
 
-            <div className="flex w-max animate-scroll hover:[animation-play-state:paused] items-center">
+            <div className="flex w-max animate-scroll hover:[animation-play-state:paused] items-center will-change-transform">
                 {/* Triple the list for seamless looping on wide screens */}
                 {[...partners, ...partners, ...partners].map((partner, index) => (
                     <div key={index} className={`mx-4 md:mx-6 px-6 py-4 rounded-xl border-2 ${partner.border} ${partner.bg} flex items-center justify-center min-w-[200px] md:min-w-[240px] h-24 shadow-sm transform transition hover:scale-105 hover:shadow-md cursor-default group`}>
