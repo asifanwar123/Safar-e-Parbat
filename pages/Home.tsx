@@ -173,7 +173,7 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
                   <div className="w-full lg:w-1/2 relative group px-4 lg:px-0">
                       <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl transform transition duration-500 hover:scale-[1.02]">
                           <img 
-                            src="https://images.unsplash.com/photo-1596328546171-77e37b5f8b2d?auto=format&fit=crop&q=80&w=1000" 
+                            src="https://northbackend.northonwheels.com/storage/uploads/image_5620.jpg" 
                             alt="Northern Pakistan Landscape" 
                             className="w-full h-[400px] lg:h-[500px] object-cover"
                             referrerPolicy="no-referrer"
@@ -191,7 +191,7 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
                       
                       {/* Floating secondary image */}
                       <div className={`absolute -bottom-10 -right-4 lg:-right-10 w-40 h-40 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-xl border-4 border-white z-20 hidden md:block transform transition duration-500 hover:scale-105 hover:rotate-3 ${isUrdu ? '-left-10 right-auto' : ''}`}>
-                          <img src={GALLERY_IMAGES[0]} alt="Detail" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                          <img src="https://img.freepik.com/free-photo/black-dragon-pool-lijiang-yunnan-china_649448-2701.jpg" alt="Detail" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                       </div>
 
                       {/* Decoration dots */}

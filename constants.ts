@@ -237,7 +237,7 @@ export const PACKAGES: TourPackage[] = [
     price: "PKR 45,000",
     durationEn: "5 Days / 4 Nights",
     durationUr: "5 دن / 4 راتیں",
-    image: GALLERY_IMAGES[3],
+    image: "https://hunzaadventuretours.com/wp-content/uploads/2020/09/Atumn-Tours-to-Hunza-Valley-Pakistan.jpg",
     rating: 5,
     descriptionEn: "Gilgit and Hunza are among the most mesmerizing regions of Northern Pakistan, known for their breathtaking mountain scenery, rich cultural heritage, and crystal-clear rivers. These valleys serve as a gateway to some of the world’s highest peaks and offer an unforgettable experience for nature lovers and adventure seekers. Hunza Valley is famous for its stunning locations such as Karimabad, Baltit Fort, Altit Fort, Eagle’s Nest (Duikar), Attabad Lake, and the dramatic Hussaini Suspension Bridge. Together, Gilgit and Hunza represent a perfect blend of natural grandeur, cultural richness, and spiritual tranquility.",
     descriptionUr: "گلگت اور ہنزہ شمالی پاکستان کے سب سے پرکشش علاقوں میں سے ہیں، جو اپنے دلکش پہاڑی مناظر، بھرپور ثقافتی ورثے اور شفاف دریاؤں کے لیے مشہور ہیں۔ یہ وادیاں دنیا کی بلند ترین چوٹیوں کے لیے ایک گیٹ وے کا کام کرتی ہیں۔ وادی ہنزہ کریم آباد، بلتت قلعہ، التیت قلعہ، ایگلز نیسٹ، عطا آباد جھیل اور حسینی معلق پل جیسے شاندار مقامات کے لیے مشہور ہے۔ مجموعی طور پر، گلگت اور ہنزہ قدرتی عظمت اور ثقافتی فراوانی کا ایک بہترین امتزاج پیش کرتے ہیں۔",
@@ -268,7 +268,7 @@ export const PACKAGES: TourPackage[] = [
     price: "PKR 55,000",
     durationEn: "7 Days / 6 Nights",
     durationUr: "7 دن / 6 راتیں",
-    image: GALLERY_IMAGES[1],
+    image: "https://northbackend.northonwheels.com/storage/uploads/image_5620.jpg",
     rating: 4.8,
     descriptionEn: "Skardu is one of the most breathtaking destinations in Northern Pakistan, often described as the gateway to some of the highest peaks in the world. The region is home to several iconic attractions, starting with Shangrila Resort and its famous Lower Kachura Lake, known for its unique beauty. The journey continues towards the majestic Deosai National Park, also known as the “Land of Giants,” which is one of the highest plateaus in the world. Skardu and its surrounding regions represent a heavenly landscape where nature reveals its purest form.",
     descriptionUr: "سکردو شمالی پاکستان کے سب سے زیادہ دلکش مقامات میں سے ایک ہے، جسے اکثر دنیا کی بلند ترین چوٹیوں کا گیٹ وے کہا جاتا ہے۔ یہ خطہ کئی مشہور پرکشش مقامات کا گھر ہے، جس کا آغاز شنگریلا ریزورٹ اور اس کی مشہور لوئر کچورا جھیل سے ہوتا ہے۔ یہ سفر دیوسائی نیشنل پارک کی طرف بڑھتا ہے، جسے 'دیوؤں کی سرزمین' بھی کہا جاتا ہے، جو دنیا کے بلند ترین سطح مرتفع میں سے ایک ہے۔ سکردو قدرت کی خالص ترین شکل پیش کرتا ہے۔",
@@ -293,6 +293,37 @@ export const PACKAGES: TourPackage[] = [
     inclusionsEn: ["Transport (Prado/Land Cruiser)", "Hotel Stays", "2 Meals Daily", "Entry Tickets", "Bonfire Night"],
     inclusionsUr: ["ٹرانسپورٹ (پراڈو/لینڈ کروزر)", "ہوٹل کا قیام", "روزانہ 2 کھانے", "انٹری ٹکٹ", "بون فائر نائٹ"],
     dates: "Every Saturday"
+  },
+  {
+    id: "4",
+    titleEn: "Azad Kashmir - Paradise on Earth",
+    titleUr: "آزاد کشمیر - زمین پر جنت",
+    locationEn: "Neelum Valley, Kashmir",
+    locationUr: "وادی نیلم، کشمیر",
+    price: "PKR 38,000",
+    durationEn: "5 Days / 4 Nights",
+    durationUr: "5 دن / 4 راتیں",
+    image: "https://summitk2.com/wp-content/uploads/2025/10/kashmir-iv.webp",
+    rating: 4.9,
+    descriptionEn: "Azad Kashmir is one of the most breathtaking and peaceful regions of Pakistan, famous for its lush green valleys, snow-covered mountains, crystal-clear rivers, and waterfalls. Often called the “Paradise on Earth,” Kashmir offers a perfect blend of natural beauty, culture, and serenity. Some of the most beautiful places include Muzaffarabad, Neelum Valley, Keran, Sharda, Arang Kel, Kel, Taobat, and Ratti Gali Lake. These destinations are known for their stunning landscapes and peaceful atmosphere.",
+    descriptionUr: "آزاد کشمیر پاکستان کے سب سے خوبصورت اور پرامن خطوں میں سے ایک ہے، جو اپنی سرسبز وادیوں، برف پوش پہاڑوں، شفاف دریاؤں اور آبشاروں کے لیے مشہور ہے۔ اکثر 'زمین پر جنت' کہلانے والا کشمیر قدرتی خوبصورتی، ثقافت اور سکون کا ایک بہترین امتزاج پیش کرتا ہے۔ مشہور مقامات میں مظفر آباد، وادی نیلم، کیرن، شاردہ، ارنگ کیل اور رتی گلی جھیل شامل ہیں۔ یہ مقامات اپنے شاندار مناظر اور پرامن ماحول کے لیے جانے جاتے ہیں۔",
+    itineraryEn: [
+      "Day 1: Departure for Muzaffarabad, visit Pir Chinasi.",
+      "Day 2: Travel to Keran and Sharda via Neelum Valley.",
+      "Day 3: Visit Arang Kel, the pearl of Neelum Valley.",
+      "Day 4: Trip to Kel and surrounding waterfalls.",
+      "Day 5: Return to Islamabad."
+    ],
+    itineraryUr: [
+      "دن 1: مظفر آباد کے لیے روانگی، پیر چناسی کا دورہ۔",
+      "دن 2: وادی نیلم کے راستے کیرن اور شاردہ کا سفر۔",
+      "دن 3: وادی نیلم کا موتی، ارنگ کیل کا دورہ۔",
+      "دن 4: کیل اور قریبی آبشاروں کا سفر۔",
+      "دن 5: اسلام آباد واپسی۔"
+    ],
+    inclusionsEn: ["Dedicated Transport", "Riverside Hotels", "Food & Guide", "Jeep for Kel"],
+    inclusionsUr: ["مخصوص ٹرانسپورٹ", "دریائے کنارے ہوٹل", "کھانا اور گائیڈ", "کیل کے لیے جیپ"],
+    dates: "Every Monday"
   },
   {
     id: "3",
@@ -322,37 +353,6 @@ export const PACKAGES: TourPackage[] = [
     inclusionsEn: ["AC Coaster/Car", "Accommodation", "Breakfast", "Photography", "First Aid Kit"],
     inclusionsUr: ["اے سی کوسٹر/کار", "رہائش", "ناشتہ", "فوٹوگرافی", "فرسٹ ایڈ کٹ"],
     dates: "On Request"
-  },
-  {
-    id: "4",
-    titleEn: "Azad Kashmir - Paradise on Earth",
-    titleUr: "آزاد کشمیر - زمین پر جنت",
-    locationEn: "Neelum Valley, Kashmir",
-    locationUr: "وادی نیلم، کشمیر",
-    price: "PKR 38,000",
-    durationEn: "5 Days / 4 Nights",
-    durationUr: "5 دن / 4 راتیں",
-    image: GALLERY_IMAGES[5],
-    rating: 4.9,
-    descriptionEn: "Azad Kashmir is one of the most breathtaking and peaceful regions of Pakistan, famous for its lush green valleys, snow-covered mountains, crystal-clear rivers, and waterfalls. Often called the “Paradise on Earth,” Kashmir offers a perfect blend of natural beauty, culture, and serenity. Some of the most beautiful places include Muzaffarabad, Neelum Valley, Keran, Sharda, Arang Kel, Kel, Taobat, and Ratti Gali Lake. These destinations are known for their stunning landscapes and peaceful atmosphere.",
-    descriptionUr: "آزاد کشمیر پاکستان کے سب سے خوبصورت اور پرامن خطوں میں سے ایک ہے، جو اپنی سرسبز وادیوں، برف پوش پہاڑوں، شفاف دریاؤں اور آبشاروں کے لیے مشہور ہے۔ اکثر 'زمین پر جنت' کہلانے والا کشمیر قدرتی خوبصورتی، ثقافت اور سکون کا ایک بہترین امتزاج پیش کرتا ہے۔ مشہور مقامات میں مظفر آباد، وادی نیلم، کیرن، شاردہ، ارنگ کیل اور رتی گلی جھیل شامل ہیں۔ یہ مقامات اپنے شاندار مناظر اور پرامن ماحول کے لیے جانے جاتے ہیں۔",
-    itineraryEn: [
-      "Day 1: Departure for Muzaffarabad, visit Pir Chinasi.",
-      "Day 2: Travel to Keran and Sharda via Neelum Valley.",
-      "Day 3: Visit Arang Kel, the pearl of Neelum Valley.",
-      "Day 4: Trip to Kel and surrounding waterfalls.",
-      "Day 5: Return to Islamabad."
-    ],
-    itineraryUr: [
-      "دن 1: مظفر آباد کے لیے روانگی، پیر چناسی کا دورہ۔",
-      "دن 2: وادی نیلم کے راستے کیرن اور شاردہ کا سفر۔",
-      "دن 3: وادی نیلم کا موتی، ارنگ کیل کا دورہ۔",
-      "دن 4: کیل اور قریبی آبشاروں کا سفر۔",
-      "دن 5: اسلام آباد واپسی۔"
-    ],
-    inclusionsEn: ["Dedicated Transport", "Riverside Hotels", "Food & Guide", "Jeep for Kel"],
-    inclusionsUr: ["مخصوص ٹرانسپورٹ", "دریائے کنارے ہوٹل", "کھانا اور گائیڈ", "کیل کے لیے جیپ"],
-    dates: "Every Monday"
   },
   {
     id: "5",
