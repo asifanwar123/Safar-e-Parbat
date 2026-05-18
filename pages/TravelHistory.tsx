@@ -37,7 +37,7 @@ const TravelHistory: React.FC<TravelHistoryProps> = ({ lang }) => {
                     
                     {/* Image Section */}
                     <div className="md:w-2/5 h-64 md:h-auto relative">
-                        <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover absolute inset-0" />
+                        <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover absolute inset-0" referrerPolicy="no-referrer" />
                         <div className="absolute top-4 left-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm font-bold backdrop-blur-md flex items-center gap-2">
                             <Calendar size={14} /> {item.date}
                         </div>

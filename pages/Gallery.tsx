@@ -65,6 +65,7 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
                 alt={`Safar-e-Parbat Gallery ${index + 1}`} 
                 className="w-full h-auto transform group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
+                referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                   <p className="text-white font-semibold bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">View</p>
@@ -97,7 +98,7 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
                </div>
                
                <h2 className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight ${isUrdu ? 'font-urdu' : ''}`}>
-                  {isUrdu ? 'سفر پربت فیس بک' : 'Connect with Safar-e-Parbat'}
+                  {isUrdu ? 'سفر پربت™ فیس بک' : 'Connect with Safar-e-Parbat™'}
                </h2>
                
                <p className={`text-blue-100 text-lg md:text-xl mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0 ${isUrdu ? 'font-urdu' : ''}`}>
@@ -190,6 +191,7 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
                src={GALLERY_IMAGES[selectedImageIndex]} 
                alt="Full screen view" 
                className="max-h-[90vh] max-w-full object-contain rounded-lg shadow-2xl"
+               referrerPolicy="no-referrer"
              />
           </div>
 

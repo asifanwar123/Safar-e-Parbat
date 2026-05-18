@@ -36,7 +36,7 @@ const PinEntry: React.FC<PinEntryProps> = ({ onUnlock }) => {
         className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-scale-up border-4 border-white/80 ring-1 ring-gray-300"
       >
         <div className="bg-gray-50 p-6 flex flex-col items-center border-b border-gray-200">
-          <img src={LOGO_URL} alt="Logo" className="h-20 w-20 rounded-full shadow-lg border-2 border-white" />
+          <img src={LOGO_URL} alt="Logo" className="h-20 w-20 rounded-full shadow-lg border-2 border-white" referrerPolicy="no-referrer" />
           <a
             href="https://www.asifanwar.online"
             target="_blank"

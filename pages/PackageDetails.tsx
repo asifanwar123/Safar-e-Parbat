@@ -69,7 +69,7 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
       
       {/* Hero Header - Responsive Height */}
       <div className="relative h-[40vh] md:h-[50vh] w-full">
-         <img src={pkg.image} alt={pkg.titleEn} className="w-full h-full object-cover" />
+         <img src={pkg.image} alt={pkg.titleEn} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
          <div className="absolute inset-0 bg-black/40"></div>
          <div className="absolute bottom-0 left-0 w-full p-4 md:p-12 text-white bg-gradient-to-t from-black/90 to-transparent">
             <div className="max-w-7xl mx-auto">

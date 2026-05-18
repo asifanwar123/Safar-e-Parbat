@@ -50,10 +50,15 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
           {/* Logo Section */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center gap-2">
-              <img className="h-10 w-10 md:h-12 md:w-12 rounded-full border-2 border-brand-600 object-cover" src={LOGO_URL} alt="Safar-e-Parbat" />
-              <span className={`text-xl md:text-2xl font-bold text-brand-800 hidden sm:block ${isUrdu ? 'font-urdu' : 'font-sans'}`}>
-                {lang === 'en' ? 'Safar-e-Parbat' : 'سفر پربت'}
-              </span>
+              <img className="h-10 w-10 md:h-12 md:w-12 rounded-full border-2 border-brand-600 object-cover" src={LOGO_URL} alt="Safar-e-Parbat" referrerPolicy="no-referrer" />
+              <div className="flex flex-col leading-tight hidden sm:flex">
+                <span className={`text-xl md:text-2xl font-bold text-brand-800 ${isUrdu ? 'font-urdu' : 'font-sans'}`}>
+                  {lang === 'en' ? 'Safar-e-Parbat™' : 'سفر پربت™'}
+                </span>
+                <span className={`text-[10px] md:text-xs font-medium text-brand-600 tracking-[0.2em] uppercase italic ${isUrdu ? 'font-urdu text-right' : 'font-sans'}`}>
+                  {lang === 'en' ? 'Travel & Tourism' : 'ٹریول اینڈ ٹورازم'}
+                </span>
+              </div>
             </Link>
           </div>
 

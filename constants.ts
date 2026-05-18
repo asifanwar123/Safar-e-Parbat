@@ -8,52 +8,52 @@ export const JSONBIN_API_KEY = "$2a$10$/qi1Zoc8utnIY0RYjMNFru34QUTYbjaoJx5wozQy/
 // Images provided by user
 export const LOGO_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUK_9ZCdRlExTL1aNv63P2ncbFpEO60hL4XA&s";
 export const HERO_BG = "https://images.squarespace-cdn.com/content/v1/5a815ad2e45a7c1f4ef40fb8/1532605992397-SQJ512NRWU905CM1VUUL/k2-banner.jpg";
-export const CEO_IMAGE = "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/474011630_595323836477441_8647772785241706978_n.jpg?_nc_cat=103&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=8Fguev1sTJwQ7kNvwHZqCkS&_nc_oc=AdnlQ-41Q7PLdP7AMCFfD7kqnb8T5Wssp5E0bowUQ89OXpKjy4WrRrJK2gDW-CfGDXU&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=k--UBOw_-5q--6_3UtWDZg&oh=00_Afr-wt3UIe65W8Nw9mQOJ6904BXRmj1B3lDFdngqy9w-zw&oe=69683EE8";
+export const CEO_IMAGE = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800";
 
 export const HERO_SLIDES = [
   {
-    image: "https://images.wallpapersden.com/image/download/pakistan-lake-saif-ul-malik-2014_ZmtlamaUmZqaraWkpJRma21lrWZlamU.jpg",
+    image: "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&q=80&w=1920",
     name: "Saif-ul-Malook Lake",
     accentColor: "text-cyan-300"
   },
   {
-    image: "https://images.pexels.com/photos/815880/pexels-photo-815880.jpeg",
+    image: "https://images.unsplash.com/photo-1588824345504-8742f1a60e04?auto=format&fit=crop&q=80&w=1920",
     name: "Qila Darawar",
     accentColor: "text-amber-500"
   },
   {
-    image: "https://images.pexels.com/photos/19442078/pexels-photo-19442078.jpeg",
+    image: "https://images.unsplash.com/photo-1596328546171-77e37b5f8b2d?auto=format&fit=crop&q=80&w=1920",
     name: "Shangrila Lake",
     accentColor: "text-emerald-400"
   },
   {
-    image: "https://images.pexels.com/photos/35171324/pexels-photo-35171324.jpeg",
+    image: "https://images.unsplash.com/photo-1622546758596-f1f06ba11f58?auto=format&fit=crop&q=80&w=1920",
     name: "Gilgit Valley",
     accentColor: "text-orange-300"
   },
   {
-    image: "https://images.pexels.com/photos/186985/pexels-photo-186985.jpeg",
+    image: "https://images.unsplash.com/photo-1608235287425-42f53d105234?auto=format&fit=crop&q=80&w=1920",
     name: "Kashmir Valley",
     accentColor: "text-green-300"
   },
   {
-    image: "https://images.pexels.com/photos/9782466/pexels-photo-9782466.jpeg",
+    image: "https://images.unsplash.com/photo-1627895357710-4cb56c74d112?auto=format&fit=crop&q=80&w=1920",
     name: "Passu Cones",
     accentColor: "text-yellow-400"
   }
 ];
 
 export const GALLERY_IMAGES = [
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/475483685_122161925906316046_6305929784421672905_n.jpg?stp=dst-jpg_p180x540_tt6&_nc_cat=102&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VBs2vLNFEvgQ7kNvwFhI0oA&_nc_oc=AdmKreUIBACQTo5-BH3czLHMj0F_tn_tV2Ry1DPpPHIzGeM9GjyYYIYxp98javHHaO8&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=r-QoTLbFnzBA52QOq1hoIw&oh=00_AfrqDgbEjNv8v7wJmniMyNKcHGno42fYcTt6gSaGJ9HucQ&oe=69683EB1",
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/481147635_122166380360316046_3633805845469589342_n.jpg?_nc_cat=108&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=SA2M0IORkZgQ7kNvwHmjNRc&_nc_oc=AdlXOk--tUJ3s9rAEByKaM31WgC2ANOI6tesuyEdiji-m0eMAppYdd2nuJeC4rGUV74&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=hSW3EsfxLTxOSW2RBFWZ7w&oh=00_Afp96m61LHKKiEMC0Dxplbx17JsCvRMaybC3__yHg1N9ow&oe=69682EE4",
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/482249452_122166379064316046_1386459374557290013_n.jpg?_nc_cat=109&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=l5i7UFq9IewQ7kNvwHnzn7O&_nc_oc=AdnvHTBQ4Ou2QuwhRULUqdFAn54XJGZkKVIki0SIo_iTyt7178IdT1OlG-osumqBwBM&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=fvV1YRxKby0PztCY3C6Hbg&oh=00_AfoRyZqyNx9IbekVaBRhK_98psyrTT49Wm3LM2bkW_IyBQ&oe=69684E06",
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/481672349_122166378350316046_8922661500772643701_n.jpg?_nc_cat=106&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=umEMHLKcnCwQ7kNvwE5Y7qC&_nc_oc=AdlyFti-a5xkR-Zm5Yv3a3M_uAGtWdw3T1H2T63Yz5y1rP0zLEYA6f7OOEgsso18wh4&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=1UR2AvCcr4qoLBIJ8dBpOw&oh=00_AfqkVymN8FK0_p8m2k0ybPoZ2Bhd5PYSz5FuiXRXfU2VMg&oe=69683BF7",
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/481257603_122166364682316046_9125290425199112704_n.jpg?_nc_cat=101&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=l6ipR5cVVc0Q7kNvwGRfQgM&_nc_oc=AdkEyKbXu3ZrJUmd4VOeyWDNiUP8HfAT6iwYFHYDfUWps4ogZoth15VRcfiydRbl9-4&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=bGH0GmnQUI0aRoR21h30qQ&oh=00_Afq-9FsPSG63LqZCN9tmj2RLpNWkC77BNUFubPZwMgqYWQ&oe=696833B1",
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/481817388_122166364466316046_1480486249753464913_n.jpg?_nc_cat=103&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=w6MAPlF8ScwQ7kNvwHWtx8u&_nc_oc=AdlqlmTDDBx98yDlkXFba_rE38eJ2SBfH-SgPDOMu-FK0RYHI10OERseDDTmjuSrZy4&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=lAaJQy2nnlTrWekvQmC0DA&oh=00_AfonHzoiy7d9oewBubUiov32yPI-dOayQCD2J4WElDfV9g&oe=69682B46",
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/475785177_122161744556316046_3581277801677100950_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=QnkXfJwwh-UQ7kNvwHlU5R8&_nc_oc=AdnVxk9UwKNXdXsXgJXJEfscMSTMLSuIZ4zWDCZTs6Rwf6TXf3fW-bBK7kpZj0NeJ1s&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=Dx8X3ZZigS7Cry-p9XKjuA&oh=00_AfpRvNPaNfSqMDbA74GoiqsWh5ARvbJP-aML0rchmG6EMg&oe=69682EA7",
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/470165472_122153591900316046_3510436602937001174_n.jpg?_nc_cat=101&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=9_rGkKaE5ssQ7kNvwEubbCK&_nc_oc=AdlRH4MV-ABBZycqbquOOEf2ZuWIQG51wI7v5I7yJ73XHT5_W-a67VJv1_5LbH9WeKE&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=kY_rMy4SQqqaG41oA720Gw&oh=00_Afo9akTWrou4YsEoqf2ydEl5CRJ6nxFLioTtTbVbFQRhYg&oe=69682D61",
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/470216774_122153584544316046_584652288506114967_n.jpg?_nc_cat=106&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=RZOgyxr83YsQ7kNvwF-oNop&_nc_oc=AdlkIlTRYkwtgus6A3Kf5C-Y5_fFObRpIYn5Fs9VDdNV4r6BFQ9X1YJDu_pCjmJRwp0&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=L8_ngniqYxc3eex1H25ivQ&oh=00_AfrQsf-piGyuc5Nywmve5NjVa_qPh5frc1Ss4fASZbGpQg&oe=69683FD5",
-  "https://scontent.flhe6-1.fna.fbcdn.net/v/t39.30808-6/470151505_122153447678316046_5301262169935779526_n.jpg?_nc_cat=110&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=4RA5n9aEsIoQ7kNvwFYTiNY&_nc_oc=AdnWAidjMOmsFO_KaTvt94n0GQeuPO3gR4tVCrGIaog8JWIvEqiw_u9jLEkBk9avklU&_nc_zt=23&_nc_ht=scontent.flhe6-1.fna&_nc_gid=4WbEoxIJFjFqYhCBx_xblw&oh=00_Afq2G6guBMA3Krc-0yY_THQjEEPetfM6Zofo6ZDw2WEEUA&oe=696845BD"
+  "https://images.unsplash.com/photo-1588824345504-8742f1a60e04?auto=format&fit=crop&q=80&w=1000",
+  "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&q=80&w=1000",
+  "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&q=80&w=1000",
+  "https://images.unsplash.com/photo-1622546758596-f1f06ba11f58?auto=format&fit=crop&q=80&w=1000",
+  "https://images.unsplash.com/photo-1627895357710-4cb56c74d112?auto=format&fit=crop&q=80&w=1000",
+  "https://images.unsplash.com/photo-1596328546171-77e37b5f8b2d?auto=format&fit=crop&q=80&w=1000",
+  "https://images.unsplash.com/photo-1608235287425-42f53d105234?auto=format&fit=crop&q=80&w=1000",
+  "https://images.unsplash.com/photo-1631888257004-94e82e2124f6?auto=format&fit=crop&q=80&w=1000",
+  "https://images.unsplash.com/photo-1604151774312-32a133b37902?auto=format&fit=crop&q=80&w=1000",
+  "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&q=80&w=1000"
 ];
 
 export const CONTENT: { en: ContentText; ur: ContentText } = {
@@ -68,7 +68,7 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
       travelHistory: "Travel History"
     },
     hero: {
-      title: "Safar-e-Parbat",
+      title: "Safar-e-Parbat™",
       subtitle: "Join us on a quest to reveal the wonders of the natural world.",
       cta: "Explore Destinations"
     },
@@ -79,10 +79,10 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
     },
     aboutPage: {
       title: "Our Story",
-      storyTitle: "A Journey of Passion",
-      storyText: "Safar-e-Parbat was born out of a deep love for the majestic landscapes of Northern Pakistan. We believe that travel is not just about visiting a place; it's about experiencing its soul. Our team consists of local experts who know every trail, every hidden valley, and every story that makes these mountains legendary.",
+      storyTitle: "Our Journey of Passion",
+      storyText: "Our journey began with a deep passion for travel, nature, and the desire to reveal the hidden beauty of Pakistan to the world. What started as a dream soon became a mission to create unforgettable travel experiences filled with comfort, adventure, culture, and hospitality. At Safar-e-Parbat Travel & Tourism, we believe every journey should bring peace, joy, and meaningful memories. From the breathtaking mountains and valleys of Northern Pakistan to quality accommodation, delicious food, and professional travel services, we are committed to making every trip special and inspiring. Driven by passion and guided by trust, we continue to connect people with the beauty, culture, and natural wonders that Allah Almighty has blessed this land with.",
       missionTitle: "Our Mission",
-      missionText: "To show the world the true beauty of Pakistan through sustainable and culturally immersive tourism, ensuring that every journey leaves a positive impact on both the traveler and the local communities.",
+      missionText: "At Safar-e-Parbat Travel & Tourism, our mission is to introduce the breathtaking beauty of Pakistan to travelers from all walks of life by providing safe, comfortable, and memorable travel experiences. We are dedicated to showcasing the stunning valleys, majestic mountains, rivers, lakes, and cultural treasures of Northern Pakistan while ensuring quality hospitality, comfortable accommodation, delicious food, and professional travel services throughout every journey. Our goal is to inspire people to explore the natural wonders that Allah Almighty has blessed this land with, while promoting peace, cultural appreciation, responsible tourism, and unforgettable adventures. Through passion, trust, and excellent service, we strive to make every trip a journey filled with comfort, discovery, and lifelong memories.",
       whyUsTitle: "Why Choose Us",
       whyUsPoints: [
         "Expert Local Guides",
@@ -95,7 +95,7 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
         title: "Message from the CEO",
         name: "Shahid Amin Yasir",
         role: "Founder & CEO",
-        message: "Pakistan is a land of hidden gems, and Safar-e-Parbat is my personal invitation to you to explore it. My vision is not just to take you to these places, but to connect you with the soul of the mountains. We strive to provide hospitality that feels like home, ensuring every moment of your journey is filled with wonder and comfort."
+        message: "Welcome to Safar-e-Parbat Travel & Tourism — a journey inspired by the beauty of Allah’s creation and the rich cultural heritage of Pakistan. Pakistan is blessed with breathtaking mountains, peaceful valleys, crystal-clear lakes, and warm-hearted traditions that reflect both nature’s beauty and our cultural identity. Our mission is not only to provide travel services, but to help people explore, appreciate, and reconnect with the magnificent landscapes that Allah Almighty has gifted to this land. From the green valleys of Swat and Kalam to the majestic peaks of Hunza, Skardu, and Kashmir, we aim to create memorable, comfortable, and meaningful travel experiences for every traveler. At Safar-e-Parbat, we believe that travel is more than sightseeing — it is a way to discover peace, gratitude, culture, and the wonders of creation. We warmly welcome you to travel with us and experience the true beauty of Pakistan."
       }
     },
     features: {
@@ -152,7 +152,7 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
       travelHistory: "سفری تاریخ"
     },
     hero: {
-      title: "سفر پربت",
+      title: "سفر پربت™",
       subtitle: "قدرتی دنیا کے عجائبات کو ظاہر کرنے کے لیے ایک سفر پر ہمارے ساتھ شامل ہوں۔",
       cta: "مقامات دیکھیں"
     },
@@ -164,9 +164,9 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
     aboutPage: {
       title: "ہماری کہانی",
       storyTitle: "جذبے کا سفر",
-      storyText: "سفر پربت شمالی پاکستان کے شاندار مناظر سے گہری محبت کی وجہ سے وجود میں آیا۔ ہمارا ماننا ہے کہ سفر صرف کسی جگہ کا دورہ کرنا نہیں ہے؛ یہ اس کی روح کو محسوس کرنے کے بارے میں ہے۔ ہماری ٹیم مقامی ماہرین پر مشتمل ہے جو ہر راستے، ہر چھپی ہوئی وادی اور ہر اس کہانی کو جانتے ہیں جو ان پہاڑوں کو افسانوی بناتی ہے۔",
+      storyText: "ہمارا سفر مہم جوئی، فطرت اور پاکستان کی پوشیدہ خوبصورتی کو دنیا کے سامنے لانے کے گہرے جذبے کے ساتھ شروع ہوا۔ جو ایک خواب کے طور پر شروع ہوا وہ جلد ہی ایک مشن بن گیا تاکہ آرام، مہم جوئی، ثقافت اور بہترین مہمان نوازی سے بھرپور ناقابل فراموش سفری تجربات تخلیق کیے جا سکیں۔ سفرِ پربت ٹریول اینڈ ٹورازم میں ہمارا ماننا ہے کہ ہر سفر اپنے ساتھ سکون، خوشی اور بامعنی یادیں لے کر آئے۔ شمالی پاکستان کے دلکش پہاڑوں اور وادیوں سے لے کر معیاری رہائش، لذیذ کھانوں اور پیشہ ورانہ سفری خدمات تک، ہم ہر سفر کو خاص اور متاثر کن بنانے کے لیے پرعزم ہیں۔ جذبے سے متحرک اور بھروسے کی رہنمائی میں، ہم لوگوں کو ان خوبصورت مناظر، ثقافت اور قدرتی عجائبات سے جوڑنا جاری رکھے ہوئے ہیں جن سے اللہ تعالیٰ نے اس پاک سرزمین کو نوازا ہے۔",
       missionTitle: "ہمارا مشن",
-      missionText: "پائیدار اور ثقافتی سیاحت کے ذریعے دنیا کو پاکستان کی اصل خوبصورتی دکھانا، اس بات کو یقینی بنانا کہ ہر سفر مسافر اور مقامی برادریوں دونوں پر مثبت اثر چھوڑے۔",
+      missionText: "سفرِ پربت ٹریول اینڈ ٹورازم میں ہمارا مشن محفوظ، آرام دہ اور یادگار سفری تجربات فراہم کر کے زندگی کے تمام شعبوں سے تعلق رکھنے والے مسافروں کو پاکستان کی دلکش خوبصورتی سے روشناس کروانا ہے۔ ہم شمالی پاکستان کی شاندار وادیوں، عظیم الشان پہاڑوں، دریاؤں، جھیلوں اور ثقافتی خزانوں کو اجاگر کرنے کے لیے وقف ہیں جبکہ ہر سفر کے دوران معیاری مہمان نوازی، آرام دہ رہائش، لذیذ خوراک اور پیشہ ورانہ سفری خدمات کو یقینی بناتے ہیں۔ ہمارا مقصد لوگوں کو ان قدرتی عجائبات کی دریافت کے لیے متاثر کرنا ہے جن سے اللہ تعالیٰ نے اس سرزمین کو نوازا ہے، جبکہ امن، ثقافتی ستائش، ذمہ دارانہ سیاحت اور ناقابل فراموش مہم جوئی کو فروغ دینا ہے۔",
       whyUsTitle: "ہمیں کیوں منتخب کریں",
       whyUsPoints: [
         "ماہر مقامی گائیڈز",
@@ -179,7 +179,7 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
         title: "سی ای او کا پیغام",
         name: "شاہد امین یاسر",
         role: "بانی اور سی ای او",
-        message: "پاکستان چھپے ہوئے خزانوں کی سرزمین ہے، اور سفر پربت آپ کو اسے دریافت کرنے کی میری ذاتی دعوت ہے۔ میرا وژن صرف آپ کو ان جگہوں پر لے جانا نہیں ہے، بلکہ آپ کو پہاڑوں کی روح سے جوڑنا ہے۔ ہم ایسی مہمان نوازی فراہم کرنے کی کوشش کرتے ہیں جو گھر جیسا محسوس ہو، اور اس بات کو یقینی بناتے ہیں کہ آپ کے سفر کا ہر لمحہ حیرت اور سکون سے بھرا ہو۔"
+        message: "سفرِ پربت ٹریول اینڈ ٹورازم میں خوش آمدید — یہ ایک ایسا سفر ہے جو اللہ تعالیٰ کی خوبصورت تخلیق اور پاکستان کے بھرپور ثقافتی ورثے سے متاثر ہے۔ پاکستان عظیم الشان پہاڑوں، پرسکون وادیوں، صاف شفاف جھیلوں اور زندہ دل روایات سے مالا مال ہے جو فطرت کی خوبصورتی اور ہماری ثقافتی شناخت کی عکاسی کرتی ہیں۔ ہمارا مشن نہ صرف سفری خدمات فراہم کرنا ہے بلکہ لوگوں کو ان عظیم الشان مناظر کو دریافت کرنے، سراہنے اور ان سے دوبارہ جڑنے میں مدد کرنا ہے جو اللہ تعالیٰ نے اس سرزمین کو عطا کیے ہیں۔ وادی سوات اور کالام سے لے کر ہنزہ، سکردو اور کشمیر کی عظیم الشان چوٹیوں تک، ہمارا مقصد ہر مسافر کے لیے یادگار، آرام دہ اور معنی خیز سفری تجربات فراہم کرنا ہے۔ سفرِ پربت میں ہم سمجھتے ہیں کہ سفر محض سیر و سیاحت سے بڑھ کر ہے — یہ سکون، شکر گزاری، ثقافت اور تخلیق کے عجائبات کو دریافت کرنے کا ایک ذریعہ ہے۔ ہم آپ کو دل کی گہرائیوں سے خوش آمدید کہتے ہیں کہ ہمارے ساتھ سفر کریں اور پاکستان کی اصل خوبصورتی کا تجربہ کریں۔"
       }
     },
     features: {
@@ -230,17 +230,17 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
 export const PACKAGES: TourPackage[] = [
   {
     id: "1",
-    titleEn: "Hunza Valley Expedition",
-    titleUr: "وادی ہنزہ کی مہم",
-    locationEn: "Hunza, Gilgit-Baltistan",
-    locationUr: "ہنزہ، گلگت بلتستان",
+    titleEn: "Gilgit & Hunza - Crown of Karakoram",
+    titleUr: "گلگت اور ہنزہ - قراقرم کا تاج",
+    locationEn: "Gilgit & Hunza",
+    locationUr: "گلگت اور ہنزہ",
     price: "PKR 45,000",
     durationEn: "5 Days / 4 Nights",
     durationUr: "5 دن / 4 راتیں",
     image: GALLERY_IMAGES[3],
     rating: 5,
-    descriptionEn: "Experience the magic of Hunza Valley, often referred to as heaven on earth. From the ancient Baltit Fort to the turquoise waters of Attabad Lake, this expedition takes you through the rich history and breathtaking landscapes of Gilgit-Baltistan. Enjoy local hospitality, delicious organic food, and views of Rakaposhi that will stay with you forever.",
-    descriptionUr: "وادی ہنزہ کا جادو محسوس کریں جسے اکثر زمین پر جنت کہا جاتا ہے۔ قدیم بلتت قلعہ سے لے کر عطا آباد جھیل کے فیروزی پانیوں تک، یہ مہم آپ کو گلگت بلتستان کی بھرپور تاریخ اور دلکش مناظر کی سیر کراتی ہے۔ مقامی مہمان نوازی، لذیذ نامیاتی کھانوں، اور راکاپوشی کے نظاروں سے لطف اندوز ہوں جو ہمیشہ آپ کے ساتھ رہیں گے۔",
+    descriptionEn: "Gilgit and Hunza are among the most mesmerizing regions of Northern Pakistan, known for their breathtaking mountain scenery, rich cultural heritage, and crystal-clear rivers. These valleys serve as a gateway to some of the world’s highest peaks and offer an unforgettable experience for nature lovers and adventure seekers. Hunza Valley is famous for its stunning locations such as Karimabad, Baltit Fort, Altit Fort, Eagle’s Nest (Duikar), Attabad Lake, and the dramatic Hussaini Suspension Bridge. Together, Gilgit and Hunza represent a perfect blend of natural grandeur, cultural richness, and spiritual tranquility.",
+    descriptionUr: "گلگت اور ہنزہ شمالی پاکستان کے سب سے پرکشش علاقوں میں سے ہیں، جو اپنے دلکش پہاڑی مناظر، بھرپور ثقافتی ورثے اور شفاف دریاؤں کے لیے مشہور ہیں۔ یہ وادیاں دنیا کی بلند ترین چوٹیوں کے لیے ایک گیٹ وے کا کام کرتی ہیں۔ وادی ہنزہ کریم آباد، بلتت قلعہ، التیت قلعہ، ایگلز نیسٹ، عطا آباد جھیل اور حسینی معلق پل جیسے شاندار مقامات کے لیے مشہور ہے۔ مجموعی طور پر، گلگت اور ہنزہ قدرتی عظمت اور ثقافتی فراوانی کا ایک بہترین امتزاج پیش کرتے ہیں۔",
     itineraryEn: [
       "Day 1: Departure from Islamabad, travel to Chilas/Naran.",
       "Day 2: Travel to Hunza Valley via Babusar Top, visit Rakaposhi View Point.",
@@ -261,17 +261,17 @@ export const PACKAGES: TourPackage[] = [
   },
   {
     id: "2",
-    titleEn: "Skardu & Shangrila Resort",
-    titleUr: "سکردو اور شنگریلا ریزورٹ",
-    locationEn: "Skardu",
-    locationUr: "سکردو",
+    titleEn: "Skardu - Gateway to Heaven",
+    titleUr: "سکردو - جنت کا دروازہ",
+    locationEn: "Skardu, Baltistan",
+    locationUr: "سکردو، بلتستان",
     price: "PKR 55,000",
     durationEn: "7 Days / 6 Nights",
     durationUr: "7 دن / 6 راتیں",
     image: GALLERY_IMAGES[1],
     rating: 4.8,
-    descriptionEn: "Discover the rugged beauty of Skardu, gateway to the mighty K2. Visit the famous Shangrila Resort (Lower Kachura Lake), explore the Cold Desert of Katpana, and marvel at the Mantokha Waterfall. This tour blends adventure with serenity in the heart of the Karakoram.",
-    descriptionUr: "سکردو کی خوبصورتی دریافت کریں، جو کے ٹو کا دروازہ ہے۔ مشہور شنگریلا ریزورٹ (لوئر کچورا جھیل) کا دورہ کریں، کٹپانہ کے سرد صحرا کو دیکھیں، اور منتوکھا آبشار کے نظارے کریں۔ یہ دورہ قراقرم کے دل میں ایڈونچر اور سکون کا امتزاج ہے۔",
+    descriptionEn: "Skardu is one of the most breathtaking destinations in Northern Pakistan, often described as the gateway to some of the highest peaks in the world. The region is home to several iconic attractions, starting with Shangrila Resort and its famous Lower Kachura Lake, known for its unique beauty. The journey continues towards the majestic Deosai National Park, also known as the “Land of Giants,” which is one of the highest plateaus in the world. Skardu and its surrounding regions represent a heavenly landscape where nature reveals its purest form.",
+    descriptionUr: "سکردو شمالی پاکستان کے سب سے زیادہ دلکش مقامات میں سے ایک ہے، جسے اکثر دنیا کی بلند ترین چوٹیوں کا گیٹ وے کہا جاتا ہے۔ یہ خطہ کئی مشہور پرکشش مقامات کا گھر ہے، جس کا آغاز شنگریلا ریزورٹ اور اس کی مشہور لوئر کچورا جھیل سے ہوتا ہے۔ یہ سفر دیوسائی نیشنل پارک کی طرف بڑھتا ہے، جسے 'دیوؤں کی سرزمین' بھی کہا جاتا ہے، جو دنیا کے بلند ترین سطح مرتفع میں سے ایک ہے۔ سکردو قدرت کی خالص ترین شکل پیش کرتا ہے۔",
     itineraryEn: [
       "Day 1: Arrival in Skardu, check-in at hotel.",
       "Day 2: Visit Shangrila Resort and Upper Kachura Lake.",
@@ -296,17 +296,17 @@ export const PACKAGES: TourPackage[] = [
   },
   {
     id: "3",
-    titleEn: "Swat Valley - Switzerland of East",
-    titleUr: "وادی سوات - مشرق کا سوئٹزرلینڈ",
-    locationEn: "Swat, Kalam",
-    locationUr: "سوات، کالام",
+    titleEn: "Swat & Kalam - Jewel of North",
+    titleUr: "سوات اور کالام - شمال کا جوہر",
+    locationEn: "Swat & Kalam",
+    locationUr: "سوات اور کالام",
     price: "PKR 35,000",
     durationEn: "4 Days / 3 Nights",
     durationUr: "4 دن / 3 راتیں",
     image: GALLERY_IMAGES[6],
     rating: 4.9,
-    descriptionEn: "Explore the lush green valleys of Swat. Known as the Switzerland of the East, Swat offers majestic views of Malam Jabba, the roaring rivers of Kalam, and the dense forests of Ushu. Perfect for families and nature lovers looking for a refreshing escape.",
-    descriptionUr: "وادی سوات کی سرسبز وادیوں کی سیر کریں۔ مشرق کا سوئٹزرلینڈ کہلانے والا سوات مالم جبہ کے شاندار نظارے، کالام کے شور مچاتے دریا اور اوشو کے گھنے جنگلات پیش کرتا ہے۔ خاندانوں اور فطرت سے محبت کرنے والوں کے لیے ایک بہترین تفریح۔",
+    descriptionEn: "Swat and Kalam are among the most enchanting destinations in Northern Pakistan, blessed with extraordinary natural beauty, lush green valleys, crystal-clear rivers, and majestic mountains. Swat Valley, often called the “Switzerland of the East,” offers stunning landscapes and peaceful surroundings. Kalam Valley further enhances the beauty of this region with its magical landscapes, home to breathtaking spots such as Ushu Forest and Mahodand Lake. Together they represent the pure beauty of nature reflecting divine artistry.",
+    descriptionUr: "سوات اور کالام شمالی پاکستان کے سب سے منفر مقامات میں سے ہیں، جو غیر معمولی قدرتی حسن، سرسبز وادیوں اور شفاف دریاؤں سے مالا مال ہیں۔ وادی سوات، جسے اکثر 'مشرق کا سوئٹزرلینڈ' کہا جاتا ہے، شاندار مناظر پیش کرتی ہے۔ وادی کالام اپنے جادوئی مناظر جیسے اوشو جنگل اور مہوڈنڈ جھیل کے ساتھ اس خطے کی خوبصورتی میں مزید اضافہ کرتی ہے۔ سوات اور کالام فطرت کی خالص خوبصورتی کی نمائندگی کرتے ہیں۔",
     itineraryEn: [
       "Day 1: Drive to Swat, visit White Palace Marghazar.",
       "Day 2: Day trip to Malam Jabba Ski Resort.",
@@ -322,6 +322,66 @@ export const PACKAGES: TourPackage[] = [
     inclusionsEn: ["AC Coaster/Car", "Accommodation", "Breakfast", "Photography", "First Aid Kit"],
     inclusionsUr: ["اے سی کوسٹر/کار", "رہائش", "ناشتہ", "فوٹوگرافی", "فرسٹ ایڈ کٹ"],
     dates: "On Request"
+  },
+  {
+    id: "4",
+    titleEn: "Azad Kashmir - Paradise on Earth",
+    titleUr: "آزاد کشمیر - زمین پر جنت",
+    locationEn: "Neelum Valley, Kashmir",
+    locationUr: "وادی نیلم، کشمیر",
+    price: "PKR 38,000",
+    durationEn: "5 Days / 4 Nights",
+    durationUr: "5 دن / 4 راتیں",
+    image: GALLERY_IMAGES[5],
+    rating: 4.9,
+    descriptionEn: "Azad Kashmir is one of the most breathtaking and peaceful regions of Pakistan, famous for its lush green valleys, snow-covered mountains, crystal-clear rivers, and waterfalls. Often called the “Paradise on Earth,” Kashmir offers a perfect blend of natural beauty, culture, and serenity. Some of the most beautiful places include Muzaffarabad, Neelum Valley, Keran, Sharda, Arang Kel, Kel, Taobat, and Ratti Gali Lake. These destinations are known for their stunning landscapes and peaceful atmosphere.",
+    descriptionUr: "آزاد کشمیر پاکستان کے سب سے خوبصورت اور پرامن خطوں میں سے ایک ہے، جو اپنی سرسبز وادیوں، برف پوش پہاڑوں، شفاف دریاؤں اور آبشاروں کے لیے مشہور ہے۔ اکثر 'زمین پر جنت' کہلانے والا کشمیر قدرتی خوبصورتی، ثقافت اور سکون کا ایک بہترین امتزاج پیش کرتا ہے۔ مشہور مقامات میں مظفر آباد، وادی نیلم، کیرن، شاردہ، ارنگ کیل اور رتی گلی جھیل شامل ہیں۔ یہ مقامات اپنے شاندار مناظر اور پرامن ماحول کے لیے جانے جاتے ہیں۔",
+    itineraryEn: [
+      "Day 1: Departure for Muzaffarabad, visit Pir Chinasi.",
+      "Day 2: Travel to Keran and Sharda via Neelum Valley.",
+      "Day 3: Visit Arang Kel, the pearl of Neelum Valley.",
+      "Day 4: Trip to Kel and surrounding waterfalls.",
+      "Day 5: Return to Islamabad."
+    ],
+    itineraryUr: [
+      "دن 1: مظفر آباد کے لیے روانگی، پیر چناسی کا دورہ۔",
+      "دن 2: وادی نیلم کے راستے کیرن اور شاردہ کا سفر۔",
+      "دن 3: وادی نیلم کا موتی، ارنگ کیل کا دورہ۔",
+      "دن 4: کیل اور قریبی آبشاروں کا سفر۔",
+      "دن 5: اسلام آباد واپسی۔"
+    ],
+    inclusionsEn: ["Dedicated Transport", "Riverside Hotels", "Food & Guide", "Jeep for Kel"],
+    inclusionsUr: ["مخصوص ٹرانسپورٹ", "دریائے کنارے ہوٹل", "کھانا اور گائیڈ", "کیل کے لیے جیپ"],
+    dates: "Every Monday"
+  },
+  {
+    id: "5",
+    titleEn: "Naran & Kaghan - Valley of Lakes",
+    titleUr: "ناران اور کاغان - جھیلوں کی وادی",
+    locationEn: "Naran, Kaghan",
+    locationUr: "ناران، کاغان",
+    price: "PKR 32,000",
+    durationEn: "4 Days / 3 Nights",
+    durationUr: "4 دن / 3 راتیں",
+    image: HERO_SLIDES[0].image,
+    rating: 4.8,
+    descriptionEn: "Naran and Kaghan are among the most captivating valleys of Northern Pakistan, renowned for their snow-covered mountains, lush green meadows, crystal-clear lakes, and refreshing alpine atmosphere. The iconic Saif-ul-Malook Lake, legendary and surrounded by towering peaks, is the star attraction. Further ahead, Babusar Top connects the valley with Gilgit-Baltistan and offers spectacular panoramic views. The Kunhar River adds charm and thrill with activities like river rafting.",
+    descriptionUr: "ناران اور کاغان شمالی پاکستان کی سب سے دلکش وادیوں میں سے ایک ہیں، جو اپنے برف پوش پہاڑوں، سرسبز چراگاہوں، شفاف جھیلوں اور تروتازہ الپائن ماحول کے لیے مشہور ہیں۔ مشہور سیف الملوک جھیل، جو کہ بلند و بالا چوٹیوں میں گھری ہوئی ہے، یہاں کی اہم ترین کشش ہے۔ بابوسر ٹاپ وادی کو گلگت بلتستان سے جوڑتا ہے اور یہاں سے شاندار مناظر دیکھنے کو ملتے ہیں۔ دریائے کنہار یہاں کی خوبصورتی میں مزید اضافہ کرتا ہے۔",
+    itineraryEn: [
+      "Day 1: Departure, travel to Naran via Balakot.",
+      "Day 2: Visit Saif-ul-Malook Lake and Naran Bazaar.",
+      "Day 3: Full day trip to Lulusar Lake and Babusar Top.",
+      "Day 4: Riverside rafting and return to home city."
+    ],
+    itineraryUr: [
+      "دن 1: روانگی، بالاکوٹ کے راستے ناران کا سفر۔",
+      "دن 2: سیف الملوک جھیل اور ناران بازار کا دورہ۔",
+      "دن 3: لولوسر جھیل اور بابوسر ٹاپ کا پورا دن کا سفر۔",
+      "دن 4: ریور رافٹنگ اور واپسی کا سفر۔"
+    ],
+    inclusionsEn: ["Hotel Accommodation", "Standard Transport", "Breakfast", "Guide Service"],
+    inclusionsUr: ["ہوٹل کی رہائش", "معیاری ٹرانسپورٹ", "ناشتہ", "گائیڈ سروس"],
+    dates: "Weekends Only"
   }
 ];
 

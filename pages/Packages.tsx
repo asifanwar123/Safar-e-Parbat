@@ -54,6 +54,7 @@ const Packages: React.FC<PackagesProps> = ({ lang }) => {
                       src={pkg.image} 
                       alt={pkg.titleEn} 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                      referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-4 right-4 bg-white/95 px-3 py-1 rounded-full text-sm font-bold text-amber-500 flex items-center gap-1 shadow-sm">
                     <Star size={14} fill="currentColor" /> {pkg.rating}

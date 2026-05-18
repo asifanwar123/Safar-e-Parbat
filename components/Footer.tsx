@@ -30,8 +30,13 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
           {/* Brand Info */}
           <div className={`space-y-6 ${isUrdu ? 'order-last md:order-first' : ''}`}>
             <div className={`flex items-center gap-3 ${isUrdu ? 'flex-row-reverse justify-start' : ''}`}>
-               <img src={LOGO_URL} alt="Safar-e-Parbat" className="h-14 w-14 rounded-full border-2 border-brand-500 shadow-lg" />
-               <h3 className={`text-2xl font-bold tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>{lang === 'en' ? 'Safar-e-Parbat' : 'سفر پربت'}</h3>
+               <img src={LOGO_URL} alt="Safar-e-Parbat" className="h-14 w-14 rounded-full border-2 border-brand-500 shadow-lg" referrerPolicy="no-referrer" />
+               <div className={`flex flex-col leading-tight ${isUrdu ? 'items-end' : 'items-start'}`}>
+                  <h3 className={`text-2xl font-bold tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>{lang === 'en' ? 'Safar-e-Parbat™' : 'سفر پربت™'}</h3>
+                  <span className={`text-[10px] md:text-xs font-medium text-brand-400 tracking-[0.2em] uppercase italic ${isUrdu ? 'font-urdu' : ''}`}>
+                    {lang === 'en' ? 'Travel & Tourism' : 'ٹریول اینڈ ٹورازم'}
+                  </span>
+               </div>
             </div>
             <p className={`text-gray-300 leading-relaxed text-sm md:text-base opacity-90 ${isUrdu ? 'font-urdu' : ''}`}>
               {lang === 'en' ? 
@@ -112,7 +117,7 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
 
         <div className="border-t border-brand-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm gap-4">
           <div className={`flex flex-col sm:flex-row items-center gap-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
-            <p>© {new Date().getFullYear()} Safar-e-Parbat. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Safar-e-Parbat™. All rights reserved.</p>
             <span className="hidden sm:inline opacity-30">|</span>
             <p className="flex items-center gap-1">
               {isUrdu ? 'تیار کردہ: ' : 'Developed by '}

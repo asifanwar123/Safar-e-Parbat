@@ -25,6 +25,7 @@ const PartnerLogo = ({ partner }: { partner: any }) => {
         className="h-12 md:h-16 w-auto max-w-[150px] object-contain filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300" 
         onError={() => setImgError(true)}
         loading="lazy"
+        referrerPolicy="no-referrer"
       />
     );
   }
@@ -172,9 +173,10 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
                   <div className="w-full lg:w-1/2 relative group px-4 lg:px-0">
                       <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl transform transition duration-500 hover:scale-[1.02]">
                           <img 
-                            src="https://images.pexels.com/photos/19442078/pexels-photo-19442078.jpeg" 
+                            src="https://images.unsplash.com/photo-1596328546171-77e37b5f8b2d?auto=format&fit=crop&q=80&w=1000" 
                             alt="Northern Pakistan Landscape" 
                             className="w-full h-[400px] lg:h-[500px] object-cover"
+                            referrerPolicy="no-referrer"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                           <div className={`absolute bottom-6 left-6 right-6 text-white ${isUrdu ? 'text-right' : ''}`}>
@@ -189,7 +191,7 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
                       
                       {/* Floating secondary image */}
                       <div className={`absolute -bottom-10 -right-4 lg:-right-10 w-40 h-40 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-xl border-4 border-white z-20 hidden md:block transform transition duration-500 hover:scale-105 hover:rotate-3 ${isUrdu ? '-left-10 right-auto' : ''}`}>
-                          <img src={GALLERY_IMAGES[0]} alt="Detail" className="w-full h-full object-cover" />
+                          <img src={GALLERY_IMAGES[0]} alt="Detail" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                       </div>
 
                       {/* Decoration dots */}
@@ -265,7 +267,7 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
             {displayPackages.map((pkg) => (
               <Link key={pkg.id} to={`/packages/${pkg.id}`} className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="h-56 md:h-64 overflow-hidden relative">
-                   <img src={pkg.image} alt={pkg.titleEn} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                   <img src={pkg.image} alt={pkg.titleEn} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" referrerPolicy="no-referrer" />
                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-1 text-sm font-bold text-amber-500 shadow-sm">
                       <Star size={14} fill="currentColor" /> {pkg.rating}
                    </div>
@@ -296,7 +298,7 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
             </div>
             <div className="grid grid-cols-3 h-full">
                 {showcaseImages.map((img, i) => (
-                    <img key={i} src={img} alt="Gallery" className="w-full h-full object-cover" />
+                    <img key={i} src={img} alt="Gallery" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 ))}
             </div>
         </div>
@@ -415,6 +417,7 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
                       src={item.images[0]} 
                       alt={item.title} 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      referrerPolicy="no-referrer"
                     />
                     <div className="absolute top-4 left-4 bg-black/60 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md flex items-center gap-1">
                       <Calendar size={12} />

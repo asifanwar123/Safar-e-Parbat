@@ -11,7 +11,7 @@ import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 import TravelHistory from './pages/TravelHistory';
-import WhatsAppButton from './components/WhatsAppButton';
+import FloatingInquiry from './components/FloatingInquiry';
 import AdminButton from './components/AdminButton';
 import { Language, VisitorLog } from './types';
 import { DataProvider, useData } from './context/DataContext';
@@ -119,7 +119,7 @@ const App: React.FC = () => {
                 <Route path="/admin" element={<Admin />} />
             </Routes>
             </main>
-            <WhatsAppButton />
+            <FloatingInquiry lang={lang} />
             <AdminButton />
             <Footer lang={lang} />
         </div>
