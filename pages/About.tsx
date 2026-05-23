@@ -42,6 +42,26 @@ const About: React.FC<AboutProps> = ({ lang }) => {
            </div>
         </div>
 
+        <div className="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl mb-16 md:mb-24 group">
+           <img 
+             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkneqir5evMb9aN6XKxg4N68Yhne3CyznQi-piVKt4crJ_GTdkQA60MMGI39AYU2iqG9JmtrplZDpH9e0HwrlLT2aha7ohxRYZjEocVhZW_l_eyTuDTyXEE1zJLI9JbPoDcxNyjYy6olCqhk8XyjRpN6WYrjGJ-1ngNLkw-G3jCrAWzEjeGaAXiGrcZDE/s320/tourism-in-pakistan.jpeg" 
+             alt="Our Story Since 2008" 
+             className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
+             referrerPolicy="no-referrer" 
+           />
+           <div className="absolute inset-0 flex items-center justify-center p-4">
+             <div className="bg-white/90 backdrop-blur-sm px-8 py-4 rounded-2xl shadow-xl transform transition-transform group-hover:scale-105">
+               <h3 className="text-2xl md:text-4xl font-bold">
+                 <span className="text-brand-600">Our </span>
+                 <span className="text-amber-500">Story </span>
+                 <span className="text-emerald-500">- </span>
+                 <span className="text-blue-600">Since </span>
+                 <span className="text-purple-600">2008</span>
+               </h3>
+             </div>
+           </div>
+        </div>
+
         {/* CEO Section - Responsive Stack */}
         <div className="mb-16 md:mb-24 bg-brand-50 rounded-3xl p-6 md:p-12 border border-brand-100 shadow-lg relative overflow-hidden">
            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-brand-200 rounded-full opacity-20 hidden md:block"></div>

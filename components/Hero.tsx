@@ -49,7 +49,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
           {HERO_SLIDES.map((slide, index) => (
              <div 
                key={index}
-               className={`absolute inset-0 transition-all duration-[1500ms] ease-in-out ${index === currentSlide ? 'opacity-100 scale-100 z-0' : 'opacity-0 scale-110 -z-10'}`}
+               className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 z-0' : 'opacity-0 -z-10'}`}
              >
                 <img 
                   src={slide.image} 
