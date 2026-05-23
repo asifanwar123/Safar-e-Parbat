@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import CommentsSection from '../components/CommentsSection';
+import RegionalTours from '../components/RegionalTours';
 import { Mountain, Users, Camera, Star, Quote, MapPin, Bus, Zap, Moon, Compass, Shield, Wind, Calendar, ArrowRight, ArrowLeft } from 'lucide-react';
 import { Language, Comment } from '../types';
 import { CONTENT, GALLERY_IMAGES, TESTIMONIALS, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
@@ -250,6 +251,9 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
               </div>
           </div>
       </section>
+
+      {/* Specialty Regional Expeditions (Departures directly from Multan) */}
+      <RegionalTours lang={lang} />
 
       {/* Featured Tours Preview */}
       <section className="py-12 md:py-20 px-4 max-w-7xl mx-auto">

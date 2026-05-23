@@ -48,8 +48,8 @@ const About: React.FC<AboutProps> = ({ lang }) => {
            
            <div className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10 ${isUrdu ? 'md:flex-row-reverse text-center md:text-right' : 'text-center md:text-left'}`}>
               <div className="flex-shrink-0 relative group">
-                  <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white shadow-2xl mx-auto">
-                      <img src={CEO_IMAGE} alt={t.ceo.name} className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500" referrerPolicy="no-referrer" />
+                  <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden p-1 bg-gradient-to-tr from-brand-400 to-amber-300 shadow-2xl mx-auto">
+                      <img src={CEO_IMAGE} alt={t.ceo.name} className="w-full h-full object-cover rounded-full transform group-hover:scale-105 transition duration-500" referrerPolicy="no-referrer" />
                   </div>
                   <div className={`absolute bottom-2 md:bottom-4 right-1/2 translate-x-1/2 md:translate-x-0 md:right-4 bg-brand-600 text-white p-2 rounded-full shadow-lg ${isUrdu ? 'md:left-4 md:right-auto' : ''}`}>
                       <Quote className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" />

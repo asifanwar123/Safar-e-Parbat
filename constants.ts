@@ -8,36 +8,36 @@ export const JSONBIN_API_KEY = "$2a$10$/qi1Zoc8utnIY0RYjMNFru34QUTYbjaoJx5wozQy/
 // Images provided by user
 export const LOGO_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUK_9ZCdRlExTL1aNv63P2ncbFpEO60hL4XA&s";
 export const HERO_BG = "https://images.squarespace-cdn.com/content/v1/5a815ad2e45a7c1f4ef40fb8/1532605992397-SQJ512NRWU905CM1VUUL/k2-banner.jpg";
-export const CEO_IMAGE = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800";
+export const CEO_IMAGE = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeSJQ0epExp8xGd1rEYug2-AeDoAgDsBNKCgNMDOSR9W8T0iCEWWiFtVPPR-mf15pk6IA2a0OoE13yCn9_LmY7vB2vEIaaUuDnO5UqCF4LCNoonHB3MAbnN_LK83kbAaKX4A3n7-KvoZO57Y9h9-KdWReHycQ_qk_NOpKSh1aR7YulhNqVePLwTdzFeJk/s320/Founder%20&%20CEO%20Shahid%20Amin%20Yasir.jpeg";
 
 export const HERO_SLIDES = [
   {
-    image: "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&q=80&w=1920",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXNfoOW8gkcMJT4oB8U9ek5VU99sbX8iN5Wexb90sxtida_FpqS5MKUeyMvyn29CQ0HPckkRVAcweYacBGuW6-AgKMiyEifswoBmrp17rS_6zZQcqCzPto3M1skyEW4EFpMTdUrKs-91Tv-ehgGdZw9vvoajqt0L58-PI3S60idcSSNmTBeuuPffrKph0/s320/Saif-ul-malook%20Lake.jpg",
     name: "Saif-ul-Malook Lake",
     accentColor: "text-cyan-300"
   },
   {
-    image: "https://images.unsplash.com/photo-1588824345504-8742f1a60e04?auto=format&fit=crop&q=80&w=1920",
-    name: "Qila Darawar",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdPH7UOJkonW2Aqs9w-AQlmRZREmTLGchyphenhyphen5fFqoXwP8wEgjzhjUheQpg4Yq9fp6zQJxKdGMPTvB-PqBy5tE36pIAAvnUytGifDLrFxyhGiu6AhdJiM_bbJ1dE8DSxQ60t1D00Oic2lPhyphenhyphen_AxpHzdamniEU0H-Top1DdxXDuvypjPf6LphU7g61D9PKBms/s320/Derawar-Fort-Cholistan-Desert.jpg",
+    name: "Darawar Fort",
     accentColor: "text-amber-500"
   },
   {
-    image: "https://images.unsplash.com/photo-1596328546171-77e37b5f8b2d?auto=format&fit=crop&q=80&w=1920",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7HKpyAjiDZWe0noR-9fCSTDth_o4YW5-DM6KESUmSn5MGEVjk6zPJwEfBUi_gs8BlgdxVPVObIG8tsMdTymTW0RN0sD6kjdxNgAneoe_hKvrR5sF1yCE2gcVYVfkOv3XywiSoAkL0NAjJoBQLdnCa1UTPGhKaCPtEsx25LYzd5UNz0bKn5qgTuaq7HTw/s320/Sakurdu.jpg",
     name: "Shangrila Lake",
     accentColor: "text-emerald-400"
   },
   {
-    image: "https://images.unsplash.com/photo-1622546758596-f1f06ba11f58?auto=format&fit=crop&q=80&w=1920",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCASpap2OIwRvtBjvMNILXOnvqzrGAHyb4HnLWfK5u-2ntvnDtRxcFMzG83GY3CwZPlreczK556VPd0EWLCFMY0IKrt_YIUvauTsf-MXs1XblyqtidfZT4xwIKs_8Lo-tkDYLcVAx81d9iveER_n1kiRAMEi8VZ08An2bbiRhhTZgzRA653lwO-U6ywuE/s320/image_5612.jpg",
     name: "Gilgit Valley",
     accentColor: "text-orange-300"
   },
   {
-    image: "https://images.unsplash.com/photo-1608235287425-42f53d105234?auto=format&fit=crop&q=80&w=1920",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s320/Kashmir.jpg",
     name: "Kashmir Valley",
     accentColor: "text-green-300"
   },
   {
-    image: "https://images.unsplash.com/photo-1627895357710-4cb56c74d112?auto=format&fit=crop&q=80&w=1920",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrauQtzBA2i1GDUdUdMYDQOkSVME6SXa57pKaitXHbL5Y-7C4M5p-Elws94gYYRjYrxNa3D4dKpHRKOCDNdLueZFZRW28m6lxAXLatpOe8SnIEx4NUtzU9u0_FUVHgB78dneRg1kt7I-VGsb87JnltiL3TqAXAZl3hNPUtIR2aFLiFYrb-z1pXGJeT04g/s320/Passu-Cones.webp",
     name: "Passu Cones",
     accentColor: "text-yellow-400"
   }
@@ -237,7 +237,7 @@ export const PACKAGES: TourPackage[] = [
     price: "PKR 45,000",
     durationEn: "5 Days / 4 Nights",
     durationUr: "5 دن / 4 راتیں",
-    image: "https://hunzaadventuretours.com/wp-content/uploads/2020/09/Atumn-Tours-to-Hunza-Valley-Pakistan.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJgN9NMk-G2VFGjDEcwzIEMwmiJRJAOmGKcZx4EgqIXs0XFxq68jIL358oRmVpVq_3v7wtAkDGM76PuV5uamuqrC3NZSiVohrcf5s3TX-yh5VKnZEMYaz_O-Lg4yBSCGs3kScyKKCwJcC8xzNaPbw2fdoHWvP8Xx2YOv1EatoSdRv6C6bqanuiMT7kMog/s320/Hunza-Valley.webp",
     rating: 5,
     descriptionEn: "Gilgit and Hunza are among the most mesmerizing regions of Northern Pakistan, known for their breathtaking mountain scenery, rich cultural heritage, and crystal-clear rivers. These valleys serve as a gateway to some of the world’s highest peaks and offer an unforgettable experience for nature lovers and adventure seekers. Hunza Valley is famous for its stunning locations such as Karimabad, Baltit Fort, Altit Fort, Eagle’s Nest (Duikar), Attabad Lake, and the dramatic Hussaini Suspension Bridge. Together, Gilgit and Hunza represent a perfect blend of natural grandeur, cultural richness, and spiritual tranquility.",
     descriptionUr: "گلگت اور ہنزہ شمالی پاکستان کے سب سے پرکشش علاقوں میں سے ہیں، جو اپنے دلکش پہاڑی مناظر، بھرپور ثقافتی ورثے اور شفاف دریاؤں کے لیے مشہور ہیں۔ یہ وادیاں دنیا کی بلند ترین چوٹیوں کے لیے ایک گیٹ وے کا کام کرتی ہیں۔ وادی ہنزہ کریم آباد، بلتت قلعہ، التیت قلعہ، ایگلز نیسٹ، عطا آباد جھیل اور حسینی معلق پل جیسے شاندار مقامات کے لیے مشہور ہے۔ مجموعی طور پر، گلگت اور ہنزہ قدرتی عظمت اور ثقافتی فراوانی کا ایک بہترین امتزاج پیش کرتے ہیں۔",
@@ -268,7 +268,7 @@ export const PACKAGES: TourPackage[] = [
     price: "PKR 55,000",
     durationEn: "7 Days / 6 Nights",
     durationUr: "7 دن / 6 راتیں",
-    image: "https://northbackend.northonwheels.com/storage/uploads/image_5620.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7HKpyAjiDZWe0noR-9fCSTDth_o4YW5-DM6KESUmSn5MGEVjk6zPJwEfBUi_gs8BlgdxVPVObIG8tsMdTymTW0RN0sD6kjdxNgAneoe_hKvrR5sF1yCE2gcVYVfkOv3XywiSoAkL0NAjJoBQLdnCa1UTPGhKaCPtEsx25LYzd5UNz0bKn5qgTuaq7HTw/s320/Sakurdu.jpg",
     rating: 4.8,
     descriptionEn: "Skardu is one of the most breathtaking destinations in Northern Pakistan, often described as the gateway to some of the highest peaks in the world. The region is home to several iconic attractions, starting with Shangrila Resort and its famous Lower Kachura Lake, known for its unique beauty. The journey continues towards the majestic Deosai National Park, also known as the “Land of Giants,” which is one of the highest plateaus in the world. Skardu and its surrounding regions represent a heavenly landscape where nature reveals its purest form.",
     descriptionUr: "سکردو شمالی پاکستان کے سب سے زیادہ دلکش مقامات میں سے ایک ہے، جسے اکثر دنیا کی بلند ترین چوٹیوں کا گیٹ وے کہا جاتا ہے۔ یہ خطہ کئی مشہور پرکشش مقامات کا گھر ہے، جس کا آغاز شنگریلا ریزورٹ اور اس کی مشہور لوئر کچورا جھیل سے ہوتا ہے۔ یہ سفر دیوسائی نیشنل پارک کی طرف بڑھتا ہے، جسے 'دیوؤں کی سرزمین' بھی کہا جاتا ہے، جو دنیا کے بلند ترین سطح مرتفع میں سے ایک ہے۔ سکردو قدرت کی خالص ترین شکل پیش کرتا ہے۔",
@@ -303,7 +303,7 @@ export const PACKAGES: TourPackage[] = [
     price: "PKR 38,000",
     durationEn: "5 Days / 4 Nights",
     durationUr: "5 دن / 4 راتیں",
-    image: "https://summitk2.com/wp-content/uploads/2025/10/kashmir-iv.webp",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s320/Kashmir.jpg",
     rating: 4.9,
     descriptionEn: "Azad Kashmir is one of the most breathtaking and peaceful regions of Pakistan, famous for its lush green valleys, snow-covered mountains, crystal-clear rivers, and waterfalls. Often called the “Paradise on Earth,” Kashmir offers a perfect blend of natural beauty, culture, and serenity. Some of the most beautiful places include Muzaffarabad, Neelum Valley, Keran, Sharda, Arang Kel, Kel, Taobat, and Ratti Gali Lake. These destinations are known for their stunning landscapes and peaceful atmosphere.",
     descriptionUr: "آزاد کشمیر پاکستان کے سب سے خوبصورت اور پرامن خطوں میں سے ایک ہے، جو اپنی سرسبز وادیوں، برف پوش پہاڑوں، شفاف دریاؤں اور آبشاروں کے لیے مشہور ہے۔ اکثر 'زمین پر جنت' کہلانے والا کشمیر قدرتی خوبصورتی، ثقافت اور سکون کا ایک بہترین امتزاج پیش کرتا ہے۔ مشہور مقامات میں مظفر آباد، وادی نیلم، کیرن، شاردہ، ارنگ کیل اور رتی گلی جھیل شامل ہیں۔ یہ مقامات اپنے شاندار مناظر اور پرامن ماحول کے لیے جانے جاتے ہیں۔",
