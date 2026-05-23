@@ -33,8 +33,8 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
                <img src={LOGO_URL} alt="Safar-e-Parbat" className="h-14 w-14 rounded-full border-2 border-brand-500 shadow-lg" referrerPolicy="no-referrer" />
                <div className={`flex flex-col leading-tight ${isUrdu ? 'items-end' : 'items-start'}`}>
                   <h3 className={`text-2xl font-bold tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>{lang === 'en' ? 'Safar-e-Parbat™' : 'سفر پربت™'}</h3>
-                  <span className={`text-[10px] md:text-xs font-medium text-brand-400 tracking-[0.2em] uppercase italic ${isUrdu ? 'font-urdu' : ''}`}>
-                    {lang === 'en' ? 'Travel & Tourism' : 'ٹریول اینڈ ٹورازم'}
+                  <span className={`text-[10px] md:text-xs font-medium text-brand-400 tracking-[0.05em] uppercase italic ${isUrdu ? 'font-urdu' : ''}`}>
+                    {lang === 'en' ? 'Travel & Tourism (SMC Private) Limited' : 'ٹریول اینڈ ٹورازم (ایس ایم سی پرائیویٹ) لمیٹڈ'}
                   </span>
                </div>
             </div>

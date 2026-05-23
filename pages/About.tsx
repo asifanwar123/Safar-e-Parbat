@@ -42,15 +42,15 @@ const About: React.FC<AboutProps> = ({ lang }) => {
            </div>
         </div>
 
-        <div className="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl mb-16 md:mb-24 group">
+        <div className="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl mb-16 md:mb-24 group border-4 border-white/50">
            <img 
              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkneqir5evMb9aN6XKxg4N68Yhne3CyznQi-piVKt4crJ_GTdkQA60MMGI39AYU2iqG9JmtrplZDpH9e0HwrlLT2aha7ohxRYZjEocVhZW_l_eyTuDTyXEE1zJLI9JbPoDcxNyjYy6olCqhk8XyjRpN6WYrjGJ-1ngNLkw-G3jCrAWzEjeGaAXiGrcZDE/s320/tourism-in-pakistan.jpeg" 
              alt="Our Story Since 2008" 
-             className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
+             className="w-full h-full object-cover rounded-3xl transform group-hover:scale-105 transition duration-1000 ease-in-out" 
              referrerPolicy="no-referrer" 
            />
            <div className="absolute inset-0 flex items-center justify-center p-4">
-             <div className="bg-white/90 backdrop-blur-sm px-8 py-4 rounded-2xl shadow-xl transform transition-transform group-hover:scale-105">
+             <div className="bg-white/90 backdrop-blur-md px-8 py-4 rounded-2xl shadow-xl transform transition-transform duration-500 group-hover:scale-105">
                <h3 className="text-2xl md:text-4xl font-bold">
                  <span className="text-brand-600">Our </span>
                  <span className="text-amber-500">Story </span>
@@ -63,7 +63,7 @@ const About: React.FC<AboutProps> = ({ lang }) => {
         </div>
 
         {/* CEO Section - Responsive Stack */}
-        <div className="mb-16 md:mb-24 bg-brand-50 rounded-3xl p-6 md:p-12 border border-brand-100 shadow-lg relative overflow-hidden">
+        <div className="mb-16 md:mb-24 bg-brand-50 rounded-3xl p-6 md:p-12 border border-brand-100 shadow-lg relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-brand-200">
            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-brand-200 rounded-full opacity-20 hidden md:block"></div>
            
            <div className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10 ${isUrdu ? 'md:flex-row-reverse text-center md:text-right' : 'text-center md:text-left'}`}>

@@ -55,8 +55,8 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
                 <span className={`text-xl md:text-2xl font-bold text-brand-800 ${isUrdu ? 'font-urdu' : 'font-sans'}`}>
                   {lang === 'en' ? 'Safar-e-Parbat™' : 'سفر پربت™'}
                 </span>
-                <span className={`text-[10px] md:text-xs font-medium text-brand-600 tracking-[0.2em] uppercase italic ${isUrdu ? 'font-urdu text-right' : 'font-sans'}`}>
-                  {lang === 'en' ? 'Travel & Tourism' : 'ٹریول اینڈ ٹورازم'}
+                <span className={`text-[10px] md:text-xs font-medium text-brand-600 tracking-[0.05em] uppercase italic ${isUrdu ? 'font-urdu text-right' : 'font-sans'}`}>
+                  {lang === 'en' ? 'Travel & Tourism (SMC Private) Limited' : 'ٹریول اینڈ ٹورازم (ایس ایم سی پرائیویٹ) لمیٹڈ'}
                 </span>
               </div>
             </Link>
