@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import CommentsSection from '../components/CommentsSection';
 import RegionalTours from '../components/RegionalTours';
-import { Mountain, Users, Camera, Star, Quote, MapPin, Bus, Zap, Moon, Compass, Shield, Wind, Calendar, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Mountain, Users, Camera, Star, Quote, MapPin, Bus, Zap, Moon, Compass, Shield, Wind, Calendar, ArrowRight, ArrowLeft, Award } from 'lucide-react';
 import { Language, Comment } from '../types';
 import { CONTENT, GALLERY_IMAGES, TESTIMONIALS, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
 import { Link } from 'react-router-dom';
@@ -137,27 +137,80 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
     <div className="bg-gray-50">
       <Hero lang={lang} />
 
-      {/* Trusted Partners Section */}
-      <section className="bg-white py-10 border-b border-gray-100 overflow-hidden relative">
-          <div className="max-w-7xl mx-auto px-4 mb-8 text-center">
-            <p className={`text-sm md:text-base font-bold text-gray-400 uppercase tracking-[0.2em] ${isUrdu ? 'font-urdu' : ''}`}>
-               {isUrdu ? 'ہمارے قابل اعتماد سفری شراکت دار' : 'Our Trusted Travel Partners'}
-            </p>
-          </div>
-          
-          <div className="relative w-full">
-            {/* Gradient Masks */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+      {/* Our Registrations Section */}
+      <section className="bg-white py-14 border-b border-gray-100 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 relative z-10">
+              <div className="text-center max-w-3xl mx-auto mb-12">
+                  <span className={`inline-block text-xs font-bold bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full uppercase tracking-wider mb-3 ${isUrdu ? 'font-urdu' : ''}`}>
+                      {isUrdu ? 'حکومتی منظوری اور قانونی رجسٹریشن' : 'Government Approved & Legally Registered'}
+                  </span>
+                  <h2 className={`text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>
+                      {isUrdu ? 'ہماری رجسٹریشنز' : 'Our Official Registrations'}
+                  </h2>
+                  <div className="w-16 h-1 bg-brand-500 mx-auto mt-4 rounded-full"></div>
+              </div>
 
-            <div className="flex w-max animate-scroll hover:[animation-play-state:paused] items-center will-change-transform">
-                {/* Triple the list for seamless looping on wide screens */}
-                {[...partners, ...partners, ...partners].map((partner, index) => (
-                    <div key={index} className={`mx-4 md:mx-6 px-6 py-4 rounded-xl border-2 ${partner.border} ${partner.bg} flex items-center justify-center min-w-[200px] md:min-w-[240px] h-24 shadow-sm transform transition hover:scale-105 hover:shadow-md cursor-default group`}>
-                        <PartnerLogo partner={partner} />
-                    </div>
-                ))}
-            </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {/* Card 1: SECP */}
+                  <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100 hover:border-emerald-200 transition-all duration-300 hover:shadow-xl group">
+                      <div className="flex items-center gap-4 mb-6">
+                          <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                              <Shield size={32} className="stroke-2" />
+                          </div>
+                          <div>
+                              <h3 className={`text-xl font-bold text-gray-900 ${isUrdu ? 'font-urdu' : ''}`}>
+                                  {isUrdu ? 'SECP رجسٹرڈ' : 'SECP Registered'}
+                              </h3>
+                              <p className="text-xs text-gray-500 uppercase font-semibold">{isUrdu ? 'سیکیورٹیز اینڈ ایکسچینج کمیشن' : 'Securities & Exchange Commission'}</p>
+                          </div>
+                      </div>
+                      <p className={`text-gray-600 text-sm leading-relaxed ${isUrdu ? 'font-urdu text-right' : 'text-left'}`}>
+                          {isUrdu 
+                            ? 'سیکیورٹیز اینڈ ایکسچینج کمیشن آف پاکستان سے باقاعدہ رجسٹرڈ، جو ملک کے تمام کارپوریٹ اور سفری قوانین کے مطابق کارپوریٹ سطح پر مکمل قانونی تحفظ فراہم کرتا ہے۔' 
+                            : 'Officially registered under the Securities and Exchange Commission of Pakistan, complying with corporate regulations to ensure absolute legality & transparency.'}
+                      </p>
+                  </div>
+
+                  {/* Card 2: DTS */}
+                  <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100 hover:border-brand-200 transition-all duration-300 hover:shadow-xl group">
+                      <div className="flex items-center gap-4 mb-6">
+                          <div className="w-16 h-16 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                              <Compass size={32} className="stroke-2" />
+                          </div>
+                          <div>
+                              <h3 className={`text-xl font-bold text-gray-900 ${isUrdu ? 'font-urdu' : ''}`}>
+                                  {isUrdu ? 'DTS لائسنس یافتہ' : 'DTS Licensed'}
+                              </h3>
+                              <p className="text-xs text-gray-500 uppercase font-semibold">{isUrdu ? 'محکمہ سیاحتی خدمات' : 'Department of Tourist Services'}</p>
+                          </div>
+                      </div>
+                      <p className={`text-gray-600 text-sm leading-relaxed ${isUrdu ? 'font-urdu text-right' : 'text-left'}`}>
+                          {isUrdu 
+                            ? 'محکمہ سیاحتی خدمات (ڈیپارٹمنٹ آف ٹورسٹ سروسز) حکومتِ پاکستان سے لائسنس حاصل کردہ باضابطہ ٹور آپریٹر، جو ہر سفر کو محفوظ اور یادگار بنانے کے عزم کے ساتھ سرگرمِ عمل ہے۔' 
+                            : 'Licensed tourist operator by the Department of Tourist Services (DTS), Government of Pakistan, authorized to deliver top-tier guest experiences nationwide.'}
+                      </p>
+                  </div>
+
+                  {/* Card 3: IPO-Pakistan Trademark */}
+                  <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100 hover:border-amber-200 transition-all duration-300 hover:shadow-xl group">
+                      <div className="flex items-center gap-4 mb-6">
+                          <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                              <Award size={32} className="stroke-2" />
+                          </div>
+                          <div>
+                              <h3 className={`text-xl font-bold text-gray-900 ${isUrdu ? 'font-urdu text-lg' : ''}`}>
+                                  {isUrdu ? 'ٹریڈ مارکس رجسٹری (TMR)' : 'Trade Marks Registry (TMR)'}
+                              </h3>
+                              <p className="text-xs text-gray-500 uppercase font-semibold">{isUrdu ? 'آئی پی او پاکستان کے تحت' : 'Under IPO-Pakistan'}</p>
+                          </div>
+                      </div>
+                      <p className={`text-gray-600 text-sm leading-relaxed ${isUrdu ? 'font-urdu text-right' : 'text-left'}`}>
+                          {isUrdu 
+                            ? 'ٹریڈ مارکس رجسٹری (TMR) سے باضابطہ رجسٹرڈ، جو انٹلیکچوئل پراپرٹی آرگنائزیشن آف پاکستان (IPO-Pakistan) کے تحت کام کرتی ہے۔ "سفرِ پربت" ایک قانونی طور پر محفوظ اور رجسٹرڈ ٹریڈ مارک ہے۔' 
+                            : 'Registered with the Trade Marks Registry (TMR), which operates under the Intellectual Property Organization of Pakistan (IPO-Pakistan). "Safar-e-Parbat" is a legally protected and registered trademark.'}
+                      </p>
+                  </div>
+              </div>
           </div>
       </section>
 
@@ -414,38 +467,41 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {displayHistory.length > 0 ? (
-              displayHistory.map((item) => (
-                <Link key={item.id} to="/travel-history" className="group block bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
-                  <div className="h-64 relative overflow-hidden">
-                    <img 
-                      src={item.images[0]} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute top-4 left-4 bg-black/60 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md flex items-center gap-1">
-                      <Calendar size={12} />
-                      {item.date}
+              displayHistory.map((item) => {
+                const totalTravelersCount = 20 + ((item.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % 5);
+                return (
+                  <Link key={item.id} to="/travel-history" className="group block bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                    <div className="h-64 relative overflow-hidden">
+                      <img 
+                        src={item.images[0]} 
+                        alt={item.title} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute top-4 left-4 bg-black/60 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md flex items-center gap-1">
+                        <Calendar size={12} />
+                        {item.date}
+                      </div>
                     </div>
-                  </div>
-                  <div className={`p-6 ${isUrdu ? 'text-right' : ''}`}>
-                    <h3 className={`text-xl font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-brand-700 transition ${isUrdu ? 'font-urdu' : ''}`}>
-                      {item.title}
-                    </h3>
-                    <div className={`flex items-center gap-2 text-sm text-gray-500 mb-4 ${isUrdu ? 'flex-row-reverse justify-start' : ''}`}>
-                       <MapPin size={14} className="text-brand-500" />
-                       <span>{item.location}</span>
+                    <div className={`p-6 ${isUrdu ? 'text-right' : ''}`}>
+                      <h3 className={`text-xl font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-brand-700 transition ${isUrdu ? 'font-urdu' : ''}`}>
+                        {item.title}
+                      </h3>
+                      <div className={`flex items-center gap-2 text-sm text-gray-500 mb-4 ${isUrdu ? 'flex-row-reverse justify-start' : ''}`}>
+                         <MapPin size={14} className="text-brand-500" />
+                         <span>{item.location}</span>
+                      </div>
+                      <p className={`text-gray-600 line-clamp-2 text-sm ${isUrdu ? 'font-urdu' : ''}`}>
+                        {item.description}
+                      </p>
+                      <div className={`mt-4 pt-4 border-t border-gray-200 flex items-center gap-2 text-xs font-bold text-brand-600 uppercase tracking-wider ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                         <Users size={14} />
+                         <span>{totalTravelersCount} {isUrdu ? 'مسافر' : 'Travelers'}</span>
+                      </div>
                     </div>
-                    <p className={`text-gray-600 line-clamp-2 text-sm ${isUrdu ? 'font-urdu' : ''}`}>
-                      {item.description}
-                    </p>
-                    <div className={`mt-4 pt-4 border-t border-gray-200 flex items-center gap-2 text-xs font-bold text-brand-600 uppercase tracking-wider ${isUrdu ? 'flex-row-reverse' : ''}`}>
-                       <Users size={14} />
-                       <span>{item.visitors.length} {isUrdu ? 'مسافر' : 'Travelers'}</span>
-                    </div>
-                  </div>
-                </Link>
-              ))
+                  </Link>
+                );
+              })
             ) : (
                 <div className="col-span-3 text-center py-10 text-gray-400">
                    <p>{isUrdu ? 'کوئی تاریخ دستیاب نہیں' : 'No travel history yet.'}</p>
@@ -457,6 +513,30 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
 
       {/* Live Comments Section */}
       <CommentsSection lang={lang} />
+
+      {/* Trusted Partners Section shifted above footer */}
+      <section className="bg-white py-12 border-t border-gray-100 overflow-hidden relative">
+          <div className="max-w-7xl mx-auto px-4 mb-6 text-center">
+            <p className={`text-xs md:text-sm font-bold text-gray-400 uppercase tracking-[0.2em] ${isUrdu ? 'font-urdu' : ''}`}>
+               {isUrdu ? 'ہمارے قابل اعتماد سفری شراکت دار' : 'Our Trusted Travel Partners'}
+            </p>
+          </div>
+          
+          <div className="relative w-full">
+            {/* Gradient Masks */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+
+            <div className="flex w-max animate-scroll hover:[animation-play-state:paused] items-center will-change-transform">
+                {/* Triple the list for seamless looping on wide screens */}
+                {[...partners, ...partners, ...partners].map((partner, index) => (
+                    <div key={index} className={`mx-4 md:mx-6 px-6 py-4 rounded-xl border-2 ${partner.border} ${partner.bg} flex items-center justify-center min-w-[200px] md:min-w-[240px] h-24 shadow-sm transform transition hover:scale-105 hover:shadow-md cursor-default group`}>
+                        <PartnerLogo partner={partner} />
+                    </div>
+                ))}
+            </div>
+          </div>
+      </section>
     </div>
   );
 };
