@@ -106,6 +106,20 @@
 }
 </script>
 <link rel="stylesheet" href="/index.css">
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Safar-e-Parbat">
+<link rel="apple-touch-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUK_9ZCdRlExTL1aNv63P2ncbFpEO60hL4XA&s">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered:', reg.scope))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    });
+  }
+</script>
 </head>
   <body>
     <div id="root"></div>
