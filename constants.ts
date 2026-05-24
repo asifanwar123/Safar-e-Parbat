@@ -44,16 +44,16 @@ export const HERO_SLIDES = [
 ];
 
 export const GALLERY_IMAGES = [
-  "https://images.unsplash.com/photo-1588824345504-8742f1a60e04?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1622546758596-f1f06ba11f58?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1627895357710-4cb56c74d112?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1596328546171-77e37b5f8b2d?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1608235287425-42f53d105234?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1631888257004-94e82e2124f6?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1604151774312-32a133b37902?auto=format&fit=crop&q=80&w=1000",
-  "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&q=80&w=1000"
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJgN9NMk-G2VFGjDEcwzIEMwmiJRJAOmGKcZx4EgqIXs0XFxq68jIL358oRmVpVq_3v7wtAkDGM76PuV5uamuqrC3NZSiVohrcf5s3TX-yh5VKnZEMYaz_O-Lg4yBSCGs3kScyKKCwJcC8xzNaPbw2fdoHWvP8Xx2YOv1EatoSdRv6C6bqanuiMT7kMog/s320/Hunza-Valley.webp",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7HKpyAjiDZWe0noR-9fCSTDth_o4YW5-DM6KESUmSn5MGEVjk6zPJwEfBUi_gs8BlgdxVPVObIG8tsMdTymTW0RN0sD6kjdxNgAneoe_hKvrR5sF1yCE2gcVYVfkOv3XywiSoAkL0NAjJoBQLdnCa1UTPGhKaCPtEsx25LYzd5UNz0bKn5qgTuaq7HTw/s320/Sakurdu.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s320/Kashmir.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCASpap2OIwRvtBjvMNILXOnvqzrGAHyb4HnLWfK5u-2ntvnDtRxcFMzG83GY3CwZPlreczK556VPd0EWLCFMY0IKrt_YIUvauTsf-MXs1XblyqtidfZT4xwIKs_8Lo-tkDYLcVAx81d9iveER_n1kiRAMEi8VZ08An2bbiRhhTZgzRA653lwO-U6ywuE/s320/image_5612.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXNfoOW8gkcMJT4oB8U9ek5VU99sbX8iN5Wexb90sxtida_FpqS5MKUeyMvyn29CQ0HPckkRVAcweYacBGuW6-AgKMiyEifswoBmrp17rS_6zZQcqCzPto3M1skyEW4EFpMTdUrKs-91Tv-ehgGdZw9vvoajqt0L58-PI3S60idcSSNmTBeuuPffrKph0/s320/Saif-ul-malook%20Lake.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrauQtzBA2i1GDUdUdMYDQOkSVME6SXa57pKaitXHbL5Y-7C4M5p-Elws94gYYRjYrxNa3D4dKpHRKOCDNdLueZFZRW28m6lxAXLatpOe8SnIEx4NUtzU9u0_FUVHgB78dneRg1kt7I-VGsb87JnltiL3TqAXAZl3hNPUtIR2aFLiFYrb-z1pXGJeT04g/s320/Passu-Cones.webp",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyNrOnrlOzuAoh93MExA4axcXnF6LFb3yQJHk1A441OSJ7w0afX7YNJ9dNnczzkJdtj-Qx5Zae9e_J9_514WZRBoryo0OOeJm-fkGGUP_ITtzXlEhdk5es0sp4hayfW9ssoeXp2mlio2m9T02Wi4hcaNXprfRxMSP76-JnIKMUnxmOU1Vs7LbZzOhb6MU/s320/khunjerab%20pass.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdPH7UOJkonW2Aqs9w-AQlmRZREmTLGchyphenhyphen5fFqoXwP8wEgjzhjUheQpg4Yq9fp6zQJxKdGMPTvB-PqBy5tE36pIAAvnUytGifDLrFxyhGiu6AhdJiM_bbJ1dE8DSxQ60t1D00Oic2lPhyphenhyphen_AxpHzdamniEU0H-Top1DdxXDuvypjPf6LphU7g61D9PKBms/s320/Derawar-Fort-Cholistan-Desert.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkneqir5evMb9aN6XKxg4N68Yhne3CyznQi-piVKt4crJ_GTdkQA60MMGI39AYU2iqG9JmtrplZDpH9e0HwrlLT2aha7ohxRYZjEocVhZW_l_eyTuDTyXEE1zJLI9JbPoDcxNyjYy6olCqhk8XyjRpN6WYrjGJ-1ngNLkw-G3jCrAWzEjeGaAXiGrcZDE/s320/tourism-in-pakistan.jpeg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeSJQ0epExp8xGd1rEYug2-AeDoAgDsBNKCgNMDOSR9W8T0iCEWWiFtVPPR-mf15pk6IA2a0OoE13yCn9_LmY7vB2vEIaaUuDnO5UqCF4LCNoonHB3MAbnN_LK83kbAaKX4A3n7-KvoZO57Y9h9-KdWReHycQ_qk_NOpKSh1aR7YulhNqVePLwTdzFeJk/s320/Founder%20&%20CEO%20Shahid%20Amin%20Yasir.jpeg"
 ];
 
 export const CONTENT: { en: ContentText; ur: ContentText } = {
