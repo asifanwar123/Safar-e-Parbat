@@ -326,62 +326,33 @@ export const PACKAGES: TourPackage[] = [
     dates: "Every Monday"
   },
   {
-    id: "3",
-    titleEn: "Swat & Kalam - Jewel of North",
-    titleUr: "سوات اور کالام - شمال کا جوہر",
-    locationEn: "Swat & Kalam",
-    locationUr: "سوات اور کالام",
+    id: "6",
+    titleEn: "Gilgit to Khunjrab – The Journey to the Roof of the World",
+    titleUr: "گلگت تا خنجراب - دنیا کی چھت کا سفر",
+    locationEn: "Gilgit, Passu, Sost, Khunjerab Pass",
+    locationUr: "گلگت، پاسو، سوست، خنجراب پاس",
     price: "PKR 35,000",
     durationEn: "4 Days / 3 Nights",
     durationUr: "4 دن / 3 راتیں",
-    image: GALLERY_IMAGES[6],
-    rating: 4.9,
-    descriptionEn: "Swat and Kalam are among the most enchanting destinations in Northern Pakistan, blessed with extraordinary natural beauty, lush green valleys, crystal-clear rivers, and majestic mountains. Swat Valley, often called the “Switzerland of the East,” offers stunning landscapes and peaceful surroundings. Kalam Valley further enhances the beauty of this region with its magical landscapes, home to breathtaking spots such as Ushu Forest and Mahodand Lake. Together they represent the pure beauty of nature reflecting divine artistry.",
-    descriptionUr: "سوات اور کالام شمالی پاکستان کے سب سے منفر مقامات میں سے ہیں، جو غیر معمولی قدرتی حسن، سرسبز وادیوں اور شفاف دریاؤں سے مالا مال ہیں۔ وادی سوات، جسے اکثر 'مشرق کا سوئٹزرلینڈ' کہا جاتا ہے، شاندار مناظر پیش کرتی ہے۔ وادی کالام اپنے جادوئی مناظر جیسے اوشو جنگل اور مہوڈنڈ جھیل کے ساتھ اس خطے کی خوبصورتی میں مزید اضافہ کرتی ہے۔ سوات اور کالام فطرت کی خالص خوبصورتی کی نمائندگی کرتے ہیں۔",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyNrOnrlOzuAoh93MExA4axcXnF6LFb3yQJHk1A441OSJ7w0afX7YNJ9dNnczzkJdtj-Qx5Zae9e_J9_514WZRBoryo0OOeJm-fkGGUP_ITtzXlEhdk5es0sp4hayfW9ssoeXp2mlio2m9T02Wi4hcaNXprfRxMSP76-JnIKMUnxmOU1Vs7LbZzOhb6MU/s320/khunjerab%20pass.jpg",
+    rating: 5,
+    descriptionEn: "The journey from Gilgit towards Khunjerab Pass, the highest paved international border crossing in the world between Pakistan and China, is one of the most spectacular road trips in Northern Pakistan. This route along the legendary Karakoram Highway offers unmatched views of towering peaks, deep valleys, glaciers, and crystal-clear rivers. Along the way, key scenic stops include Nagar Valley, Hoper Glacier, Passu Cones, and the beautiful Hussaini Suspension Bridge. This route is not just a journey, but a once-in-a-lifetime adventure through some of the highest and most beautiful landscapes on Earth.",
+    descriptionUr: "گلگت سے خنجراب پاس تک کا سفر، جو پاکستان اور چین کے درمیان دنیا کی بلند ترین پختہ بین الاقوامی سرحد ہے، شمالی پاکستان کی سب سے شاندار روڈ ٹرپس میں سے ایک ہے۔ شاہراہ قراقرم کے ساتھ یہ راستہ بلند چوٹیوں، وادیوں، گلیشیئرز اور شفاف دریاؤں کے بے مثال نظارے پیش کرتا ہے۔ راستے میں ناگر وادی، ہوپر گلیشیئر، پاسو کونس اور حسین معلق پل جیسے اہم مقامات شامل ہیں۔ یہ صرف ایک سفر نہیں، بلکہ زمین کے کچھ بلند ترین اور خوبصورت ترین مناظر کے درمیان زندگی بھر کا ایک ایڈونچر ہے۔",
     itineraryEn: [
-      "Day 1: Drive to Swat, visit White Palace Marghazar.",
-      "Day 2: Day trip to Malam Jabba Ski Resort.",
-      "Day 3: Travel to Kalam and Ushu Forest.",
-      "Day 4: Visit Mahodand Lake and return.",
+      "Day 1: Arrival in Gilgit, local sightseeing.",
+      "Day 2: Travel towards Passu, visit Hussaini Bridge and Passu Cones.",
+      "Day 3: Journey to Khunjerab Pass via Sost, return to Gilgit.",
+      "Day 4: Departure."
     ],
     itineraryUr: [
-      "دن 1: سوات کا سفر، وائٹ پیلس مرغزار کا دورہ۔",
-      "دن 2: مالم جبہ سکی ریزورٹ کا ایک دن کا سفر۔",
-      "دن 3: کالام اور اوشو جنگل کا سفر۔",
-      "دن 4: مہوڈنڈ جھیل کا دورہ اور واپسی۔",
+      "دن 1: گلگت آمد، مقامی سیر۔",
+      "دن 2: پاسو کی طرف سفر، حسینی پل اور پاسو کونس کا دورہ۔",
+      "دن 3: سوست کے راستے خنجراب پاس کا سفر، گلگت واپسی۔",
+      "دن 4: روانگی۔"
     ],
-    inclusionsEn: ["AC Coaster/Car", "Accommodation", "Breakfast", "Photography", "First Aid Kit"],
-    inclusionsUr: ["اے سی کوسٹر/کار", "رہائش", "ناشتہ", "فوٹوگرافی", "فرسٹ ایڈ کٹ"],
-    dates: "On Request"
-  },
-  {
-    id: "5",
-    titleEn: "Naran & Kaghan - Valley of Lakes",
-    titleUr: "ناران اور کاغان - جھیلوں کی وادی",
-    locationEn: "Naran, Kaghan",
-    locationUr: "ناران، کاغان",
-    price: "PKR 32,000",
-    durationEn: "4 Days / 3 Nights",
-    durationUr: "4 دن / 3 راتیں",
-    image: HERO_SLIDES[0].image,
-    rating: 4.8,
-    descriptionEn: "Naran and Kaghan are among the most captivating valleys of Northern Pakistan, renowned for their snow-covered mountains, lush green meadows, crystal-clear lakes, and refreshing alpine atmosphere. The iconic Saif-ul-Malook Lake, legendary and surrounded by towering peaks, is the star attraction. Further ahead, Babusar Top connects the valley with Gilgit-Baltistan and offers spectacular panoramic views. The Kunhar River adds charm and thrill with activities like river rafting.",
-    descriptionUr: "ناران اور کاغان شمالی پاکستان کی سب سے دلکش وادیوں میں سے ایک ہیں، جو اپنے برف پوش پہاڑوں، سرسبز چراگاہوں، شفاف جھیلوں اور تروتازہ الپائن ماحول کے لیے مشہور ہیں۔ مشہور سیف الملوک جھیل، جو کہ بلند و بالا چوٹیوں میں گھری ہوئی ہے، یہاں کی اہم ترین کشش ہے۔ بابوسر ٹاپ وادی کو گلگت بلتستان سے جوڑتا ہے اور یہاں سے شاندار مناظر دیکھنے کو ملتے ہیں۔ دریائے کنہار یہاں کی خوبصورتی میں مزید اضافہ کرتا ہے۔",
-    itineraryEn: [
-      "Day 1: Departure, travel to Naran via Balakot.",
-      "Day 2: Visit Saif-ul-Malook Lake and Naran Bazaar.",
-      "Day 3: Full day trip to Lulusar Lake and Babusar Top.",
-      "Day 4: Riverside rafting and return to home city."
-    ],
-    itineraryUr: [
-      "دن 1: روانگی، بالاکوٹ کے راستے ناران کا سفر۔",
-      "دن 2: سیف الملوک جھیل اور ناران بازار کا دورہ۔",
-      "دن 3: لولوسر جھیل اور بابوسر ٹاپ کا پورا دن کا سفر۔",
-      "دن 4: ریور رافٹنگ اور واپسی کا سفر۔"
-    ],
-    inclusionsEn: ["Hotel Accommodation", "Standard Transport", "Breakfast", "Guide Service"],
-    inclusionsUr: ["ہوٹل کی رہائش", "معیاری ٹرانسپورٹ", "ناشتہ", "گائیڈ سروس"],
-    dates: "Weekends Only"
+    inclusionsEn: ["Transport", "Accommodation", "Breakfast & Dinner", "Tour Guide"],
+    inclusionsUr: ["ٹرانسپورٹ", "رہائش", "ناشتہ اور رات کا کھانا", "ٹور گائیڈ"],
+    dates: "Every Sunday"
   }
 ];
 
