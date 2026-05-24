@@ -277,7 +277,7 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
                    </div>
                 </div>
                 <div className={`p-5 md:p-6 ${isUrdu ? 'text-right' : ''}`}>
-                  <h3 className={`text-xl font-bold text-gray-900 mb-2 line-clamp-1 ${isUrdu ? 'font-urdu' : ''}`}>
+                  <h3 className={`text-xl font-bold text-gray-900 group-hover:text-brand-600 transition-colors duration-300 mb-2 line-clamp-1 ${isUrdu ? 'font-urdu' : ''}`}>
                     {isUrdu ? pkg.titleUr : pkg.titleEn}
                   </h3>
                   <p className={`text-brand-600 font-medium text-sm md:text-base ${isUrdu ? 'font-urdu' : ''}`}>

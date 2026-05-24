@@ -28,7 +28,7 @@ interface DataContextType {
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
-const LOCAL_STORAGE_KEY = 'safar_data_v1';
+const LOCAL_STORAGE_KEY = 'safar_data_v3';
 
 export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [packages, setPackages] = useState<TourPackage[]>(PACKAGES);
