@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, ChevronRight, ChevronLeft, Lock } from 'lucide-react';
+import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CONTENT, LOGO_URL } from '../constants';
 import { Language } from '../types';
@@ -134,7 +134,6 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
           <div className="flex gap-6 items-center">
             <Link to="/about" className="hover:text-white transition">Privacy Policy</Link>
             <Link to="/contact" className="hover:text-white transition">Terms of Service</Link>
-            <Link to="/admin" className="hover:text-white transition text-brand-700 hover:text-brand-500"><Lock size={12}/></Link>
           </div>
         </div>
       </div>
