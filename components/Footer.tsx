@@ -132,8 +132,12 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
             </p>
           </div>
           <div className="flex gap-6 items-center">
-            <Link to="/about" className="hover:text-white transition">Privacy Policy</Link>
-            <Link to="/contact" className="hover:text-white transition">Terms of Service</Link>
+            <Link to="/privacy" className={`hover:text-white transition ${isUrdu ? 'font-urdu text-base' : ''}`}>
+              {isUrdu ? 'پرائیویسی پالیسی' : 'Privacy Policy'}
+            </Link>
+            <Link to="/terms" className={`hover:text-white transition ${isUrdu ? 'font-urdu text-base' : ''}`}>
+              {isUrdu ? 'شرائط و ضوابط' : 'Terms of Service'}
+            </Link>
           </div>
         </div>
       </div>

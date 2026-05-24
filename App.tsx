@@ -10,6 +10,8 @@ import PackageDetails from './pages/PackageDetails';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import TravelHistory from './pages/TravelHistory';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 import FloatingInquiry from './components/FloatingInquiry';
 import { Language, VisitorLog } from './types';
 import { DataProvider, useData } from './context/DataContext';
@@ -127,6 +129,8 @@ const App: React.FC = () => {
                 <Route path="/gallery" element={<Gallery lang={lang} />} />
                 <Route path="/contact" element={<Contact lang={lang} />} />
                 <Route path="/travel-history" element={<TravelHistory lang={lang} />} />
+                <Route path="/privacy" element={<PrivacyPolicy lang={lang} />} />
+                <Route path="/terms" element={<TermsOfService lang={lang} />} />
             </Routes>
             </main>
             <FloatingInquiry lang={lang} />
