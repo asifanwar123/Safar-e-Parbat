@@ -122,12 +122,12 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
             <p className="flex items-center gap-1">
               {isUrdu ? 'تیار کردہ: ' : 'Developed by '}
               <a 
-                href="https://www.asifanwar.online" 
+                href="https://mediaplus1.vercel.app/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-brand-500 hover:text-brand-300 transition-colors font-bold border-b border-brand-500/30"
               >
-                asifanwar.online
+                Mediaplus
               </a>
             </p>
           </div>

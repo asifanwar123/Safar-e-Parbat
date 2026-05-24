@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
-import CommentsSection from '../components/CommentsSection';
 import RegionalTours from '../components/RegionalTours';
 import { Mountain, Users, Camera, Star, Quote, MapPin, Bus, Zap, Moon, Compass, Shield, Wind, Calendar, ArrowRight, ArrowLeft, Award } from 'lucide-react';
 import { Language, Comment } from '../types';
@@ -510,9 +509,6 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
           </div>
         </div>
       </section>
-
-      {/* Live Comments Section */}
-      <CommentsSection lang={lang} />
 
       {/* Trusted Partners Section shifted above footer */}
       <section className="bg-white py-12 border-t border-gray-100 overflow-hidden relative">
