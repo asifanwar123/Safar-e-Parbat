@@ -229,6 +229,35 @@ export const CONTENT: { en: ContentText; ur: ContentText } = {
 
 export const PACKAGES: TourPackage[] = [
   {
+    id: "6",
+    titleEn: "Gilgit to Khunjrab – The Journey to the Roof of the World",
+    titleUr: "گلگت تا خنجراب - دنیا کی چھت کا سفر",
+    locationEn: "Gilgit, Passu, Sost, Khunjerab Pass",
+    locationUr: "گلگت، پاسو، سوست، خنجراب پاس",
+    price: "PKR 35,000",
+    durationEn: "4 Days / 3 Nights",
+    durationUr: "4 دن / 3 راتیں",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyNrOnrlOzuAoh93MExA4axcXnF6LFb3yQJHk1A441OSJ7w0afX7YNJ9dNnczzkJdtj-Qx5Zae9e_J9_514WZRBoryo0OOeJm-fkGGUP_ITtzXlEhdk5es0sp4hayfW9ssoeXp2mlio2m9T02Wi4hcaNXprfRxMSP76-JnIKMUnxmOU1Vs7LbZzOhb6MU/s320/khunjerab%20pass.jpg",
+    rating: 5,
+    descriptionEn: "The journey from Gilgit towards Khunjerab Pass, the highest paved international border crossing in the world between Pakistan and China, is one of the most spectacular road trips in Northern Pakistan. This route along the legendary Karakoram Highway offers unmatched views of towering peaks, deep valleys, glaciers, and crystal-clear rivers. Along the way, key scenic stops include Nagar Valley, Hoper Glacier, Passu Cones, and the beautiful Hussaini Suspension Bridge. This route is not just a journey, but a once-in-a-lifetime adventure through some of the highest and most beautiful landscapes on Earth.",
+    descriptionUr: "گلگت سے خنجراب پاس تک کا سفر، جو پاکستان اور چین کے درمیان دنیا کی بلند ترین پختہ بین الاقوامی سرحد ہے، شمالی پاکستان کی سب سے شاندار روڈ ٹرپس میں سے ایک ہے۔ شاہراہ قراقرم کے ساتھ یہ راستہ بلند چوٹیوں، وادیوں، گلیشیئرز اور شفاف دریاؤں کے بے مثال نظارے پیش کرتا ہے۔ راستے میں ناگر وادی، ہوپر گلیشیئر، پاسو کونس اور حسین معلق پل جیسے اہم مقامات شامل ہیں۔ یہ صرف ایک سفر نہیں، بلکہ زمین کے کچھ بلند ترین اور خوبصورت ترین مناظر کے درمیان زندگی بھر کا ایک ایڈونچر ہے۔",
+    itineraryEn: [
+      "Day 1: Arrival in Gilgit, local sightseeing.",
+      "Day 2: Travel towards Passu, visit Hussaini Bridge and Passu Cones.",
+      "Day 3: Journey to Khunjerab Pass via Sost, return to Gilgit.",
+      "Day 4: Departure."
+    ],
+    itineraryUr: [
+      "دن 1: گلگت آمد، مقامی سیر۔",
+      "دن 2: پاسو کی طرف سفر، حسینی پل اور پاسو کونس کا دورہ۔",
+      "دن 3: سوست کے راستے خنجراب پاس کا سفر، گلگت واپسی۔",
+      "دن 4: روانگی۔"
+    ],
+    inclusionsEn: ["Transport", "Accommodation", "Breakfast & Dinner", "Tour Guide"],
+    inclusionsUr: ["ٹرانسپورٹ", "رہائش", "ناشتہ اور رات کا کھانا", "ٹور گائیڈ"],
+    dates: "Every Sunday"
+  },
+  {
     id: "1",
     titleEn: "Gilgit & Hunza - Crown of Karakoram",
     titleUr: "گلگت اور ہنزہ - قراقرم کا تاج",
@@ -324,35 +353,6 @@ export const PACKAGES: TourPackage[] = [
     inclusionsEn: ["Dedicated Transport", "Riverside Hotels", "Food & Guide", "Jeep for Kel"],
     inclusionsUr: ["مخصوص ٹرانسپورٹ", "دریائے کنارے ہوٹل", "کھانا اور گائیڈ", "کیل کے لیے جیپ"],
     dates: "Every Monday"
-  },
-  {
-    id: "6",
-    titleEn: "Gilgit to Khunjrab – The Journey to the Roof of the World",
-    titleUr: "گلگت تا خنجراب - دنیا کی چھت کا سفر",
-    locationEn: "Gilgit, Passu, Sost, Khunjerab Pass",
-    locationUr: "گلگت، پاسو، سوست، خنجراب پاس",
-    price: "PKR 35,000",
-    durationEn: "4 Days / 3 Nights",
-    durationUr: "4 دن / 3 راتیں",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyNrOnrlOzuAoh93MExA4axcXnF6LFb3yQJHk1A441OSJ7w0afX7YNJ9dNnczzkJdtj-Qx5Zae9e_J9_514WZRBoryo0OOeJm-fkGGUP_ITtzXlEhdk5es0sp4hayfW9ssoeXp2mlio2m9T02Wi4hcaNXprfRxMSP76-JnIKMUnxmOU1Vs7LbZzOhb6MU/s320/khunjerab%20pass.jpg",
-    rating: 5,
-    descriptionEn: "The journey from Gilgit towards Khunjerab Pass, the highest paved international border crossing in the world between Pakistan and China, is one of the most spectacular road trips in Northern Pakistan. This route along the legendary Karakoram Highway offers unmatched views of towering peaks, deep valleys, glaciers, and crystal-clear rivers. Along the way, key scenic stops include Nagar Valley, Hoper Glacier, Passu Cones, and the beautiful Hussaini Suspension Bridge. This route is not just a journey, but a once-in-a-lifetime adventure through some of the highest and most beautiful landscapes on Earth.",
-    descriptionUr: "گلگت سے خنجراب پاس تک کا سفر، جو پاکستان اور چین کے درمیان دنیا کی بلند ترین پختہ بین الاقوامی سرحد ہے، شمالی پاکستان کی سب سے شاندار روڈ ٹرپس میں سے ایک ہے۔ شاہراہ قراقرم کے ساتھ یہ راستہ بلند چوٹیوں، وادیوں، گلیشیئرز اور شفاف دریاؤں کے بے مثال نظارے پیش کرتا ہے۔ راستے میں ناگر وادی، ہوپر گلیشیئر، پاسو کونس اور حسین معلق پل جیسے اہم مقامات شامل ہیں۔ یہ صرف ایک سفر نہیں، بلکہ زمین کے کچھ بلند ترین اور خوبصورت ترین مناظر کے درمیان زندگی بھر کا ایک ایڈونچر ہے۔",
-    itineraryEn: [
-      "Day 1: Arrival in Gilgit, local sightseeing.",
-      "Day 2: Travel towards Passu, visit Hussaini Bridge and Passu Cones.",
-      "Day 3: Journey to Khunjerab Pass via Sost, return to Gilgit.",
-      "Day 4: Departure."
-    ],
-    itineraryUr: [
-      "دن 1: گلگت آمد، مقامی سیر۔",
-      "دن 2: پاسو کی طرف سفر، حسینی پل اور پاسو کونس کا دورہ۔",
-      "دن 3: سوست کے راستے خنجراب پاس کا سفر، گلگت واپسی۔",
-      "دن 4: روانگی۔"
-    ],
-    inclusionsEn: ["Transport", "Accommodation", "Breakfast & Dinner", "Tour Guide"],
-    inclusionsUr: ["ٹرانسپورٹ", "رہائش", "ناشتہ اور رات کا کھانا", "ٹور گائیڈ"],
-    dates: "Every Sunday"
   }
 ];
 
