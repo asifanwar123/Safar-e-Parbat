@@ -96,7 +96,19 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
            setComments(record);
       } else {
            if (record.packages) setPackages(record.packages);
-           if (record.history) setHistory(record.history);
+           if (record.history) {
+                // Ensure all default INITIAL_HISTORY items are loaded by merging them in
+                const mergedHistory = [...record.history];
+                INITIAL_HISTORY.forEach(initItem => {
+                    if (!mergedHistory.some(existing => existing.id === initItem.id)) {
+                        mergedHistory.push(initItem);
+                    }
+                });
+                mergedHistory.sort((a, b) => a.id.localeCompare(b.id));
+                setHistory(mergedHistory);
+           } else {
+                setHistory(INITIAL_HISTORY);
+           }
            if (record.comments) setComments(record.comments);
            if (record.visitorLogs) setVisitorLogs(record.visitorLogs);
       }

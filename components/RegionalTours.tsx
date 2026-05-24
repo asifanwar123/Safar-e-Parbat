@@ -342,24 +342,13 @@ const RegionalTours: React.FC<RegionalToursProps> = ({ lang }) => {
                 </div>
 
                 {/* Card Action Buttons */}
-                <div className={`pt-4 border-t border-gray-100 grid grid-cols-2 gap-3`}>
+                <div className="pt-4 border-t border-gray-100">
                   <button 
                     onClick={() => handleOpenDetail(region)}
-                    className="w-full bg-gray-50 hover:bg-gray-100 text-gray-800 py-3 rounded-2xl text-xs md:text-sm font-bold transition hover:scale-[1.02] flex items-center justify-center gap-1.5 active:scale-[0.98]"
+                    className="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-2xl text-sm font-bold transition hover:scale-[1.02] flex items-center justify-center gap-1.5 active:scale-[0.98] shadow-md hover:shadow-lg"
                   >
-                    <Info size={14} className="text-gray-500" />
+                    <Info size={16} />
                     <span>{isUrdu ? "تفصیلات دیکھیں" : "See Details"}</span>
-                  </button>
-                  
-                  <button 
-                    onClick={() => {
-                      handleOpenDetail(region);
-                      setTimeout(() => setIsBookingMode(true), 50);
-                    }}
-                    className="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-2xl text-xs md:text-sm font-bold transition shadow-md hover:shadow-lg hover:scale-[1.02] flex items-center justify-center gap-1.5 active:scale-[0.98]"
-                  >
-                    <Calendar size={14} />
-                    <span>{isUrdu ? "بک کریں" : "Book Now"}</span>
                   </button>
                 </div>
 

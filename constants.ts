@@ -398,5 +398,70 @@ export const INITIAL_HISTORY: TravelHistoryItem[] = [
             { name: "Sara Khan", details: "Karachi" },
             { name: "John Doe", details: "UK" }
         ]
+    },
+    {
+        id: "h2",
+        title: "Hunza Blossom Expedition 2024",
+        date: "Mar 20, 2024",
+        location: "Hunza Valley",
+        description: "An unforgettable spring tour to the heart of Gilgit-Baltistan. Our group witnessed the magnificent apricot and cherry blossom trees against the majestic backdrop of Rakaposhi and Ladyfinger peaks with extreme comfort.",
+        images: [GALLERY_IMAGES[0], GALLERY_IMAGES[3]],
+        visitors: [
+            { name: "Ahmed Bilal", details: "Multan" },
+            { name: "Zainab Bibi", details: "Lahore" },
+            { name: "Saba Amin", details: "Karachi" }
+        ]
+    },
+    {
+        id: "h3",
+        title: "Skardu Desert & Lakes Safari 2024",
+        date: "May 12, 2024",
+        location: "Skardu",
+        description: "An intense off-road safari into Katpana Cold Desert followed by a pristine day at Kachura Lake and Mantokha Waterfall. Our travelers conquered the sands in style and enjoyed stargazing.",
+        images: [GALLERY_IMAGES[1], GALLERY_IMAGES[5]],
+        visitors: [
+            { name: "Muhammad Asif", details: "Faisalabad" },
+            { name: "Sania Yasir", details: "Islamabad" },
+            { name: "Kamran Sheikh", details: "Multan" }
+        ]
+    },
+    {
+        id: "h4",
+        title: "Mighty Khunjerab Border Quest 2024",
+        date: "June 05, 2024",
+        location: "Khunjerab Pass",
+        description: "Traveling directly up to the highest paved border crossing in the world (4,693 meters). A memorable journey with snowy trails, wild yaks, Karakoram Highway exploration, and absolute group joy.",
+        images: [GALLERY_IMAGES[6], GALLERY_IMAGES[3]],
+        visitors: [
+            { name: "Tariq Mahmood", details: "Multan" },
+            { name: "Zahid Iqbal", details: "Kabirwala" },
+            { name: "Ayesha Noor", details: "Lahore" }
+        ]
+    },
+    {
+        id: "h5",
+        title: "Saif-ul-Malook Mystical Retreat 2024",
+        date: "July 18, 2024",
+        location: "Naran Kaghan",
+        description: "A magical group trek to the famous Saif-ul-Malook lake, surrounded by local folklore and glistening glaciers. The clear reflection of Malika Parbat peak left our travelers in pure awe.",
+        images: [GALLERY_IMAGES[4], GALLERY_IMAGES[8]],
+        visitors: [
+            { name: "Bilal Shahid", details: "Multan" },
+            { name: "Farhan Akhtar", details: "Karachi" },
+            { name: "Memoona Khan", details: "Rawalpindi" }
+        ]
+    },
+    {
+        id: "h6",
+        title: "Cholistan Desert & Derawar Exploration 2024",
+        date: "Sep 28, 2024",
+        location: "Cholistan Desert",
+        description: "An outstanding winter camping night near the mighty Derawar Fort. Traditional food, folk music, camel rides, and a starry night in the magical golden sand dunes with our travel family.",
+        images: [GALLERY_IMAGES[7], GALLERY_IMAGES[8]],
+        visitors: [
+            { name: "Shahid Amin", details: "Kabirwala" },
+            { name: "Tayyaba Yasir", details: "Multan" },
+            { name: "Arsalan Shah", details: "Lahore" }
+        ]
     }
 ];
