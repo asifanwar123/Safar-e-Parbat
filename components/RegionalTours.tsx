@@ -46,7 +46,7 @@ export const REGIONS: RegionData[] = [
     spotsUr: ["وادی ہنزہ", "سکردو", "فیری میڈوز", "دروازہ چین (خنجراب پاس)", "عطا آباد جھیل"],
     descEn: "Gilgit-Baltistan is an adventurous playground defined by roaring glacial rivers, towering granite spires, and legendary high-altitude meadows. It boasts five of the world's fourteen 'eight-thousanders' valleys. The spectacular Karakoram Highway winds through ancient cultures, emerald-green orchards, and crystal-clear high-alpine lakes, creating an experience of majestic grandeur.",
     descUr: "گلگت بلتستان ایک مہم جوئی کا مرکز ہے جس کی تعریف ابلتے گلیشیائی دریا، عظیم الشان گرینائٹ چوٹیاں اور افسانوی بلند ترین چراگاہیں کرتی ہیں۔ اس خطے میں دنیا کے چودہ بلند ترین پہاڑوں میں سے پانچ پہاڑ پائے جاتے ہیں۔ شاہراہ قراقرم قدیم ثقافتوں، سرسبز باغات اور شفاف جھیلوں سے ہوتی ہوئی گزرتی ہے جو عظمت اور سکون کا جادوئی احساس دلاتی ہے۔",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCASpap2OIwRvtBjvMNILXOnvqzrGAHyb4HnLWfK5u-2ntvnDtRxcFMzG83GY3CwZPlreczK556VPd0EWLCFMY0IKrt_YIUvauTsf-MXs1XblyqtidfZT4xwIKs_8Lo-tkDYLcVAx81d9iveER_n1kiRAMEi8VZ08An2bbiRhhTZgzRA653lwO-U6ywuE/s320/image_5612.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCASpap2OIwRvtBjvMNILXOnvqzrGAHyb4HnLWfK5u-2ntvnDtRxcFMzG83GY3CwZPlreczK556VPd0EWLCFMY0IKrt_YIUvauTsf-MXs1XblyqtidfZT4xwIKs_8Lo-tkDYLcVAx81d9iveER_n1kiRAMEi8VZ08An2bbiRhhTZgzRA653lwO-U6ywuE/s1600/image_5612.jpg",
     color: "from-sky-500 to-indigo-600",
     badgeColor: "bg-sky-50 text-sky-700 border-sky-200",
     itineraryEn: [
@@ -97,7 +97,7 @@ export const REGIONS: RegionData[] = [
     spotsUr: ["وادی سوات", "وادی کالام", "ناران", "وادی کاغان", "چترال"],
     descEn: "Khyber Pakhtunkhwa's northern highlands offer an oasis of deep dark pine forests, roaring streams, and refreshing weather. Known as the 'Switzerland of the East', Swat Valley features high-altitude plains, snow-covered Kalam slopes, the magical Ushu Forest, and lakes like Mahodand and the legendary Saif-ul-Malook. It is an outstanding natural retreat of pure scenic serenity.",
     descUr: "خیبر پختونخوا کے شمالی پہاڑی علاقے گھنے صنوبر کے جنگلات، گرجتے ہوئے ندی نالوں اور پُرکشش خوشگوار موسم سے مالا مال ہیں۔ 'مشرق کا سوئٹزرلینڈ' کہلانے والی وادی سوات اپنے شاندار میدانوں، کالام کی برف پوش ڈھلوانوں، جادوئی اوشو فارسٹ اور مہوڈنڈ اور سیف الملوک جیسی خوبصورت جھیلوں کے لیے مشہور ہے۔",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXNfoOW8gkcMJT4oB8U9ek5VU99sbX8iN5Wexb90sxtida_FpqS5MKUeyMvyn29CQ0HPckkRVAcweYacBGuW6-AgKMiyEifswoBmrp17rS_6zZQcqCzPto3M1skyEW4EFpMTdUrKs-91Tv-ehgGdZw9vvoajqt0L58-PI3S60idcSSNmTBeuuPffrKph0/s320/Saif-ul-malook%20Lake.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXNfoOW8gkcMJT4oB8U9ek5VU99sbX8iN5Wexb90sxtida_FpqS5MKUeyMvyn29CQ0HPckkRVAcweYacBGuW6-AgKMiyEifswoBmrp17rS_6zZQcqCzPto3M1skyEW4EFpMTdUrKs-91Tv-ehgGdZw9vvoajqt0L58-PI3S60idcSSNmTBeuuPffrKph0/s1600/Saif-ul-malook%20Lake.jpg",
     color: "from-emerald-500 to-teal-600",
     badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
     itineraryEn: [
@@ -144,7 +144,7 @@ export const REGIONS: RegionData[] = [
     spotsUr: ["وادی نیلم", "مظفر آباد", "ارنگ کیل", "راولاکوٹ"],
     descEn: "Known around the world as the 'Paradise on Earth', Azad Kashmir possesses lush, velvety grass trails, roaring rivers, and scenic bridges under dramatic cloud cover. Neelum Valley is an emerald jewel presenting gorgeous locations like Sharda Historical Temple, the high meadows of Arang Kel (reached via a spectacular hike/chairlift), and the magical, cold waters of Keran.",
     descUr: "دنیا بھر میں 'زمین پر جنت' کہلانے والا آزاد کشمیر انتہائی سرسبز مخملی گھاس کے راستوں، چنگھاڑتے دریاؤں اور حسین بادلوں کے غلاف میں لپٹا ہوا ہے۔ وادی نیلم یہاں کا قیمتی موتی ہے جس میں شاردہ کا قدیم تاریخی مندر، ارنگ کیل کے خوبصورت ترین سرسبز میدان اور کیرن کے شفاف ٹھنڈے پانی شامل ہیں۔",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s320/Kashmir.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s1600/Kashmir.jpg",
     color: "from-amber-500 to-rose-600",
     badgeColor: "bg-amber-50 text-amber-700 border-amber-200",
     itineraryEn: [

@@ -8,52 +8,52 @@ export const JSONBIN_API_KEY = "$2a$10$/qi1Zoc8utnIY0RYjMNFru34QUTYbjaoJx5wozQy/
 // Images provided by user
 export const LOGO_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUK_9ZCdRlExTL1aNv63P2ncbFpEO60hL4XA&s";
 export const HERO_BG = "https://images.squarespace-cdn.com/content/v1/5a815ad2e45a7c1f4ef40fb8/1532605992397-SQJ512NRWU905CM1VUUL/k2-banner.jpg";
-export const CEO_IMAGE = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeSJQ0epExp8xGd1rEYug2-AeDoAgDsBNKCgNMDOSR9W8T0iCEWWiFtVPPR-mf15pk6IA2a0OoE13yCn9_LmY7vB2vEIaaUuDnO5UqCF4LCNoonHB3MAbnN_LK83kbAaKX4A3n7-KvoZO57Y9h9-KdWReHycQ_qk_NOpKSh1aR7YulhNqVePLwTdzFeJk/s320/Founder%20&%20CEO%20Shahid%20Amin%20Yasir.jpeg";
+export const CEO_IMAGE = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeSJQ0epExp8xGd1rEYug2-AeDoAgDsBNKCgNMDOSR9W8T0iCEWWiFtVPPR-mf15pk6IA2a0OoE13yCn9_LmY7vB2vEIaaUuDnO5UqCF4LCNoonHB3MAbnN_LK83kbAaKX4A3n7-KvoZO57Y9h9-KdWReHycQ_qk_NOpKSh1aR7YulhNqVePLwTdzFeJk/s1600/Founder%20&%20CEO%20Shahid%20Amin%20Yasir.jpeg";
 
 export const HERO_SLIDES = [
   {
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXNfoOW8gkcMJT4oB8U9ek5VU99sbX8iN5Wexb90sxtida_FpqS5MKUeyMvyn29CQ0HPckkRVAcweYacBGuW6-AgKMiyEifswoBmrp17rS_6zZQcqCzPto3M1skyEW4EFpMTdUrKs-91Tv-ehgGdZw9vvoajqt0L58-PI3S60idcSSNmTBeuuPffrKph0/s320/Saif-ul-malook%20Lake.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXNfoOW8gkcMJT4oB8U9ek5VU99sbX8iN5Wexb90sxtida_FpqS5MKUeyMvyn29CQ0HPckkRVAcweYacBGuW6-AgKMiyEifswoBmrp17rS_6zZQcqCzPto3M1skyEW4EFpMTdUrKs-91Tv-ehgGdZw9vvoajqt0L58-PI3S60idcSSNmTBeuuPffrKph0/s1600/Saif-ul-malook%20Lake.jpg",
     name: "Saif-ul-Malook Lake",
     accentColor: "text-cyan-300"
   },
   {
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdPH7UOJkonW2Aqs9w-AQlmRZREmTLGchyphenhyphen5fFqoXwP8wEgjzhjUheQpg4Yq9fp6zQJxKdGMPTvB-PqBy5tE36pIAAvnUytGifDLrFxyhGiu6AhdJiM_bbJ1dE8DSxQ60t1D00Oic2lPhyphenhyphen_AxpHzdamniEU0H-Top1DdxXDuvypjPf6LphU7g61D9PKBms/s320/Derawar-Fort-Cholistan-Desert.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdPH7UOJkonW2Aqs9w-AQlmRZREmTLGchyphenhyphen5fFqoXwP8wEgjzhjUheQpg4Yq9fp6zQJxKdGMPTvB-PqBy5tE36pIAAvnUytGifDLrFxyhGiu6AhdJiM_bbJ1dE8DSxQ60t1D00Oic2lPhyphenhyphen_AxpHzdamniEU0H-Top1DdxXDuvypjPf6LphU7g61D9PKBms/s1600/Derawar-Fort-Cholistan-Desert.jpg",
     name: "Darawar Fort",
     accentColor: "text-amber-500"
   },
   {
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7HKpyAjiDZWe0noR-9fCSTDth_o4YW5-DM6KESUmSn5MGEVjk6zPJwEfBUi_gs8BlgdxVPVObIG8tsMdTymTW0RN0sD6kjdxNgAneoe_hKvrR5sF1yCE2gcVYVfkOv3XywiSoAkL0NAjJoBQLdnCa1UTPGhKaCPtEsx25LYzd5UNz0bKn5qgTuaq7HTw/s320/Sakurdu.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7HKpyAjiDZWe0noR-9fCSTDth_o4YW5-DM6KESUmSn5MGEVjk6zPJwEfBUi_gs8BlgdxVPVObIG8tsMdTymTW0RN0sD6kjdxNgAneoe_hKvrR5sF1yCE2gcVYVfkOv3XywiSoAkL0NAjJoBQLdnCa1UTPGhKaCPtEsx25LYzd5UNz0bKn5qgTuaq7HTw/s1600/Sakurdu.jpg",
     name: "Shangrila Lake",
     accentColor: "text-emerald-400"
   },
   {
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCASpap2OIwRvtBjvMNILXOnvqzrGAHyb4HnLWfK5u-2ntvnDtRxcFMzG83GY3CwZPlreczK556VPd0EWLCFMY0IKrt_YIUvauTsf-MXs1XblyqtidfZT4xwIKs_8Lo-tkDYLcVAx81d9iveER_n1kiRAMEi8VZ08An2bbiRhhTZgzRA653lwO-U6ywuE/s320/image_5612.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCASpap2OIwRvtBjvMNILXOnvqzrGAHyb4HnLWfK5u-2ntvnDtRxcFMzG83GY3CwZPlreczK556VPd0EWLCFMY0IKrt_YIUvauTsf-MXs1XblyqtidfZT4xwIKs_8Lo-tkDYLcVAx81d9iveER_n1kiRAMEi8VZ08An2bbiRhhTZgzRA653lwO-U6ywuE/s1600/image_5612.jpg",
     name: "Gilgit Valley",
     accentColor: "text-orange-300"
   },
   {
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s320/Kashmir.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s1600/Kashmir.jpg",
     name: "Kashmir Valley",
     accentColor: "text-green-300"
   },
   {
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrauQtzBA2i1GDUdUdMYDQOkSVME6SXa57pKaitXHbL5Y-7C4M5p-Elws94gYYRjYrxNa3D4dKpHRKOCDNdLueZFZRW28m6lxAXLatpOe8SnIEx4NUtzU9u0_FUVHgB78dneRg1kt7I-VGsb87JnltiL3TqAXAZl3hNPUtIR2aFLiFYrb-z1pXGJeT04g/s320/Passu-Cones.webp",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrauQtzBA2i1GDUdUdMYDQOkSVME6SXa57pKaitXHbL5Y-7C4M5p-Elws94gYYRjYrxNa3D4dKpHRKOCDNdLueZFZRW28m6lxAXLatpOe8SnIEx4NUtzU9u0_FUVHgB78dneRg1kt7I-VGsb87JnltiL3TqAXAZl3hNPUtIR2aFLiFYrb-z1pXGJeT04g/s1600/Passu-Cones.webp",
     name: "Passu Cones",
     accentColor: "text-yellow-400"
   }
 ];
 
 export const GALLERY_IMAGES = [
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJgN9NMk-G2VFGjDEcwzIEMwmiJRJAOmGKcZx4EgqIXs0XFxq68jIL358oRmVpVq_3v7wtAkDGM76PuV5uamuqrC3NZSiVohrcf5s3TX-yh5VKnZEMYaz_O-Lg4yBSCGs3kScyKKCwJcC8xzNaPbw2fdoHWvP8Xx2YOv1EatoSdRv6C6bqanuiMT7kMog/s320/Hunza-Valley.webp",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7HKpyAjiDZWe0noR-9fCSTDth_o4YW5-DM6KESUmSn5MGEVjk6zPJwEfBUi_gs8BlgdxVPVObIG8tsMdTymTW0RN0sD6kjdxNgAneoe_hKvrR5sF1yCE2gcVYVfkOv3XywiSoAkL0NAjJoBQLdnCa1UTPGhKaCPtEsx25LYzd5UNz0bKn5qgTuaq7HTw/s320/Sakurdu.jpg",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s320/Kashmir.jpg",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCASpap2OIwRvtBjvMNILXOnvqzrGAHyb4HnLWfK5u-2ntvnDtRxcFMzG83GY3CwZPlreczK556VPd0EWLCFMY0IKrt_YIUvauTsf-MXs1XblyqtidfZT4xwIKs_8Lo-tkDYLcVAx81d9iveER_n1kiRAMEi8VZ08An2bbiRhhTZgzRA653lwO-U6ywuE/s320/image_5612.jpg",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXNfoOW8gkcMJT4oB8U9ek5VU99sbX8iN5Wexb90sxtida_FpqS5MKUeyMvyn29CQ0HPckkRVAcweYacBGuW6-AgKMiyEifswoBmrp17rS_6zZQcqCzPto3M1skyEW4EFpMTdUrKs-91Tv-ehgGdZw9vvoajqt0L58-PI3S60idcSSNmTBeuuPffrKph0/s320/Saif-ul-malook%20Lake.jpg",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrauQtzBA2i1GDUdUdMYDQOkSVME6SXa57pKaitXHbL5Y-7C4M5p-Elws94gYYRjYrxNa3D4dKpHRKOCDNdLueZFZRW28m6lxAXLatpOe8SnIEx4NUtzU9u0_FUVHgB78dneRg1kt7I-VGsb87JnltiL3TqAXAZl3hNPUtIR2aFLiFYrb-z1pXGJeT04g/s320/Passu-Cones.webp",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyNrOnrlOzuAoh93MExA4axcXnF6LFb3yQJHk1A441OSJ7w0afX7YNJ9dNnczzkJdtj-Qx5Zae9e_J9_514WZRBoryo0OOeJm-fkGGUP_ITtzXlEhdk5es0sp4hayfW9ssoeXp2mlio2m9T02Wi4hcaNXprfRxMSP76-JnIKMUnxmOU1Vs7LbZzOhb6MU/s320/khunjerab%20pass.jpg",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdPH7UOJkonW2Aqs9w-AQlmRZREmTLGchyphenhyphen5fFqoXwP8wEgjzhjUheQpg4Yq9fp6zQJxKdGMPTvB-PqBy5tE36pIAAvnUytGifDLrFxyhGiu6AhdJiM_bbJ1dE8DSxQ60t1D00Oic2lPhyphenhyphen_AxpHzdamniEU0H-Top1DdxXDuvypjPf6LphU7g61D9PKBms/s320/Derawar-Fort-Cholistan-Desert.jpg",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkneqir5evMb9aN6XKxg4N68Yhne3CyznQi-piVKt4crJ_GTdkQA60MMGI39AYU2iqG9JmtrplZDpH9e0HwrlLT2aha7ohxRYZjEocVhZW_l_eyTuDTyXEE1zJLI9JbPoDcxNyjYy6olCqhk8XyjRpN6WYrjGJ-1ngNLkw-G3jCrAWzEjeGaAXiGrcZDE/s320/tourism-in-pakistan.jpeg",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeSJQ0epExp8xGd1rEYug2-AeDoAgDsBNKCgNMDOSR9W8T0iCEWWiFtVPPR-mf15pk6IA2a0OoE13yCn9_LmY7vB2vEIaaUuDnO5UqCF4LCNoonHB3MAbnN_LK83kbAaKX4A3n7-KvoZO57Y9h9-KdWReHycQ_qk_NOpKSh1aR7YulhNqVePLwTdzFeJk/s320/Founder%20&%20CEO%20Shahid%20Amin%20Yasir.jpeg"
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJgN9NMk-G2VFGjDEcwzIEMwmiJRJAOmGKcZx4EgqIXs0XFxq68jIL358oRmVpVq_3v7wtAkDGM76PuV5uamuqrC3NZSiVohrcf5s3TX-yh5VKnZEMYaz_O-Lg4yBSCGs3kScyKKCwJcC8xzNaPbw2fdoHWvP8Xx2YOv1EatoSdRv6C6bqanuiMT7kMog/s1600/Hunza-Valley.webp",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7HKpyAjiDZWe0noR-9fCSTDth_o4YW5-DM6KESUmSn5MGEVjk6zPJwEfBUi_gs8BlgdxVPVObIG8tsMdTymTW0RN0sD6kjdxNgAneoe_hKvrR5sF1yCE2gcVYVfkOv3XywiSoAkL0NAjJoBQLdnCa1UTPGhKaCPtEsx25LYzd5UNz0bKn5qgTuaq7HTw/s1600/Sakurdu.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s1600/Kashmir.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiCASpap2OIwRvtBjvMNILXOnvqzrGAHyb4HnLWfK5u-2ntvnDtRxcFMzG83GY3CwZPlreczK556VPd0EWLCFMY0IKrt_YIUvauTsf-MXs1XblyqtidfZT4xwIKs_8Lo-tkDYLcVAx81d9iveER_n1kiRAMEi8VZ08An2bbiRhhTZgzRA653lwO-U6ywuE/s1600/image_5612.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXNfoOW8gkcMJT4oB8U9ek5VU99sbX8iN5Wexb90sxtida_FpqS5MKUeyMvyn29CQ0HPckkRVAcweYacBGuW6-AgKMiyEifswoBmrp17rS_6zZQcqCzPto3M1skyEW4EFpMTdUrKs-91Tv-ehgGdZw9vvoajqt0L58-PI3S60idcSSNmTBeuuPffrKph0/s1600/Saif-ul-malook%20Lake.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrauQtzBA2i1GDUdUdMYDQOkSVME6SXa57pKaitXHbL5Y-7C4M5p-Elws94gYYRjYrxNa3D4dKpHRKOCDNdLueZFZRW28m6lxAXLatpOe8SnIEx4NUtzU9u0_FUVHgB78dneRg1kt7I-VGsb87JnltiL3TqAXAZl3hNPUtIR2aFLiFYrb-z1pXGJeT04g/s1600/Passu-Cones.webp",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyNrOnrlOzuAoh93MExA4axcXnF6LFb3yQJHk1A441OSJ7w0afX7YNJ9dNnczzkJdtj-Qx5Zae9e_J9_514WZRBoryo0OOeJm-fkGGUP_ITtzXlEhdk5es0sp4hayfW9ssoeXp2mlio2m9T02Wi4hcaNXprfRxMSP76-JnIKMUnxmOU1Vs7LbZzOhb6MU/s1600/khunjerab%20pass.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdPH7UOJkonW2Aqs9w-AQlmRZREmTLGchyphenhyphen5fFqoXwP8wEgjzhjUheQpg4Yq9fp6zQJxKdGMPTvB-PqBy5tE36pIAAvnUytGifDLrFxyhGiu6AhdJiM_bbJ1dE8DSxQ60t1D00Oic2lPhyphenhyphen_AxpHzdamniEU0H-Top1DdxXDuvypjPf6LphU7g61D9PKBms/s1600/Derawar-Fort-Cholistan-Desert.jpg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkneqir5evMb9aN6XKxg4N68Yhne3CyznQi-piVKt4crJ_GTdkQA60MMGI39AYU2iqG9JmtrplZDpH9e0HwrlLT2aha7ohxRYZjEocVhZW_l_eyTuDTyXEE1zJLI9JbPoDcxNyjYy6olCqhk8XyjRpN6WYrjGJ-1ngNLkw-G3jCrAWzEjeGaAXiGrcZDE/s1600/tourism-in-pakistan.jpeg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeSJQ0epExp8xGd1rEYug2-AeDoAgDsBNKCgNMDOSR9W8T0iCEWWiFtVPPR-mf15pk6IA2a0OoE13yCn9_LmY7vB2vEIaaUuDnO5UqCF4LCNoonHB3MAbnN_LK83kbAaKX4A3n7-KvoZO57Y9h9-KdWReHycQ_qk_NOpKSh1aR7YulhNqVePLwTdzFeJk/s1600/Founder%20&%20CEO%20Shahid%20Amin%20Yasir.jpeg"
 ];
 
 export const CONTENT: { en: ContentText; ur: ContentText } = {
@@ -237,7 +237,7 @@ export const PACKAGES: TourPackage[] = [
     price: "PKR 35,000",
     durationEn: "6 Days / 5 Nights",
     durationUr: "6 دن / 5 راتیں",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyNrOnrlOzuAoh93MExA4axcXnF6LFb3yQJHk1A441OSJ7w0afX7YNJ9dNnczzkJdtj-Qx5Zae9e_J9_514WZRBoryo0OOeJm-fkGGUP_ITtzXlEhdk5es0sp4hayfW9ssoeXp2mlio2m9T02Wi4hcaNXprfRxMSP76-JnIKMUnxmOU1Vs7LbZzOhb6MU/s320/khunjerab%20pass.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyNrOnrlOzuAoh93MExA4axcXnF6LFb3yQJHk1A441OSJ7w0afX7YNJ9dNnczzkJdtj-Qx5Zae9e_J9_514WZRBoryo0OOeJm-fkGGUP_ITtzXlEhdk5es0sp4hayfW9ssoeXp2mlio2m9T02Wi4hcaNXprfRxMSP76-JnIKMUnxmOU1Vs7LbZzOhb6MU/s1600/khunjerab%20pass.jpg",
     rating: 5,
     descriptionEn: "The journey from Multan/Gilgit towards Khunjerab Pass, the highest paved international border crossing in the world between Pakistan and China, is one of the most spectacular road trips. This customized tour departs directly from Multan and surrounding areas, picking travelers along our route. Along the legendary Karakoram Highway, enjoy unmatched views of towering peaks, deep valleys, glaciers, and crystal-clear rivers.",
     descriptionUr: "ملتان اور قریبی علاقوں سے براہ راست روانہ ہونے والا یہ خصوصی ٹور پاکستان اور چین کے درمیان دنیا کی بلند ترین پختہ بین الاقوامی سرحد خنجراب پاس تک کا ایک یادگار سفر ہے۔ ہم اپنے راستے میں آنے والے تمام مسافروں کو پک کرتے ہیں۔ شاہراہ قراقرم کے ساتھ یہ راستہ بلند چوٹیوں، وادیوں، گلیشیئرز اور شفاف دریاؤں کے بے مثال نظارے پیش کرتا ہے۔",
@@ -250,12 +250,12 @@ export const PACKAGES: TourPackage[] = [
       "Day 6: Return journey back to Multan safely."
     ],
     itineraryUr: [
-      "دن 1: ملتان (اور گردونواح) سے روانگی، بیشام/ناران کا سفر۔",
-      "دن 2: شاہراہِ قراقرم کے راستے گلگت کا سفر، ہوٹل چیک ان اور مقامی وقت۔",
-      "دن 3: پاسو کی طرف سفر، حسینی پل اور شاندار پاسو کونس کا وزٹ۔",
-      "دن 4: سوست کے راستے پاک-چین بارڈر (خنجراب پاس) کی سیر، گلگت واپسی۔",
-      "دن 5: گلگت سے واپس چلاس/بیشام کا سفر۔",
-      "دن 6: ملتان کے لیے پرامن واپسی کا سفر۔"
+      "دن 1: Depart from Multan (picking from surrounding areas), travel towards Besham/Naran.",
+      "دن 2: Travel via Karakoram Highway towards Gilgit, check-in and local sightseeing.",
+      "دن 3: Travel towards Passu, visit Hussaini Bridge and spectacular Passu Cones.",
+      "دن 4: Excursion to Khunjerab Pass (Pakistan–China Border) via Sost, return to Gilgit.",
+      "دن 5: Travel from Gilgit back to Chilas/Besham.",
+      "دن 6: Return journey back to Multan safely."
     ],
     inclusionsEn: ["Transport from Multan", "Accommodation", "Breakfast & Dinner", "Tour Guide Routing Pickups"],
     inclusionsUr: ["ملتان سے ٹرانسپورٹ", "ہوٹل رہائش", "ناشتہ اور کھانا", "روٹ پک اپس ٹور گائیڈ"],
@@ -270,7 +270,7 @@ export const PACKAGES: TourPackage[] = [
     price: "PKR 45,000",
     durationEn: "5 Days / 4 Nights",
     durationUr: "5 دن / 4 راتیں",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJgN9NMk-G2VFGjDEcwzIEMwmiJRJAOmGKcZx4EgqIXs0XFxq68jIL358oRmVpVq_3v7wtAkDGM76PuV5uamuqrC3NZSiVohrcf5s3TX-yh5VKnZEMYaz_O-Lg4yBSCGs3kScyKKCwJcC8xzNaPbw2fdoHWvP8Xx2YOv1EatoSdRv6C6bqanuiMT7kMog/s320/Hunza-Valley.webp",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJgN9NMk-G2VFGjDEcwzIEMwmiJRJAOmGKcZx4EgqIXs0XFxq68jIL358oRmVpVq_3v7wtAkDGM76PuV5uamuqrC3NZSiVohrcf5s3TX-yh5VKnZEMYaz_O-Lg4yBSCGs3kScyKKCwJcC8xzNaPbw2fdoHWvP8Xx2YOv1EatoSdRv6C6bqanuiMT7kMog/s1600/Hunza-Valley.webp",
     rating: 5,
     descriptionEn: "Gilgit and Hunza are among the most mesmerizing regions of Northern Pakistan. This tour departs directly from Multan and surrounding areas (with convenient pick-ups along the route), traveling to majestic valleys and offering views of Rakaposhi, Altit, Baltit, and Attabad Lake.",
     descriptionUr: "گلگت اور ہنزہ شمالی پاکستان کے سب سے پرکشش علاقوں میں سے ہیں۔ یہ ٹور ملتان اور قریبی علاقوں سے براہ راست روانہ ہوتا ہے (راستے میں آنے والے علاقوں سے پک اپس کی سہولت کے ساتھ) اور عطا آباد جھیل، التیت و بلتت قلعہ اور راکاپوشی کے دلکش نظارے پیش کرتا ہے۔",
@@ -282,11 +282,11 @@ export const PACKAGES: TourPackage[] = [
       "Day 5: Return journey towards Multan with route pickups drop-off."
     ],
     itineraryUr: [
-      "دن 1: ملتان سے روانگی (راستے سے پک اپس کے ساتھ)، چلاس/بیشام کا سفر۔",
-      "دن 2: بابوسر ٹاپ کے راستے وادی ہنزہ کا سفر، راکاپوشی ویو پوائنٹ کا دورہ۔",
-      "دن 3: بلتت اور التیت قلعہ کا پورا دن کا دورہ، ایگلز نیسٹ سے حسین غروب آفتاب۔",
-      "دن 4: عطا آباد جھیل اور حسینی معلق پل کی پراسرار سیر۔",
-      "دن 5: ملتان کے لیے پرامن واپسی کا سفر۔"
+      "دن 1: Departure from Multan (picking from surrounding areas), travel to Chilas/Besham.",
+      "دن 2: Travel to Hunza Valley via Babusar Top, visit Rakaposhi View Point.",
+      "دن 3: Full day tour of Altit & Baltit Forts, sunset view at Eagle's Nest.",
+      "دن 4: Discover Attabad Lake (boating) and Hussaini Suspension Bridge.",
+      "دن 5: Return journey towards Multan with route pickups drop-off."
     ],
     inclusionsEn: ["Luxury Transport from Multan", "Hotel Accommodation", "Breakfast & Dinner", "Tour Guide", "Jeep Safari (Route Pickup)"],
     inclusionsUr: ["ملتان سے لگژری ٹرانسپورٹ", "ہوٹل کی رہائش", "ناشتہ اور کھانا", "ٹور گائیڈ", "جیپ سفاری"],
@@ -301,7 +301,7 @@ export const PACKAGES: TourPackage[] = [
     price: "PKR 35,000",
     durationEn: "6 Days / 5 Nights",
     durationUr: "6 دن / 5 راتیں",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7HKpyAjiDZWe0noR-9fCSTDth_o4YW5-DM6KESUmSn5MGEVjk6zPJwEfBUi_gs8BlgdxVPVObIG8tsMdTymTW0RN0sD6kjdxNgAneoe_hKvrR5sF1yCE2gcVYVfkOv3XywiSoAkL0NAjJoBQLdnCa1UTPGhKaCPtEsx25LYzd5UNz0bKn5qgTuaq7HTw/s320/Sakurdu.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7HKpyAjiDZWe0noR-9fCSTDth_o4YW5-DM6KESUmSn5MGEVjk6zPJwEfBUi_gs8BlgdxVPVObIG8tsMdTymTW0RN0sD6kjdxNgAneoe_hKvrR5sF1yCE2gcVYVfkOv3XywiSoAkL0NAjJoBQLdnCa1UTPGhKaCPtEsx25LYzd5UNz0bKn5qgTuaq7HTw/s1600/Sakurdu.jpg",
     rating: 4.8,
     descriptionEn: "Skardu is an ethereal destination for travelers. Departing directly from Multan and surrounding areas with seamless route picking, we tour Shangrila Resort, Lower Kachura, cold desert of Katpana, Deosai plains, and Manthoka Waterfall with top comfort.",
     descriptionUr: "سکردو شمالی پاکستان کے شاندار فیملی پیکیجز میں سے ایک ہے جس کی روانگی براہِ راست ملتان اور ہمارے روٹ کےPickups کے ساتھ ہے۔ اس پیکیج میں شنگریلا ریزورٹ، لوئر کچورا جھیل، دیوسائی اور سرد صحرا کے حیرت انگیز مقامات شامل ہیں۔",
@@ -314,12 +314,12 @@ export const PACKAGES: TourPackage[] = [
       "Day 6: Drive safely back to Multan directly with route drop-offs."
     ],
     itineraryUr: [
-      "دن 1: ملتان (اور ملحقہ علاقوں) سے روانگی، براستہ موٹروے چلاس کا وزٹ۔",
-      "دن 2: دریائے سندھ کے ساتھ سفر کرتے ہوئے وادی سکردو آمد، ہوٹل چیک ان۔",
-      "دن 3: شنگریلا ریزورٹ، لوئر کچورا جھیل اور کٹپانہ کے سرد صحرا کی عکاسی۔",
-      "دن 4: شگر فورٹ، شگر وادی اور وسیع و عریض دیوسائی کے میدانوں کا دورہ۔",
-      "دن 5: منتوکھا آبشار کی سیر اور واپسی چلاس کا سفر۔",
-      "دن 6: ملتان کے لیے پرامن واپسی کا سفر۔"
+      "دن 1: Departure from Multan (and surrounding areas), travel towards Chilas via Motorway.",
+      "دن 2: Travel along the Indus River towards Skardu Valley, check-in to hotel.",
+      "دن 3: Excursion to Shangrila Resort, Lower Kachura, and Cold Desert of Katpana.",
+      "دن 4: Visit Shigar Valley, historical Shigar Fort, and beautiful Deosai Plains.",
+      "دن 5: Check-out and journey to Mantokha Waterfall, travel back to Chilas.",
+      "دن 6: Drive safely back to Multan directly with route drop-offs."
     ],
     inclusionsEn: ["Comfortable Coaster from Multan", "Hotel Stays", "2 Meals Daily", "Entry Tickets", "Bonfire Night"],
     inclusionsUr: ["ملتان سے آرام دہ کوسٹر", "ہوٹل کا قیام", "روزانہ 2 کھانے", "انٹری ٹکٹ", "بون فائر نائٹ"],
@@ -334,7 +334,7 @@ export const PACKAGES: TourPackage[] = [
     price: "PKR 38,000",
     durationEn: "5 Days / 4 Nights",
     durationUr: "5 دن / 4 راتیں",
-    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s320/Kashmir.jpg",
+    image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-eY2-_WBIYikkbdCGa275im9tUlVzNsLxCzerauLCLMpgglXIlNgTejECGhAamYnVfYB-99iosQOcQSRWS3l7eqfoeeoQFhYGQ1wZ2v_Evw59uTca64FtNw99cIvADIV0Vs3j07-Z-mJRRZ7iYSDuO1QlVM25uqZaBXpVPsSBU1qjdfOQGXkxoxNS9uE/s1600/Kashmir.jpg",
     rating: 4.9,
     descriptionEn: "Azad Kashmir is often called Paradise on Earth. Departing directly from Multan, this tour pick up travelers on our route towards Neelum Valley, Keran, Sharda, and Arang Kel for an unmatched green retreat.",
     descriptionUr: "آزاد کشمیر کو اکثر زمین پر جنت کہا جاتا ہے۔ ملتان سے روانہ ہو کر، یہ ٹور راستے میں آنے والے مسافروں کو پک کرتا ہے اور وادی نیلم، کیرن، شاردہ اور ارنگ کیل کی سیر کراتا ہے۔",

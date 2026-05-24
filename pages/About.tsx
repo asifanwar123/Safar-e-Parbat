@@ -44,7 +44,7 @@ const About: React.FC<AboutProps> = ({ lang }) => {
 
         <div className="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl mb-16 md:mb-24 group border-4 border-white/50">
            <img 
-             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkneqir5evMb9aN6XKxg4N68Yhne3CyznQi-piVKt4crJ_GTdkQA60MMGI39AYU2iqG9JmtrplZDpH9e0HwrlLT2aha7ohxRYZjEocVhZW_l_eyTuDTyXEE1zJLI9JbPoDcxNyjYy6olCqhk8XyjRpN6WYrjGJ-1ngNLkw-G3jCrAWzEjeGaAXiGrcZDE/s320/tourism-in-pakistan.jpeg" 
+             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkneqir5evMb9aN6XKxg4N68Yhne3CyznQi-piVKt4crJ_GTdkQA60MMGI39AYU2iqG9JmtrplZDpH9e0HwrlLT2aha7ohxRYZjEocVhZW_l_eyTuDTyXEE1zJLI9JbPoDcxNyjYy6olCqhk8XyjRpN6WYrjGJ-1ngNLkw-G3jCrAWzEjeGaAXiGrcZDE/s1600/tourism-in-pakistan.jpeg" 
              alt="Our Story Since 2008" 
              className="w-full h-full object-cover rounded-3xl transform group-hover:scale-105 transition duration-1000 ease-in-out" 
              referrerPolicy="no-referrer" 
