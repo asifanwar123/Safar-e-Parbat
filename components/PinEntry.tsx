@@ -6,8 +6,8 @@ interface PinEntryProps {
   onUnlock: () => void;
 }
 
-// "Fozia@asif1234" encrypted with code shifting by +3 is "Ir}ldCdvi4567"
-const ENCRYPTED_PIN = "Ir}ldCdvi4567";
+// "Fozia@asif1234" encrypted with code shifting by +3 is "Ir}ldCdvlo4567"
+const ENCRYPTED_PIN = "Ir}ldCdvlo4567";
 
 const decrypt = (str: string): string => {
   return str.split('').map(c => String.fromCharCode(c.charCodeAt(0) - 3)).join('');
