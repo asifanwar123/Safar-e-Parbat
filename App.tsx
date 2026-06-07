@@ -13,6 +13,7 @@ import TravelHistory from './pages/TravelHistory';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import FloatingInquiry from './components/FloatingInquiry';
+import PinEntry from './components/PinEntry';
 import { Language, VisitorLog } from './types';
 import { DataProvider, useData } from './context/DataContext';
 
@@ -112,6 +113,23 @@ const VisitorTracker = () => {
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>('en');
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
+  useEffect(() => {
+    // Session state lookup
+    if (sessionStorage.getItem('site_unlocked') === 'true') {
+      setIsUnlocked(true);
+    }
+  }, []);
+
+  const handleUnlock = () => {
+    sessionStorage.setItem('site_unlocked', 'true');
+    setIsUnlocked(true);
+  };
+
+  if (!isUnlocked) {
+    return <PinEntry onUnlock={handleUnlock} />;
+  }
 
   return (
     <DataProvider>
