@@ -155,6 +155,16 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
               <span className="text-sm font-semibold">{lang === 'en' ? 'UR' : 'EN'}</span>
             </button>
 
+            {!isStandaloneMode && (
+              <button
+                onClick={handleInstallClick}
+                className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-emerald-500 text-emerald-700 hover:bg-emerald-50 transition text-sm font-semibold whitespace-nowrap ${isUrdu ? 'font-urdu' : ''}`}
+              >
+                <Download size={16} />
+                <span>{isUrdu ? "ایپ ڈاؤن لوڈ کریں" : "Get App"}</span>
+              </button>
+            )}
+
             <Link
               to="/contact"
               className={`bg-brand-600 text-white px-4 lg:px-5 py-2 rounded-full hover:bg-brand-700 transition shadow-lg flex items-center gap-2 whitespace-nowrap ${isUrdu ? 'flex-row-reverse font-urdu' : 'text-sm'}`}
