@@ -423,8 +423,8 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className={`relative z-10 bg-slate-950 text-white rounded-3xl shadow-2xl border border-white/15 overflow-hidden flex flex-col transition-all duration-300 ${
                 isMaximized 
-                  ? 'w-full h-full max-w-7xl max-h-[94vh]' 
-                  : 'w-full max-w-4xl max-h-[88vh]'
+                  ? 'w-full h-full max-w-[98vw] max-h-[96vh]' 
+                  : 'w-full max-w-5xl lg:max-w-6xl max-h-[92vh]'
               }`}
             >
               
@@ -507,7 +507,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                 {/* TAB 1: UPCOMING SCHEDULED DEPARTURES (BANNER ONLY)            */}
                 {/* ------------------------------------------------------------- */}
                 {activeTab === 'departures' && (
-                  <div className="space-y-6 max-w-4xl mx-auto">
+                  <div className="space-y-6 w-full max-w-5xl lg:max-w-6xl mx-auto">
                     
                     {/* Header Strip with Live Badge & Shareable URL */}
                     <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-white/10 ${isUrdu ? 'sm:flex-row-reverse text-right' : 'text-left'}`}>
