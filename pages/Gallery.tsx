@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { GALLERY_IMAGES, CONTENT } from '../constants';
 import { Language } from '../types';
-import { X, ChevronLeft, ChevronRight, Facebook, ThumbsUp, Trash2, Plus, Image as ImageIcon } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Facebook, ThumbsUp, Trash2, Image as ImageIcon, Camera, Sparkles, Mountain, Compass, MapPin, Eye } from 'lucide-react';
 import SEO from '../components/SEO';
 import FacebookVideoShowcase from '../components/FacebookVideoShowcase';
 
@@ -23,24 +23,7 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
     return GALLERY_IMAGES;
   });
 
-  const [newUrl, setNewUrl] = useState('');
-  const [errorWord, setErrorWord] = useState('');
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-
-  const handleAddImage = (e: React.FormEvent) => {
-    e.preventDefault();
-    const trimmed = newUrl.trim();
-    if (!trimmed) return;
-    if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
-      setErrorWord(isUrdu ? 'براہ کرم تصویر کا درست پتہ (HTTP/HTTPS URL) درج کریں' : 'Please enter a valid HTTP/HTTPS image URL');
-      return;
-    }
-    const updated = [...images, trimmed];
-    setImages(updated);
-    localStorage.setItem('safareparbat_gallery_images', JSON.stringify(updated));
-    setNewUrl('');
-    setErrorWord('');
-  };
 
   const handleRemoveImage = (indexToRemove: number) => {
     const updated = images.filter((_, idx) => idx !== indexToRemove);
@@ -91,50 +74,86 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
         canonicalUrl="/gallery"
         lang={lang}
       />
-       <div className="bg-gray-900 text-white py-16 mb-12">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-            <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isUrdu ? 'font-urdu' : ''}`}>
-                {CONTENT[lang].nav.gallery}
+       {/* Fancy Scenic Hero Banner */}
+       <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-brand-950 to-slate-900 text-white py-16 md:py-24 mb-12 shadow-2xl border-b border-brand-800/40">
+        {/* Decorative Glowing Orbs & Parallax Light Accents */}
+        <div className="absolute top-0 left-1/4 -translate-x-1/2 w-96 h-96 bg-brand-500/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 translate-x-1/2 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:20px_20px] opacity-40 pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            {/* Top Fancy Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-emerald-300 text-xs sm:text-sm font-semibold mb-6 backdrop-blur-md shadow-lg">
+              <Camera size={16} className="text-emerald-400" />
+              <span>{isUrdu ? "سفرِ پربت تصویری و مناظر گیلری" : "Visual Chronicles & Scenic Wonders"}</span>
+              <Sparkles size={14} className="text-amber-300" />
+            </div>
+
+            {/* Main Title with Styled Border Stroke & Gradient Accent */}
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-5 ${isUrdu ? 'font-urdu leading-relaxed' : ''}`}>
+              {isUrdu ? (
+                <>
+                  <span 
+                    className="text-white"
+                    style={{
+                      WebkitTextStroke: '1.5px #ffffff',
+                      paintOrder: 'stroke fill',
+                      textShadow: '0 4px 24px rgba(0,0,0,0.7)'
+                    }}
+                  >
+                    قدرت کے
+                  </span>{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+                    حسین مناظر و یادیں
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span 
+                    className="text-white"
+                    style={{
+                      WebkitTextStroke: '2px #ffffff',
+                      paintOrder: 'stroke fill',
+                      textShadow: '0 4px 24px rgba(0,0,0,0.7)'
+                    }}
+                  >
+                    Moments in
+                  </span>{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+                    Timeless Splendor
+                  </span>
+                </>
+              )}
             </h1>
-            <p className={`text-gray-400 text-lg ${isUrdu ? 'font-urdu' : ''}`}>
-                {isUrdu ? "ہمارے سفر کی یادیں اور پائیدار لمحات" : "Moments from our journeys and beautiful memories"}
-            </p>
-        </div>
-      </div>
 
-      {/* Gallery Action Interface (Add New Images) */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <div className={`bg-gray-50 border border-gray-100 rounded-2xl p-6 shadow-sm ${isUrdu ? 'text-right' : 'text-left'}`}>
-          <h2 className={`text-lg font-bold text-gray-800 mb-2 flex items-center gap-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
-             <ImageIcon size={20} className="text-brand-600" />
-             {isUrdu ? 'گیلری میں مزید یادگار تصویر شامل کریں' : 'Add New Remembered Image to Gallery'}
-          </h2>
-          <p className={`text-gray-500 text-xs mb-4 ${isUrdu ? 'font-urdu' : ''}`}>
-             {isUrdu ? 'اپنی فیس بک یا کسی دوسری منسلک تصویر کا پتہ (URL) پیسٹ کریں' : 'Paste the image URL from your Facebook or any online attachment'}
-          </p>
+            {/* Subtitle with Frosted Backing */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <p className={`text-gray-200 text-base sm:text-lg md:text-xl font-normal leading-relaxed px-5 py-2.5 rounded-2xl bg-black/35 border border-white/10 backdrop-blur-sm shadow-xl inline-block ${isUrdu ? 'font-urdu' : ''}`}>
+                {isUrdu 
+                  ? "ہنزہ، سکردو، عطا آباد جھیل، خنجراب پاس اور وادی نیلم کی اصل سفری تصاویر" 
+                  : "Explore handpicked photographs from our real expeditions across Hunza, Skardu, Gilgit, Kashmir & Swat."}
+              </p>
+            </div>
 
-          <form onSubmit={handleAddImage} className={`flex flex-col sm:flex-row gap-3 ${isUrdu ? 'sm:flex-row-reverse' : ''}`}>
-            <input 
-              type="text"
-              placeholder={isUrdu ? 'تصویر کا لنک (URL) یہاں چسپاں کریں...' : 'Paste image URL link here...'}
-              value={newUrl}
-              onChange={(e) => setNewUrl(e.target.value)}
-              className={`flex-grow px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 text-gray-800 shadow-inner ${isUrdu ? 'text-right font-urdu' : 'text-left'}`}
-            />
-            <button 
-              type="submit"
-              className={`px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm rounded-xl shadow-sm hover:shadow transition-all duration-300 flex items-center justify-center gap-2 shrink-0 ${isUrdu ? 'font-urdu' : ''}`}
-            >
-              <Plus size={16} />
-              {isUrdu ? 'شامل کریں' : 'Add Image'}
-            </button>
-          </form>
-
-          {errorWord && (
-            <p className={`text-red-600 text-xs mt-2 font-medium ${isUrdu ? 'font-urdu text-right' : 'text-left'}`}>
-              {errorWord}
-            </p>
-          )}
+            {/* Fancy Scenery & Region Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs sm:text-sm text-gray-300 font-medium">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 backdrop-blur-sm">
+                <Mountain size={14} className="text-emerald-400" />
+                {isUrdu ? "ہنزہ و سکردو" : "Hunza & Skardu"}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 backdrop-blur-sm">
+                <Compass size={14} className="text-teal-400" />
+                {isUrdu ? "خنجراب بارڈر" : "Khunjerab Pass"}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 backdrop-blur-sm">
+                <MapPin size={14} className="text-cyan-400" />
+                {isUrdu ? "عطا آباد و سیف الملوک" : "Scenic Alpine Lakes"}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 backdrop-blur-sm">
+                <Eye size={14} className="text-emerald-400" />
+                {isUrdu ? `${images.length}+ خوبصورت تصاویر` : `${images.length}+ Curated Photographs`}
+              </span>
+            </div>
         </div>
       </div>
 
@@ -143,7 +162,7 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
           <div className="text-center py-20 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
              <ImageIcon size={48} className="mx-auto text-gray-300 mb-3" />
              <p className={`text-gray-500 ${isUrdu ? 'font-urdu' : ''}`}>
-                {isUrdu ? 'گیلری میں کوئی تصویر باقی نہیں رہی۔ اوپر والے باکس سے تصویر شامل کریں۔' : 'No images left in the gallery. Use the box above to add some memory.'}
+                {isUrdu ? 'گیلری میں کوئی تصویر دستیاب نہیں ہے۔' : 'No images currently available in the gallery.'}
              </p>
           </div>
         ) : (
