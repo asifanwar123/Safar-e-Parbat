@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CONTENT } from '../constants';
 import { Language } from '../types';
 import { useData } from '../context/DataContext';
@@ -13,14 +13,22 @@ interface PackagesProps {
 
 const Packages: React.FC<PackagesProps> = ({ lang }) => {
   const isUrdu = lang === 'ur';
-  const { packages } = useData(); // USE CONTEXT instead of constant
+  const { packages } = useData();
   const [searchParams] = useSearchParams();
   const locationQuery = searchParams.get('location')?.toLowerCase() || '';
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 450);
+    return () => clearTimeout(timer);
+  }, [locationQuery, packages]);
 
   const filteredPackages = packages.filter(pkg => {
     if (!locationQuery) return true;
     
-    // Check both English and Urdu fields
     const matchesTitle = pkg.titleEn.toLowerCase().includes(locationQuery) || pkg.titleUr.includes(locationQuery);
     const matchesLocation = pkg.locationEn.toLowerCase().includes(locationQuery) || pkg.locationUr.includes(locationQuery);
     
@@ -53,7 +61,22 @@ const Packages: React.FC<PackagesProps> = ({ lang }) => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {filteredPackages.length > 0 ? (
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div key={n} className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 p-6 animate-pulse space-y-4">
+                <div className="h-60 bg-gray-200 rounded-xl w-full"></div>
+                <div className="h-6 bg-gray-200 rounded w-4/5"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div className="h-10 bg-gray-100 rounded-lg w-full"></div>
+                <div className="flex justify-between items-center pt-4 border-t border-gray-100">
+                  <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+                  <div className="h-8 bg-gray-200 rounded w-1/4"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : filteredPackages.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPackages.map((pkg) => (
               <Link key={pkg.id} to={`/packages/${pkg.id}`} className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col hover:translate-y-[-5px] transition-transform duration-300 group">

@@ -453,140 +453,163 @@ const DestinationWeatherWidget: React.FC<DestinationWeatherWidgetProps> = ({ lan
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
           {/* Left / Top: Active Destination Detailed Spotlight Card (7 Cols) */}
-          <div className="lg:col-span-7 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/10 relative overflow-hidden flex flex-col justify-between">
-            
-            {/* Glow Orbs */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-            <div className="relative z-10">
+          {loading ? (
+            <div className="lg:col-span-7 bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/10 animate-pulse space-y-6 min-h-[440px] flex flex-col justify-between">
+              <div className="flex justify-between items-center">
+                <div className="space-y-2">
+                  <div className="h-4 bg-slate-800 rounded w-36"></div>
+                  <div className="h-8 bg-slate-800 rounded w-52"></div>
+                </div>
+                <div className="h-8 w-28 bg-slate-800 rounded-full"></div>
+              </div>
+              <div className="flex items-center gap-6 py-6">
+                <div className="w-20 h-20 bg-slate-800 rounded-2xl"></div>
+                <div className="space-y-3">
+                  <div className="h-14 w-36 bg-slate-800 rounded"></div>
+                  <div className="h-4 w-48 bg-slate-800 rounded"></div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 pt-4">
+                <div className="h-16 bg-slate-800 rounded-2xl"></div>
+                <div className="h-16 bg-slate-800 rounded-2xl"></div>
+              </div>
+            </div>
+          ) : (
+            <div className="lg:col-span-7 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/10 relative overflow-hidden flex flex-col justify-between">
               
-              {/* Top Location Bar */}
-              <div className={`flex items-start justify-between gap-4 mb-6 pb-5 border-b border-white/10 ${isUrdu ? 'flex-row-reverse text-right' : 'text-left'}`}>
-                <div>
-                  <div className={`flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
-                    <Compass size={14} />
-                    <span>{isUrdu ? selectedDest.regionUr : selectedDest.regionEn}</span>
-                    <span className="text-gray-500">•</span>
-                    <span>{isUrdu ? selectedDest.altitudeUr : selectedDest.altitudeEn}</span>
-                  </div>
-                  <h3 className={`text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>
-                    {isUrdu ? selectedDest.nameUr : selectedDest.nameEn}
-                  </h3>
-                </div>
+              {/* Glow Orbs */}
+              <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                {/* Weather Condition Badge */}
-                <div className={`px-3.5 py-1.5 rounded-full border text-xs font-bold backdrop-blur-md shrink-0 ${weatherInfo.badgeColor} ${isUrdu ? 'font-urdu' : ''}`}>
-                  {isUrdu ? weatherInfo.labelUr : weatherInfo.labelEn}
-                </div>
-              </div>
-
-              {/* Main Temperature & Weather Metrics Row */}
-              <div className={`flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6 my-6 ${isUrdu ? 'sm:flex-row-reverse text-right' : 'text-left'}`}>
+              <div className="relative z-10">
                 
-                {/* Huge Temp Number */}
-                <div className={`flex items-center gap-4 ${isUrdu ? 'flex-row-reverse' : ''}`}>
-                  <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md shadow-inner text-emerald-400">
-                    {weatherInfo.icon}
-                  </div>
+                {/* Top Location Bar */}
+                <div className={`flex items-start justify-between gap-4 mb-6 pb-5 border-b border-white/10 ${isUrdu ? 'flex-row-reverse text-right' : 'text-left'}`}>
                   <div>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-5xl sm:text-6xl md:text-7xl font-black text-white tracking-tighter">
-                        {selectedWeather ? convertTemp(selectedWeather.temp) : "--"}
-                      </span>
-                    </div>
-                    <p className={`text-xs sm:text-sm text-gray-300 mt-1 flex items-center gap-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
-                      <span>{isUrdu ? `محسوس: ${convertTemp(selectedWeather?.feelsLike ?? 0)}` : `Feels like ${convertTemp(selectedWeather?.feelsLike ?? 0)}`}</span>
+                    <div className={`flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+                      <Compass size={14} />
+                      <span>{isUrdu ? selectedDest.regionUr : selectedDest.regionEn}</span>
                       <span className="text-gray-500">•</span>
-                      <span className="text-emerald-400 flex items-center gap-0.5">
-                        <ArrowUp size={12} /> {selectedWeather ? convertTemp(selectedWeather.maxTemp) : "--"}
-                      </span>
-                      <span className="text-cyan-400 flex items-center gap-0.5">
-                        <ArrowDown size={12} /> {selectedWeather ? convertTemp(selectedWeather.minTemp) : "--"}
-                      </span>
-                    </p>
+                      <span>{isUrdu ? selectedDest.altitudeUr : selectedDest.altitudeEn}</span>
+                    </div>
+                    <h3 className={`text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>
+                      {isUrdu ? selectedDest.nameUr : selectedDest.nameEn}
+                    </h3>
+                  </div>
+
+                  {/* Weather Condition Badge */}
+                  <div className={`px-3.5 py-1.5 rounded-full border text-xs font-bold backdrop-blur-md shrink-0 ${weatherInfo.badgeColor} ${isUrdu ? 'font-urdu' : ''}`}>
+                    {isUrdu ? weatherInfo.labelUr : weatherInfo.labelEn}
                   </div>
                 </div>
 
-                {/* Vital Quick Stats: Wind, Humidity, Best Season */}
-                <div className="grid grid-cols-2 gap-2.5 w-full sm:w-auto">
-                  <div className="bg-black/35 border border-white/10 rounded-2xl p-3 backdrop-blur-sm min-w-[120px]">
-                    <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
-                      <Wind size={14} className="text-cyan-400" />
-                      <span>{isUrdu ? "ہوا کی رفتار" : "Wind Speed"}</span>
+                {/* Main Temperature & Weather Metrics Row */}
+                <div className={`flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6 my-6 ${isUrdu ? 'sm:flex-row-reverse text-right' : 'text-left'}`}>
+                  
+                  {/* Huge Temp Number */}
+                  <div className={`flex items-center gap-4 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                    <div className="p-3.5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md shadow-inner text-emerald-400">
+                      {weatherInfo.icon}
                     </div>
-                    <p className="text-sm font-bold text-white">
-                      {selectedWeather?.windSpeed ?? 10} km/h
-                    </p>
+                    <div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl sm:text-6xl md:text-7xl font-black text-white tracking-tighter">
+                          {selectedWeather ? convertTemp(selectedWeather.temp) : "--"}
+                        </span>
+                      </div>
+                      <p className={`text-xs sm:text-sm text-gray-300 mt-1 flex items-center gap-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+                        <span>{isUrdu ? `محسوس: ${convertTemp(selectedWeather?.feelsLike ?? 0)}` : `Feels like ${convertTemp(selectedWeather?.feelsLike ?? 0)}`}</span>
+                        <span className="text-gray-500">•</span>
+                        <span className="text-emerald-400 flex items-center gap-0.5">
+                          <ArrowUp size={12} /> {selectedWeather ? convertTemp(selectedWeather.maxTemp) : "--"}
+                        </span>
+                        <span className="text-cyan-400 flex items-center gap-0.5">
+                          <ArrowDown size={12} /> {selectedWeather ? convertTemp(selectedWeather.minTemp) : "--"}
+                        </span>
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="bg-black/35 border border-white/10 rounded-2xl p-3 backdrop-blur-sm min-w-[120px]">
-                    <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
-                      <Droplets size={14} className="text-teal-400" />
-                      <span>{isUrdu ? "نمی کا تناسب" : "Humidity"}</span>
+                  {/* Vital Quick Stats: Wind, Humidity, Best Season */}
+                  <div className="grid grid-cols-2 gap-2.5 w-full sm:w-auto">
+                    <div className="bg-black/35 border border-white/10 rounded-2xl p-3 backdrop-blur-sm min-w-[120px]">
+                      <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
+                        <Wind size={14} className="text-cyan-400" />
+                        <span>{isUrdu ? "ہوا کی رفتار" : "Wind Speed"}</span>
+                      </div>
+                      <p className="text-sm font-bold text-white">
+                        {selectedWeather?.windSpeed ?? 10} km/h
+                      </p>
                     </div>
-                    <p className="text-sm font-bold text-white">
-                      {selectedWeather?.humidity ?? 45}%
+
+                    <div className="bg-black/35 border border-white/10 rounded-2xl p-3 backdrop-blur-sm min-w-[120px]">
+                      <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
+                        <Droplets size={14} className="text-teal-400" />
+                        <span>{isUrdu ? "نمی کا تناسب" : "Humidity"}</span>
+                      </div>
+                      <p className="text-sm font-bold text-white">
+                        {selectedWeather?.humidity ?? 45}%
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Tourist Safety & Packing Advice Box */}
+                <div className={`bg-white/10 border border-white/15 rounded-2xl p-4 my-5 backdrop-blur-md flex items-start gap-3 ${isUrdu ? 'flex-row-reverse text-right font-urdu' : 'text-left'}`}>
+                  <ShieldCheck size={20} className="text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-wider text-emerald-300 mb-0.5">
+                      {isUrdu ? "سفری تجویز و موسم کی مطابقت" : "Traveler's Advisory & Packing Advice"}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
+                      {isUrdu ? weatherInfo.travelAdviceUr : weatherInfo.travelAdviceEn}
                     </p>
                   </div>
                 </div>
 
               </div>
 
-              {/* Tourist Safety & Packing Advice Box */}
-              <div className={`bg-white/10 border border-white/15 rounded-2xl p-4 my-5 backdrop-blur-md flex items-start gap-3 ${isUrdu ? 'flex-row-reverse text-right font-urdu' : 'text-left'}`}>
-                <ShieldCheck size={20} className="text-emerald-400 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-xs font-black uppercase tracking-wider text-emerald-300 mb-0.5">
-                    {isUrdu ? "سفری تجویز و موسم کی مطابقت" : "Traveler's Advisory & Packing Advice"}
-                  </p>
-                  <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
-                    {isUrdu ? weatherInfo.travelAdviceUr : weatherInfo.travelAdviceEn}
-                  </p>
+              {/* 3-Day Upcoming Forecast Strip */}
+              {selectedWeather?.daily && selectedWeather.daily.length > 0 && (
+                <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
+                  <div className={`flex items-center justify-between text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+                    <span className="flex items-center gap-1.5">
+                      <Calendar size={13} className="text-emerald-400" />
+                      {isUrdu ? "آئندہ 3 دنوں کا موسم" : "3-Day Local Forecast"}
+                    </span>
+                    <span>{isUrdu ? selectedDest.bestTimeToVisitUr : selectedDest.bestTimeToVisitEn}</span>
+                  </div>
+
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                    {selectedWeather.daily.slice(0, 4).map((day, idx) => {
+                      const dayInfo = getWeatherInfo(day.weatherCode);
+                      return (
+                        <div 
+                          key={idx} 
+                          className="bg-black/40 border border-white/10 rounded-xl p-2.5 text-center flex flex-col items-center justify-between"
+                        >
+                          <span className={`text-[11px] font-bold text-gray-300 mb-1 ${isUrdu ? 'font-urdu' : ''}`}>
+                            {formatDayName(day.date, idx)}
+                          </span>
+                          <div className="my-1 scale-75">
+                            {dayInfo.icon}
+                          </div>
+                          <div className="text-xs font-black text-white">
+                            {convertTemp(day.maxTemp)}
+                          </div>
+                          <div className="text-[10px] text-gray-400">
+                            {convertTemp(day.minTemp)}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              )}
 
             </div>
-
-            {/* 3-Day Upcoming Forecast Strip */}
-            {selectedWeather?.daily && selectedWeather.daily.length > 0 && (
-              <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
-                <div className={`flex items-center justify-between text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
-                  <span className="flex items-center gap-1.5">
-                    <Calendar size={13} className="text-emerald-400" />
-                    {isUrdu ? "آئندہ 3 دنوں کا موسم" : "3-Day Local Forecast"}
-                  </span>
-                  <span>{isUrdu ? selectedDest.bestTimeToVisitUr : selectedDest.bestTimeToVisitEn}</span>
-                </div>
-
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                  {selectedWeather.daily.slice(0, 4).map((day, idx) => {
-                    const dayInfo = getWeatherInfo(day.weatherCode);
-                    return (
-                      <div 
-                        key={idx} 
-                        className="bg-black/40 border border-white/10 rounded-xl p-2.5 text-center flex flex-col items-center justify-between"
-                      >
-                        <span className={`text-[11px] font-bold text-gray-300 mb-1 ${isUrdu ? 'font-urdu' : ''}`}>
-                          {formatDayName(day.date, idx)}
-                        </span>
-                        <div className="my-1 scale-75">
-                          {dayInfo.icon}
-                        </div>
-                        <div className="text-xs font-black text-white">
-                          {convertTemp(day.maxTemp)}
-                        </div>
-                        <div className="text-[10px] text-gray-400">
-                          {convertTemp(day.minTemp)}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-          </div>
+          )}
 
           {/* Right: Quick Multi-City Tourism Overview Cards Grid (5 Cols) */}
           <div className="lg:col-span-5 flex flex-col justify-between gap-3">

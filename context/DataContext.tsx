@@ -10,6 +10,7 @@ interface DataContextType {
   visitorLogs: VisitorLog[];
   isLoading: boolean;
   saveStatus: 'idle' | 'saving' | 'saved' | 'saved-local' | 'error';
+  isAdminAuthenticated: boolean;
   
   // Actions
   addPackage: (pkg: TourPackage) => Promise<void>;
@@ -21,6 +22,8 @@ interface DataContextType {
   addComment: (comment: Comment) => Promise<void>;
   deleteComment: (id: number) => Promise<void>;
   logVisitor: (log: VisitorLog) => Promise<void>;
+  adminLogin: (pin: string) => boolean;
+  adminLogout: () => void;
   
   // Utility
   refreshData: () => Promise<void>;
@@ -29,6 +32,7 @@ interface DataContextType {
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
 const LOCAL_STORAGE_KEY = 'safar_data_v3';
+const CORRECT_ADMIN_PIN = "8885072";
 
 export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [packages, setPackages] = useState<TourPackage[]>(PACKAGES);
@@ -37,13 +41,30 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [visitorLogs, setVisitorLogs] = useState<VisitorLog[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'saved-local' | 'error'>('idle');
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(
+    () => typeof window !== 'undefined' && sessionStorage.getItem('safar_admin_auth') === 'true'
+  );
+
+  const adminLogin = (pin: string): boolean => {
+    if (pin === CORRECT_ADMIN_PIN) {
+      setIsAdminAuthenticated(true);
+      sessionStorage.setItem('safar_admin_auth', 'true');
+      return true;
+    }
+    return false;
+  };
+
+  const adminLogout = () => {
+    setIsAdminAuthenticated(false);
+    sessionStorage.removeItem('safar_admin_auth');
+  };
 
   // Cast to string to prevent TS error about comparison with literal types
   const isConfigured = (JSONBIN_BIN_ID as string) !== "REPLACE_WITH_YOUR_BIN_ID" && (JSONBIN_API_KEY as string) !== "REPLACE_WITH_YOUR_API_KEY";
 
   // Load Data (Hybrid: Cloud -> Local -> Default)
-  const fetchData = async () => {
-    setIsLoading(true);
+  const fetchData = async (silent = false) => {
+    if (!silent) setIsLoading(true);
     let loaded = false;
 
     // 1. Try Cloud First (if configured)
@@ -66,10 +87,10 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(record));
           loaded = true;
         } else {
-            console.warn("Cloud fetch failed, falling back to local storage.");
+            if (!silent) console.warn("Cloud fetch failed, falling back to local storage.");
         }
       } catch (error) {
-        console.error("Failed to fetch data from cloud:", error);
+        if (!silent) console.error("Failed to fetch data from cloud:", error);
       }
     }
 
@@ -80,14 +101,13 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             try {
                 const parsed = JSON.parse(local);
                 updateState(parsed);
-                console.log("Loaded data from LocalStorage");
             } catch (e) {
-                console.error("Failed to parse local storage", e);
+                if (!silent) console.error("Failed to parse local storage", e);
             }
         }
     }
     
-    setIsLoading(false);
+    if (!silent) setIsLoading(false);
   };
 
   const updateState = (record: any) => {
@@ -116,6 +136,11 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     fetchData();
+    // Live polling every 8 seconds so any viewer receives Coming Tours updates live
+    const pollInterval = setInterval(() => {
+      fetchData(true);
+    }, 8000);
+    return () => clearInterval(pollInterval);
   }, []);
 
   // Helper to save everything
@@ -226,6 +251,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       visitorLogs,
       isLoading,
       saveStatus,
+      isAdminAuthenticated,
       addPackage,
       updatePackage,
       deletePackage,
@@ -235,7 +261,9 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       addComment,
       deleteComment,
       logVisitor,
-      refreshData: fetchData
+      adminLogin,
+      adminLogout,
+      refreshData: () => fetchData(false)
     }}>
       {children}
     </DataContext.Provider>

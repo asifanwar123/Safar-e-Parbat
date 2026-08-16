@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
-import ComingToursWidget from '../components/ComingToursWidget';
 import RegionalTours from '../components/RegionalTours';
 import FacebookVideoShowcase from '../components/FacebookVideoShowcase';
 import SEO from '../components/SEO';
@@ -145,9 +144,6 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
         lang={lang}
       />
       <Hero lang={lang} />
-
-      {/* Automatic Coming Tours Banner Section */}
-      <ComingToursWidget lang={lang} />
 
       {/* Our Registrations Section */}
       <section className="bg-white py-14 border-b border-gray-100 relative overflow-hidden">
