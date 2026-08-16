@@ -14,6 +14,7 @@ import TravelHistory from './pages/TravelHistory';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import FloatingInquiry from './components/FloatingInquiry';
+import RightSideFloatingHub from './components/RightSideFloatingHub';
 import { Language, VisitorLog } from './types';
 import { DataProvider, useData } from './context/DataContext';
 
@@ -135,6 +136,7 @@ const App: React.FC = () => {
                   <Route path="/terms" element={<TermsOfService lang={lang} />} />
               </Routes>
               </main>
+              <RightSideFloatingHub lang={lang} />
               <FloatingInquiry lang={lang} />
               <Footer lang={lang} />
           </div>

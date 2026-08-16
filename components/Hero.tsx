@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { 
   MapPin, Star, 
   Home, Coffee, Compass, Camera, Search,
-  Sparkles, X, Mountain, Waves, ArrowRight, ArrowLeft
+  Sparkles, X, Mountain, Waves, ArrowRight, ArrowLeft,
+  Bell, MessageCircle
 } from 'lucide-react';
 import { CONTENT, HERO_SLIDES } from '../constants';
 import { Language } from '../types';
@@ -23,6 +24,21 @@ interface DestinationSuggestion {
   badgeEn?: string;
   badgeUr?: string;
 }
+
+const NEWS_BULLETINS = [
+  {
+    en: "⚡ Coming Tours: Weekly departures to Hunza, Skardu & Khunjerab Pass with direct pickups from Multan & Islamabad.",
+    ur: "⚡ آنے والے ٹورز: ملتان اور اسلام آباد سے براہ راست پک اپ کے ساتھ ہنزہ، سکردو اور خنجراب پاس کے ہفتہ وار ٹورز۔"
+  },
+  {
+    en: "📢 Early Bird Discount: Special Group & Family rates available on upcoming Northern tours. Call +92 333 4737025.",
+    ur: "📢 فیملی اور کارپوریٹ گروپس کے لیے آنے والے ٹورز پر خصوصی رعایت دستیاب ہے۔ رابطہ کریں: 4737025 333 92+۔"
+  },
+  {
+    en: "🏔️ Limited Seats: Skardu & Deosai Plains luxury departure booking open for upcoming batch. Reserve now!",
+    ur: "🏔️ محدود نشستیں: سکردو و دیوسائی پلینز لگژری ٹور کی بکنگ جاری ہے۔ اپنی سیٹ ابھی بک کروائیں۔"
+  }
+];
 
 const POPULAR_DESTINATIONS: DestinationSuggestion[] = [
   {
@@ -90,8 +106,17 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
 
   const [location, setLocation] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeNewsIndex, setActiveNewsIndex] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-rotate news ticker
+  useEffect(() => {
+    const newsTimer = setInterval(() => {
+      setActiveNewsIndex((prev) => (prev + 1) % NEWS_BULLETINS.length);
+    }, 4500);
+    return () => clearInterval(newsTimer);
+  }, []);
 
   // Auto-play slider
   useEffect(() => {
@@ -173,6 +198,43 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 flex items-center justify-center z-30 border-l border-white/10 backdrop-blur-sm hidden sm:flex">
              <div className="rotate-90 whitespace-nowrap text-white font-bold text-lg md:text-xl tracking-[0.2em] uppercase drop-shadow-md">
                 {HERO_SLIDES[currentSlide].name}
+             </div>
+          </div>
+
+          {/* Top Middle News Update / Coming Tours Ticker Banner */}
+          <div className="absolute top-4 sm:top-6 left-1/2 -translate-x-1/2 w-[94%] sm:w-[88%] max-w-3xl lg:max-w-4xl z-30 pointer-events-auto">
+             <div className="bg-black/60 hover:bg-black/75 backdrop-blur-xl border border-white/25 text-white rounded-2xl sm:rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col sm:flex-row items-center justify-between gap-2 transition-all duration-300">
+                
+                {/* News Badge with Live Glow */}
+                <div className={`flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-red-600/95 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-md shrink-0 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                  </span>
+                  <Bell size={13} className="text-white animate-bounce" />
+                  <span>{isUrdu ? "تازہ ترین اپ ڈیٹس" : "Coming Tours Update"}</span>
+                </div>
+
+                {/* Dynamic News Headline */}
+                <div className="flex-grow min-w-0 px-2 text-center sm:text-left w-full overflow-hidden">
+                  <p className={`text-[11px] sm:text-xs md:text-sm font-medium text-emerald-300/95 truncate transition-all duration-500 ${isUrdu ? 'font-urdu sm:text-right' : ''}`}>
+                    {isUrdu ? NEWS_BULLETINS[activeNewsIndex].ur : NEWS_BULLETINS[activeNewsIndex].en}
+                  </p>
+                </div>
+
+                {/* Direct Action Link */}
+                <div className={`flex items-center gap-2 shrink-0 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                  <a
+                    href="https://wa.me/923334737025"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-sm ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
+                  >
+                    <MessageCircle size={13} />
+                    <span>{isUrdu ? "بکنگ و معلومات" : "Inquire Now"}</span>
+                  </a>
+                </div>
+
              </div>
           </div>
 
