@@ -1,6 +1,7 @@
 import React from 'react';
 import { Language } from '../types';
 import { Scale, Compass, CheckCircle, HelpCircle, ShieldAlert } from 'lucide-react';
+import SEO from '../components/SEO';
 
 interface TermsOfServiceProps {
   lang: Language;
@@ -101,6 +102,12 @@ const TermsOfService: React.FC<TermsOfServiceProps> = ({ lang }) => {
 
   return (
     <div className="pt-16 md:pt-20 bg-gray-50 min-h-screen pb-16 md:pb-20">
+      <SEO 
+        title={isUrdu ? "سروس کی شرائط - سفرِ پربت" : "Terms of Service - Safar-e-Parbat"}
+        description={isUrdu ? "سفرِ پربت ٹریول اینڈ ٹورازم کی بکنگ کی شرائط، منسوخی اور ریفنڈ پالیسی۔" : "Review booking conditions, payment schedules, cancellation terms, and travelers' responsibilities for Safar-e-Parbat tours."}
+        canonicalUrl="/terms"
+        lang={lang}
+      />
       
       {/* Banner */}
       <div className="bg-brand-900 text-white py-12 md:py-20 mb-8 md:mb-12 relative overflow-hidden">

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import RegionalTours from '../components/RegionalTours';
+import SEO from '../components/SEO';
 import { Mountain, Users, Camera, Star, Quote, MapPin, Bus, Zap, Moon, Compass, Shield, Wind, Calendar, ArrowRight, ArrowLeft, Award } from 'lucide-react';
 import { Language, Comment } from '../types';
 import { CONTENT, GALLERY_IMAGES, TESTIMONIALS, JSONBIN_BIN_ID, JSONBIN_API_KEY } from '../constants';
@@ -134,6 +135,13 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
 
   return (
     <div className="bg-gray-50">
+      <SEO 
+        title={isUrdu ? "ہوم - پاکستان کے بہترین ٹور پیکیجز" : "Home - Pakistan's Premier Travel & Tourism Agency"}
+        description={isUrdu ? "سفرِ پربت: پاکستان کے دلکش سیاحتی مقامات، گلگت، ہنزہ، سکردو، خنجراب پاس اور وادی نیلم کشمیر کے لیے پرتعیش اور فیملی ٹور پیکیجز۔" : "Safar-e-Parbat is Pakistan's premier registered tourism agency offering luxury and customized tour packages to Hunza, Skardu, Gilgit, Khunjerab, and Kashmir from Multan & nationwide."}
+        keywords="Safar-e-Parbat, Pakistan tour packages, northern areas tour, Hunza valley, Skardu tour, Gilgit travel, Neelum valley Kashmir, luxury travel Pakistan, Multan tours"
+        canonicalUrl="/"
+        lang={lang}
+      />
       <Hero lang={lang} />
 
       {/* Our Registrations Section */}

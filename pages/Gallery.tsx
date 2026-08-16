@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { GALLERY_IMAGES, CONTENT } from '../constants';
 import { Language } from '../types';
 import { X, ChevronLeft, ChevronRight, Facebook, ThumbsUp, Trash2, Plus, Image as ImageIcon } from 'lucide-react';
+import SEO from '../components/SEO';
 
 interface GalleryProps {
   lang: Language;
@@ -82,6 +83,13 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
 
   return (
     <div className="pt-20 min-h-screen bg-white pb-0">
+      <SEO 
+        title={isUrdu ? "گیلری - سفرِ پربت کے حسین مناظر" : "Photo Gallery - Northern Pakistan Tourism & Landscapes"}
+        description={isUrdu ? "پاکستان کے دلکش قدرتی مناظر، ہنزہ، سکردو، عطا آباد جھیل، پاسو کونز اور خنجراب پاس کی خوبصورت تصاویر۔" : "Explore photos of Pakistan's breathtaking natural landscapes: Hunza Valley, Skardu, Attabad Lake, Passu Cones, and Saif-ul-Malook Lake with Safar-e-Parbat."}
+        keywords="Pakistan tourism photos, Hunza valley gallery, Skardu pictures, Saif-ul-Malook photos, Passu cones wallpaper, Northern Pakistan landscapes"
+        canonicalUrl="/gallery"
+        lang={lang}
+      />
        <div className="bg-gray-900 text-white py-16 mb-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isUrdu ? 'font-urdu' : ''}`}>

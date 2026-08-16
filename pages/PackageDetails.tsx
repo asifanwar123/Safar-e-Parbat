@@ -5,6 +5,7 @@ import { CONTENT } from '../constants';
 import { Language } from '../types';
 import { useData } from '../context/DataContext';
 import { MapPin, Clock, Star, Phone, CheckCircle, Calendar, Users, X, Send } from 'lucide-react';
+import SEO from '../components/SEO';
 
 interface PackageDetailsProps {
   lang: Language;
@@ -58,14 +59,35 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
   if (!pkg) {
     return (
       <div className="min-h-screen pt-24 flex flex-col items-center justify-center">
+        <SEO 
+          title={isUrdu ? "پیکیج نہیں ملا" : "Package Not Found"}
+          description="The requested tour package could not be found."
+          canonicalUrl={`/packages/${id || ''}`}
+          lang={lang}
+        />
         <h2 className="text-2xl font-bold text-gray-700">{t.notFound}</h2>
         <Link to="/packages" className="mt-4 text-brand-600 hover:underline">Back to Packages</Link>
       </div>
     );
   }
 
+  const pageTitle = isUrdu ? `${pkg.titleUr} - سفرِ پربت` : `${pkg.titleEn} (${pkg.durationEn}) - Safar-e-Parbat`;
+  const pageDescription = isUrdu 
+    ? `${pkg.descriptionUr} قیمت: ${pkg.price}۔ پیکیج میں ٹرانسپورٹ، رہائش اور گائیڈ شامل ہیں۔`
+    : `${pkg.descriptionEn} Starting at ${pkg.price}. Includes ${pkg.inclusionsEn.join(', ')}. Book with Safar-e-Parbat!`;
+  const pageKeywords = `${pkg.titleEn}, ${pkg.locationEn}, Pakistan tour package, ${pkg.durationEn}, Safar-e-Parbat tours, book trip to ${pkg.locationEn}`;
+
   return (
     <div className="pt-16 md:pt-20 bg-white min-h-screen pb-20 relative">
+      <SEO 
+        title={pageTitle}
+        description={pageDescription}
+        keywords={pageKeywords}
+        canonicalUrl={`/packages/${pkg.id}`}
+        ogImage={pkg.image}
+        ogType="article"
+        lang={lang}
+      />
       
       {/* Hero Header - Responsive Height */}
       <div className="relative h-[40vh] md:h-[50vh] w-full">

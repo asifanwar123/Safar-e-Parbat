@@ -3,6 +3,7 @@ import React from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { CONTENT } from '../constants';
 import { Language } from '../types';
+import SEO from '../components/SEO';
 
 interface ContactProps {
   lang: Language;
@@ -14,6 +15,13 @@ const Contact: React.FC<ContactProps> = ({ lang }) => {
 
   return (
     <div className="pt-20 min-h-screen bg-gray-50 pb-20">
+      <SEO 
+        title={isUrdu ? "ہم سے رابطہ کریں - سفرِ پربت" : "Contact Us - Safar-e-Parbat Travel & Tourism"}
+        description={isUrdu ? "سفرِ پربت ٹریول اینڈ ٹورازم سے رابطہ کریں۔ فون: 0333-4737025، ای میل: shahidaminyasir2@gmail.com، پتہ: کبیروالہ، پاکستان۔" : "Get in touch with Safar-e-Parbat for tour bookings, customized corporate itineraries, and travel support. Phone: +92 333 4737025."}
+        keywords="Contact Safar-e-Parbat, book Pakistan tour, travel agency Kabirwala, Multan tour operator phone, Pakistan tourism contact"
+        canonicalUrl="/contact"
+        lang={lang}
+      />
       <div className="bg-brand-800 text-white py-16 mb-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isUrdu ? 'font-urdu' : ''}`}>

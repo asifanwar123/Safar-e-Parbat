@@ -101,18 +101,53 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
 
           {/* Central Content */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20 pb-20">
-             <h1 className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight drop-shadow-2xl mb-6 leading-tight transition-colors duration-1000 ${isUrdu ? 'font-urdu' : ''}`}>
+             <h1 className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight drop-shadow-2xl mb-6 leading-tight transition-colors duration-1000 select-none ${isUrdu ? 'font-urdu' : ''}`}>
                {t.title.includes(' ') ? (
                  <>
-                   {t.title.split(' ')[0]} <span className={`${accentColorClass} transition-colors duration-1000`}>{t.title.split(' ').slice(1).join(' ')}</span>
+                   <span 
+                     className="text-brand-900"
+                     style={{
+                       WebkitTextStroke: '2.5px #ffffff',
+                       paintOrder: 'stroke fill',
+                       textShadow: '0 4px 20px rgba(0,0,0,0.6)'
+                     }}
+                   >
+                     {t.title.split(' ')[0]}
+                   </span>{' '}
+                   <span 
+                     className={`${accentColorClass} transition-colors duration-1000`}
+                     style={{
+                       WebkitTextStroke: '2.5px #ffffff',
+                       paintOrder: 'stroke fill',
+                       textShadow: '0 4px 20px rgba(0,0,0,0.6)'
+                     }}
+                   >
+                     {t.title.split(' ').slice(1).join(' ')}
+                   </span>
                  </>
                ) : (
-                 <span className={`${accentColorClass} transition-colors duration-1000`}>{t.title}</span>
+                 <span 
+                   className={`${accentColorClass} transition-colors duration-1000`}
+                   style={{
+                     WebkitTextStroke: '2.5px #ffffff',
+                     paintOrder: 'stroke fill',
+                     textShadow: '0 4px 20px rgba(0,0,0,0.6)'
+                   }}
+                 >
+                   {t.title}
+                 </span>
                )}
              </h1>
-             <p className={`text-lg md:text-2xl text-gray-100 max-w-2xl mx-auto drop-shadow-lg leading-relaxed font-medium mb-12 ${isUrdu ? 'font-urdu' : ''}`}>
-               {t.subtitle}
-             </p>
+
+             {/* Subtitle with 35% opacity black background */}
+             <div className="max-w-3xl mx-auto mb-10 px-2">
+                <p 
+                  className={`text-base sm:text-lg md:text-2xl text-white drop-shadow-lg leading-relaxed font-medium px-6 py-3.5 rounded-2xl md:rounded-full border border-white/20 shadow-2xl inline-block backdrop-blur-sm ${isUrdu ? 'font-urdu' : ''}`}
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.35)' }}
+                >
+                  {t.subtitle}
+                </p>
+             </div>
 
              {/* Simple Search Bar */}
              <div className="w-full max-w-2xl mx-auto px-4 relative z-40">

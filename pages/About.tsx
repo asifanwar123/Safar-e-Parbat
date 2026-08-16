@@ -2,6 +2,7 @@ import React from 'react';
 import { CONTENT, GALLERY_IMAGES, CEO_IMAGE } from '../constants';
 import { Language } from '../types';
 import { CheckCircle, Quote } from 'lucide-react';
+import SEO from '../components/SEO';
 
 interface AboutProps {
   lang: Language;
@@ -13,6 +14,13 @@ const About: React.FC<AboutProps> = ({ lang }) => {
 
   return (
     <div className="pt-16 md:pt-20 bg-white min-h-screen pb-16 md:pb-20">
+      <SEO 
+        title={isUrdu ? "ہمارے بارے میں - سفرِ پربت" : "About Us - Safar-e-Parbat Travel & Tourism"}
+        description={isUrdu ? "سفرِ پربت ٹریول اینڈ ٹورازم کی کہانی، مشن اور بانی شاہد امین یاسر کا پیغام۔ ہم محفوظ، معیاری اور یادگار سیاحتی خدمات فراہم کرتے ہیں۔" : "Learn about Safar-e-Parbat, our journey since 2008, mission, SECP registration, DTS license, and CEO message from Shahid Amin Yasir."}
+        keywords="About Safar-e-Parbat, Shahid Amin Yasir, Pakistan travel agency, SECP registered tourism, DTS licensed tour operator, tourism in Pakistan"
+        canonicalUrl="/about"
+        lang={lang}
+      />
       
       {/* Header */}
       <div className="bg-brand-900 text-white py-12 md:py-20 mb-8 md:mb-12 relative overflow-hidden">

@@ -5,6 +5,7 @@ import { Language } from '../types';
 import { useData } from '../context/DataContext';
 import { MapPin, Clock, Star, ArrowRight, ArrowLeft, Calendar } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 interface PackagesProps {
   lang: Language;
@@ -28,6 +29,13 @@ const Packages: React.FC<PackagesProps> = ({ lang }) => {
 
   return (
     <div className="pt-20 bg-gray-50 min-h-screen pb-20">
+      <SEO 
+        title={isUrdu ? "ٹور پیکیجز - سفرِ پربت" : "Tour Packages - Explore Pakistan with Safar-e-Parbat"}
+        description={isUrdu ? "گلگت، ہنزہ، سکردو، خنجراب پاس اور وادی نیلم کشمیر کے بہترین ٹور پیکیجز۔ ملتان اور پاکستان بھر سے روانگی کے ساتھ۔" : "Explore our top tour packages: Gilgit & Hunza, Skardu Gateway to Heaven, Khunjerab Pass China Border, and Azad Kashmir Paradise. Book your dream vacation now!"}
+        keywords="Pakistan tour packages, Hunza package price, Skardu travel cost, Gilgit Khunjerab tour, Azad Kashmir Neelum tour, Northern Pakistan travel rates"
+        canonicalUrl="/packages"
+        lang={lang}
+      />
       <div className="bg-brand-900 text-white py-16 mb-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isUrdu ? 'font-urdu' : ''}`}>

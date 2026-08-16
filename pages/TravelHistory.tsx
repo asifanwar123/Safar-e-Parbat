@@ -4,6 +4,7 @@ import { useData } from '../context/DataContext';
 import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { MapPin, Calendar, Users, Camera } from 'lucide-react';
+import SEO from '../components/SEO';
 
 interface TravelHistoryProps {
   lang: Language;
@@ -15,6 +16,13 @@ const TravelHistory: React.FC<TravelHistoryProps> = ({ lang }) => {
 
   return (
     <div className="pt-20 min-h-screen bg-gray-50 pb-20">
+      <SEO 
+        title={isUrdu ? "سفری تاریخ و یادیں - سفرِ پربت" : "Travel History & Past Expeditions - Safar-e-Parbat"}
+        description={isUrdu ? "سفرِ پربت کے ماضی کے کامیاب ٹورز، مسافروں کے نام، یادگار مناظر اور خوشگوار یادوں کی تفصیلات۔" : "View highlights, memories, and traveler lists from Safar-e-Parbat's past expeditions across Hunza, Skardu, Kashmir, and Khunjerab."}
+        keywords="Safar-e-Parbat travel history, past group tours Pakistan, expedition diaries, traveler memories Pakistan"
+        canonicalUrl="/travel-history"
+        lang={lang}
+      />
       <div className="bg-brand-900 text-white py-16 mb-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
             <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isUrdu ? 'font-urdu' : ''}`}>

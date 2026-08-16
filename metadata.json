@@ -1,5 +1,6 @@
 {
   "name": "Safar-e-Parbat",
-  "description": "A premier travel and tourism agency in Pakistan specializing in tours to Hunza, Skardu, and Swat.",
-  "requestFramePermissions": []
+  "description": "A premier travel and tourism agency in Pakistan specializing in tours to Hunza, Skardu, Gilgit, and Kashmir.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

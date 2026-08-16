@@ -1,6 +1,7 @@
 import React from 'react';
 import { Language } from '../types';
 import { Shield, Eye, Lock, FileText, CheckCircle } from 'lucide-react';
+import SEO from '../components/SEO';
 
 interface PrivacyPolicyProps {
   lang: Language;
@@ -101,6 +102,12 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ lang }) => {
 
   return (
     <div className="pt-16 md:pt-20 bg-gray-50 min-h-screen pb-16 md:pb-20">
+      <SEO 
+        title={isUrdu ? "پرائیویسی پالیسی - سفرِ پربت" : "Privacy Policy - Safar-e-Parbat"}
+        description={isUrdu ? "سفرِ پربت ٹریول اینڈ ٹورازم کی پرائیویسی پالیسی اور ڈیٹا کے تحفظ سے متعلق قواعد۔" : "Learn how Safar-e-Parbat collects, protects, and handles personal data for tour bookings and user privacy."}
+        canonicalUrl="/privacy"
+        lang={lang}
+      />
       
       {/* Banner */}
       <div className="bg-brand-900 text-white py-12 md:py-20 mb-8 md:mb-12 relative overflow-hidden">
