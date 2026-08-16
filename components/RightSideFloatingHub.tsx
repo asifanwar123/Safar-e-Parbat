@@ -647,10 +647,10 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                           <Sparkles size={13} className="text-amber-600" />
                         </div>
                         <h3 className={`text-2xl sm:text-3xl font-black text-slate-900 tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>
-                          {isUrdu ? "سفرِ پربت ٹورز شیڈول و پیکجز" : "Safar-e-Parbat Coming Tour Banner"}
+                          {isUrdu ? "آنے والے ٹورز کا شیڈول" : "Coming Tours Schedules"}
                         </h3>
                         <p className={`text-xs sm:text-sm text-slate-600 mt-1 ${isUrdu ? 'font-urdu' : ''}`}>
-                          {isUrdu ? "بابر سر ٹاپ، ناران، شگران و سری پائے - 4 دن / 3 راتیں لگژری فیملی و گروپ ٹور" : "4 Days / 3 Nights - Babusar Top, Naran & Siri Paye (Multan, Bahawalpur, Khanewal Pickups)"}
+                          {isUrdu ? "تمام آنے والے ٹورز اور روانگی کے شیڈول" : "All upcoming tours and scheduled departures with live details."}
                         </p>
                       </div>
 
