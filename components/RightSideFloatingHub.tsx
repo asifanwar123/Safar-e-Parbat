@@ -302,7 +302,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
         <button
           type="button"
           onClick={() => setIsSliderVisible(!isSliderVisible)}
-          className="bg-brand-900/95 hover:bg-brand-900 text-white p-2.5 rounded-l-2xl shadow-[-4px_0_15px_rgba(0,0,0,0.25)] border-y border-l border-brand-500/40 backdrop-blur-md flex flex-col items-center justify-center gap-1 cursor-pointer transition-transform duration-300 hover:scale-105 group"
+          className="bg-brand-900 hover:bg-brand-800 text-white p-2.5 rounded-l-2xl shadow-[-4px_0_20px_rgba(20,83,45,0.45)] border-y border-l border-brand-500/40 backdrop-blur-md flex flex-col items-center justify-center gap-1 cursor-pointer transition-transform duration-300 hover:scale-105 group"
           title={isSliderVisible ? (isUrdu ? "سلائیڈر چھپائیں" : "Hide Slider") : (isUrdu ? "سلائیڈر کھولیں" : "Show Slider")}
           aria-label="Toggle Right Side Quick Dock"
         >
@@ -317,12 +317,12 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
         </button>
 
         {/* Floating Quick Action Buttons Stack */}
-        <div className="bg-slate-950/90 backdrop-blur-xl border-y border-l border-white/20 p-2.5 rounded-l-3xl shadow-[-10px_10px_35px_rgba(0,0,0,0.4)] flex flex-col gap-2 min-w-[170px] sm:min-w-[190px]">
+        <div className="bg-brand-950/95 backdrop-blur-xl border-y border-l border-brand-500/40 p-2.5 rounded-l-3xl shadow-[-10px_10px_35px_rgba(20,83,45,0.5)] flex flex-col gap-2 min-w-[170px] sm:min-w-[190px]">
           
           {/* Top Label */}
-          <div className={`px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-gray-400 flex items-center justify-between border-b border-white/10 pb-1.5 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
-            <span className="flex items-center gap-1 text-emerald-400">
-              <Sparkles size={11} />
+          <div className={`px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-brand-200 flex items-center justify-between border-b border-brand-700/40 pb-1.5 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+            <span className="flex items-center gap-1 text-emerald-300 font-bold">
+              <Sparkles size={11} className="text-amber-400" />
               {isUrdu ? "کوئیک مینو" : "Quick Actions"}
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
@@ -332,10 +332,10 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
           <button
             type="button"
             onClick={() => openFloatingWindow('departures')}
-            className={`w-full p-2.5 rounded-2xl bg-gradient-to-r from-emerald-950 to-slate-900 hover:from-emerald-900 hover:to-brand-900 border border-emerald-500/40 text-white text-left transition-all duration-300 hover:scale-[1.03] shadow-md group flex items-center justify-between gap-2.5 ${isUrdu ? 'flex-row-reverse text-right' : ''}`}
+            className={`w-full p-2.5 rounded-2xl bg-gradient-to-r from-brand-900 to-brand-800 hover:from-brand-800 hover:to-brand-700 border border-brand-500/40 text-white text-left transition-all duration-300 hover:scale-[1.03] shadow-md group flex items-center justify-between gap-2.5 ${isUrdu ? 'flex-row-reverse text-right' : ''}`}
           >
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-emerald-600/90 text-white flex items-center justify-center shadow-md group-hover:scale-110 transition shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-md group-hover:scale-110 transition shrink-0">
                 <Calendar size={16} />
               </div>
               <div>
@@ -349,7 +349,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                 </span>
               </div>
             </div>
-            <span className="px-1.5 py-0.5 rounded-full bg-red-600 text-white text-[9px] font-black uppercase tracking-wider animate-pulse shrink-0">
+            <span className="px-1.5 py-0.5 rounded-full bg-amber-500 text-brand-950 text-[9px] font-black uppercase tracking-wider animate-pulse shrink-0">
               HOT
             </span>
           </button>
@@ -358,23 +358,23 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
           <button
             type="button"
             onClick={() => openFloatingWindow('weather')}
-            className={`w-full p-2.5 rounded-2xl bg-gradient-to-r from-sky-950 to-slate-900 hover:from-sky-900 hover:to-indigo-950 border border-sky-500/40 text-white text-left transition-all duration-300 hover:scale-[1.03] shadow-md group flex items-center justify-between gap-2.5 ${isUrdu ? 'flex-row-reverse text-right' : ''}`}
+            className={`w-full p-2.5 rounded-2xl bg-gradient-to-r from-brand-900 via-emerald-950 to-brand-800 hover:from-brand-800 hover:to-brand-700 border border-emerald-500/40 text-white text-left transition-all duration-300 hover:scale-[1.03] shadow-md group flex items-center justify-between gap-2.5 ${isUrdu ? 'flex-row-reverse text-right' : ''}`}
           >
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-sky-600/90 text-white flex items-center justify-center shadow-md group-hover:scale-110 transition shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-md group-hover:scale-110 transition shrink-0">
                 <CloudSun size={16} />
               </div>
               <div>
                 <span className="text-[11px] font-black text-white leading-tight block">
                   {isUrdu ? "لائیو ویدر" : "Live Weather"}
                 </span>
-                <span className="text-[9px] text-sky-300 font-semibold block">
+                <span className="text-[9px] text-emerald-300 font-semibold block">
                   {isUrdu ? "شمالی علاقہ جات" : "6 Destinations"}
                 </span>
               </div>
             </div>
             {weatherMap['hunza'] && (
-              <span className="px-1.5 py-0.5 rounded-md bg-white/15 text-amber-300 text-[10px] font-black shrink-0">
+              <span className="px-1.5 py-0.5 rounded-md bg-brand-900/80 border border-brand-500/30 text-amber-300 text-[10px] font-black shrink-0">
                 {convertTemp(weatherMap['hunza'].temp)}
               </span>
             )}
@@ -384,7 +384,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
           <button
             type="button"
             onClick={() => openFloatingWindow('inquiry')}
-            className={`w-full p-2.5 rounded-2xl bg-gradient-to-r from-brand-900 to-emerald-950 hover:from-brand-800 hover:to-emerald-900 border border-brand-400/40 text-white text-left transition-all duration-300 hover:scale-[1.03] shadow-md group flex items-center justify-between gap-2.5 ${isUrdu ? 'flex-row-reverse text-right' : ''}`}
+            className={`w-full p-2.5 rounded-2xl bg-gradient-to-r from-brand-900 to-emerald-900 hover:from-brand-800 hover:to-emerald-800 border border-brand-400/40 text-white text-left transition-all duration-300 hover:scale-[1.03] shadow-md group flex items-center justify-between gap-2.5 ${isUrdu ? 'flex-row-reverse text-right' : ''}`}
           >
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-md group-hover:scale-110 transition shrink-0">
@@ -421,7 +421,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className={`relative z-10 bg-slate-950 text-white rounded-3xl shadow-2xl border border-white/15 overflow-hidden flex flex-col transition-all duration-300 ${
+              className={`relative z-10 bg-gradient-to-b from-brand-950 via-brand-900 to-brand-950 text-white rounded-3xl shadow-[0_25px_60px_rgba(20,83,45,0.6)] border-2 border-brand-500/40 overflow-hidden flex flex-col transition-all duration-300 ${
                 isMaximized 
                   ? 'w-full h-full max-w-[98vw] max-h-[96vh]' 
                   : 'w-full max-w-5xl lg:max-w-6xl max-h-[92vh]'
@@ -429,7 +429,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
             >
               
               {/* Window Title Bar & Navigation Tabs */}
-              <div className="bg-slate-900/90 border-b border-white/10 px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 shrink-0">
+              <div className="bg-brand-950/90 border-b border-brand-700/50 px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 shrink-0 backdrop-blur-md">
                 
                 {/* Left: Window Tabs */}
                 <div className={`flex items-center gap-1.5 sm:gap-2 overflow-x-auto ${isUrdu ? 'flex-row-reverse' : ''}`}>
@@ -438,10 +438,10 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                   <button
                     type="button"
                     onClick={() => setActiveTab('departures')}
-                    className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer ${
+                    className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer border ${
                       activeTab === 'departures'
-                        ? 'bg-emerald-600 text-white shadow-lg'
-                        : 'bg-white/10 text-gray-300 hover:bg-white/15 hover:text-white'
+                        ? 'bg-brand-600 hover:bg-brand-500 text-white border-brand-400/50 shadow-lg'
+                        : 'bg-brand-900/60 text-brand-200 hover:bg-brand-800/80 hover:text-white border-brand-700/40'
                     } ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
                   >
                     <Calendar size={15} />
@@ -452,10 +452,10 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                   <button
                     type="button"
                     onClick={() => setActiveTab('weather')}
-                    className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer ${
+                    className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer border ${
                       activeTab === 'weather'
-                        ? 'bg-sky-600 text-white shadow-lg'
-                        : 'bg-white/10 text-gray-300 hover:bg-white/15 hover:text-white'
+                        ? 'bg-brand-600 hover:bg-brand-500 text-white border-brand-400/50 shadow-lg'
+                        : 'bg-brand-900/60 text-brand-200 hover:bg-brand-800/80 hover:text-white border-brand-700/40'
                     } ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
                   >
                     <CloudSun size={15} />
@@ -466,10 +466,10 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                   <button
                     type="button"
                     onClick={() => setActiveTab('inquiry')}
-                    className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer ${
+                    className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer border ${
                       activeTab === 'inquiry'
-                        ? 'bg-brand-600 text-white shadow-lg'
-                        : 'bg-white/10 text-gray-300 hover:bg-white/15 hover:text-white'
+                        ? 'bg-brand-600 hover:bg-brand-500 text-white border-brand-400/50 shadow-lg'
+                        : 'bg-brand-900/60 text-brand-200 hover:bg-brand-800/80 hover:text-white border-brand-700/40'
                     } ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
                   >
                     <MessageCircle size={15} />
@@ -483,7 +483,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                   <button
                     type="button"
                     onClick={() => setIsMaximized(!isMaximized)}
-                    className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition"
+                    className="p-2 rounded-xl bg-brand-900/80 hover:bg-brand-800 text-brand-200 hover:text-white border border-brand-700/40 transition"
                     title={isMaximized ? "Restore Window" : "Maximize Window"}
                   >
                     {isMaximized ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
@@ -491,7 +491,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                   <button
                     type="button"
                     onClick={() => setIsWindowOpen(false)}
-                    className="p-2 rounded-xl bg-red-600/80 hover:bg-red-600 text-white transition shadow-md"
+                    className="p-2 rounded-xl bg-red-600/90 hover:bg-red-600 text-white border border-red-500/40 transition shadow-md"
                     title="Close Window"
                   >
                     <X size={16} />
@@ -510,7 +510,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                   <div className="space-y-6 w-full max-w-5xl lg:max-w-6xl mx-auto">
                     
                     {/* Header Strip with Live Badge & Shareable URL */}
-                    <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-white/10 ${isUrdu ? 'sm:flex-row-reverse text-right' : 'text-left'}`}>
+                    <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-brand-700/40 ${isUrdu ? 'sm:flex-row-reverse text-right' : 'text-left'}`}>
                       <div>
                         <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-black uppercase tracking-wider mb-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
                           <Flame size={14} className="text-amber-400 animate-pulse" />
@@ -520,7 +520,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                         <h3 className={`text-2xl sm:text-3xl font-black text-white tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>
                           {isUrdu ? "سفرِ پربت ٹورز شیڈول و پیکجز" : "Safar-e-Parbat Coming Tour Banner"}
                         </h3>
-                        <p className={`text-xs sm:text-sm text-gray-300 mt-1 ${isUrdu ? 'font-urdu' : ''}`}>
+                        <p className={`text-xs sm:text-sm text-brand-200 mt-1 ${isUrdu ? 'font-urdu' : ''}`}>
                           {isUrdu ? "بابر سر ٹاپ، ناران، شگران و سری پائے - 4 دن / 3 راتیں لگژری فیملی و گروپ ٹور" : "4 Days / 3 Nights - Babusar Top, Naran & Siri Paye (Multan, Bahawalpur, Khanewal Pickups)"}
                         </p>
                       </div>
@@ -531,7 +531,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                           href="https://wa.me/923454737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20seats%20for%20the%204%20Days%20Naran%20Babusar%20Tour%20(Rs.%2022,500%20/%20Rs.%2050,000%20couple)."
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm transition shadow-lg hover:scale-105 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
+                          className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs sm:text-sm transition shadow-lg hover:scale-105 border border-brand-400/40 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
                         >
                           <MessageCircle size={16} />
                           <span>{isUrdu ? "واٹس ایپ بکنگ" : "Book on WhatsApp"}</span>
@@ -540,10 +540,10 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                     </div>
 
                     {/* Attached Banner Component */}
-                    <div id="official-banner-link-card" className="bg-gradient-to-br from-slate-900 via-slate-900/95 to-slate-950 border-2 border-brand-500/40 rounded-2xl p-2 sm:p-3 shadow-2xl space-y-4">
+                    <div id="official-banner-link-card" className="bg-gradient-to-br from-brand-950 via-brand-900 to-brand-950 border-2 border-brand-500/40 rounded-2xl p-2 sm:p-3 shadow-2xl space-y-4">
                       
                       {/* Attached Banner Preview Container */}
-                      <div className="relative rounded-2xl overflow-hidden border border-brand-500/30 bg-black/90 shadow-2xl flex flex-col items-center">
+                      <div className="relative rounded-2xl overflow-hidden border border-brand-500/30 bg-brand-950/90 shadow-2xl flex flex-col items-center">
                         <img
                           src="/banner_Jul_2026.jpg"
                           alt="Safar-e-Parbat Travel & Tourism - 4 Days 3 Nights Babusar Top, Naran, Siri Paye Official Tour Banner"
@@ -552,13 +552,13 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                         />
 
                         {/* Banner Bottom Action Strip */}
-                        <div className="w-full bg-gradient-to-t from-black via-slate-950/95 to-slate-950/80 p-4 sm:p-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div className="w-full bg-gradient-to-t from-brand-950 via-brand-900/95 to-brand-900/80 p-4 sm:p-5 border-t border-brand-700/50 flex flex-col sm:flex-row items-center justify-between gap-4">
                           <div className={`text-white ${isUrdu ? 'text-right font-urdu' : 'text-left'}`}>
                             <div className="flex items-center gap-2">
                               <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-[11px] border border-amber-500/30">
                                 {isUrdu ? "4 دن / 3 راتیں ٹور" : "4 Days / 3 Nights"}
                               </span>
-                              <span className="text-xs text-gray-300 font-medium">
+                              <span className="text-xs text-brand-200 font-medium">
                                 {isUrdu ? "ملتان، بہاولپور، خانیوال سے روانگی" : "From Multan, Bahawalpur, Khanewal"}
                               </span>
                             </div>
@@ -570,7 +570,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                           <div className="flex items-center gap-2.5 w-full sm:w-auto">
                             <a
                               href="tel:03454737025"
-                              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm rounded-xl transition shadow-lg"
+                              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-brand-950 font-black text-xs sm:text-sm rounded-xl transition shadow-lg"
                             >
                               <Phone size={14} />
                               <span>0345-4737025</span>
@@ -580,7 +580,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                               href="https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20seats%20for%20the%204%20Days%20Babusar%20Top%20Naran%20Tour%20(Rs.%2022,500%20/%20Rs.%2050,000%20couple)."
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs sm:text-sm rounded-xl transition shadow-lg"
+                              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-black text-xs sm:text-sm rounded-xl transition shadow-lg border border-brand-400/40"
                             >
                               <MessageCircle size={15} />
                               <span>{isUrdu ? "فوری واٹس ایپ بکنگ" : "BOOK NOW"}</span>
@@ -601,9 +601,9 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                   <div className="space-y-6">
                     
                     {/* Header Strip & Unit Toggle */}
-                    <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-white/10 ${isUrdu ? 'sm:flex-row-reverse text-right' : 'text-left'}`}>
+                    <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-brand-700/40 ${isUrdu ? 'sm:flex-row-reverse text-right' : 'text-left'}`}>
                       <div>
-                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 text-xs font-bold mb-1 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-800/80 border border-brand-500/30 text-emerald-300 text-xs font-bold mb-1 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
                           <CloudSun size={14} className="text-amber-400" />
                           <span>{isUrdu ? "اوپن ویدر لائیو اسٹیشن ڈیٹا" : "Real-Time Station & Satellite Data"}</span>
                         </div>
@@ -614,18 +614,18 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
 
                       <div className="flex items-center gap-2">
                         {/* Unit Switcher */}
-                        <div className="bg-white/10 p-1 rounded-xl border border-white/15 flex items-center text-xs font-bold">
+                        <div className="bg-brand-950/80 p-1 rounded-xl border border-brand-700/50 flex items-center text-xs font-bold">
                           <button
                             type="button"
                             onClick={() => setTempUnit('C')}
-                            className={`px-2.5 py-1 rounded-lg transition ${tempUnit === 'C' ? 'bg-sky-600 text-white' : 'text-gray-300 hover:text-white'}`}
+                            className={`px-2.5 py-1 rounded-lg transition ${tempUnit === 'C' ? 'bg-brand-600 text-white shadow-sm' : 'text-brand-200 hover:text-white'}`}
                           >
                             °C
                           </button>
                           <button
                             type="button"
                             onClick={() => setTempUnit('F')}
-                            className={`px-2.5 py-1 rounded-lg transition ${tempUnit === 'F' ? 'bg-sky-600 text-white' : 'text-gray-300 hover:text-white'}`}
+                            className={`px-2.5 py-1 rounded-lg transition ${tempUnit === 'F' ? 'bg-brand-600 text-white shadow-sm' : 'text-brand-200 hover:text-white'}`}
                           >
                             °F
                           </button>
@@ -636,10 +636,10 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                           type="button"
                           onClick={fetchWeather}
                           disabled={isWeatherLoading}
-                          className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition"
+                          className="p-2 rounded-xl bg-brand-900/80 hover:bg-brand-800 border border-brand-700/40 text-brand-200 hover:text-white transition"
                           title="Refresh live weather"
                         >
-                          <RefreshCw size={14} className={isWeatherLoading ? "animate-spin text-sky-400" : ""} />
+                          <RefreshCw size={14} className={isWeatherLoading ? "animate-spin text-emerald-400" : ""} />
                         </button>
                       </div>
                     </div>
@@ -656,14 +656,14 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                             onClick={() => setSelectedDestId(d.id)}
                             className={`flex-shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl border transition cursor-pointer text-xs font-bold ${
                               isSelected
-                                ? 'bg-sky-600 text-white border-sky-400 shadow-md'
-                                : 'bg-white/10 text-gray-300 hover:bg-white/15 border-white/10'
+                                ? 'bg-brand-600 text-white border-brand-400 shadow-md'
+                                : 'bg-brand-950/60 text-brand-200 hover:bg-brand-900/80 border-brand-700/40'
                             } ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
                           >
-                            <MapPin size={13} className={isSelected ? "text-white" : "text-sky-400"} />
+                            <MapPin size={13} className={isSelected ? "text-white" : "text-emerald-400"} />
                             <span>{isUrdu ? d.nameUr : d.nameEn}</span>
                             {w && (
-                              <span className="bg-black/30 px-1.5 py-0.5 rounded text-[11px] font-extrabold text-amber-300">
+                              <span className="bg-black/40 px-1.5 py-0.5 rounded text-[11px] font-extrabold text-amber-300 border border-white/10">
                                 {convertTemp(w.temp)}
                               </span>
                             )}
@@ -673,12 +673,12 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                     </div>
 
                     {/* Active Destination Main Weather Display */}
-                    <div className="bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 border border-sky-500/30 rounded-3xl p-5 sm:p-6 shadow-xl relative overflow-hidden">
+                    <div className="bg-gradient-to-br from-brand-900 via-brand-800 to-brand-950 border border-brand-500/40 rounded-3xl p-5 sm:p-6 shadow-xl relative overflow-hidden">
                       <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         
                         {/* Info & Main Temp */}
                         <div className={`${isUrdu ? 'text-right' : 'text-left'}`}>
-                          <span className="text-xs text-sky-300 font-bold uppercase tracking-wider block mb-1">
+                          <span className="text-xs text-emerald-300 font-bold uppercase tracking-wider block mb-1">
                             {isUrdu ? activeDestObj.regionUr : activeDestObj.regionEn} • {isUrdu ? activeDestObj.altitudeUr : activeDestObj.altitudeEn}
                           </span>
                           <h4 className={`text-2xl sm:text-3xl font-extrabold text-white mb-2 ${isUrdu ? 'font-urdu' : ''}`}>
@@ -686,7 +686,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                           </h4>
 
                           <div className={`flex items-center gap-3 my-2 ${isUrdu ? 'flex-row-reverse' : ''}`}>
-                            <div className="p-3 rounded-2xl bg-white/10 border border-white/20">
+                            <div className="p-3 rounded-2xl bg-brand-950/70 border border-brand-600/40">
                               {activeWeatherHelper.icon}
                             </div>
                             <div>
@@ -702,22 +702,22 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
 
                         {/* Metric Cards */}
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 w-full md:w-auto">
-                          <div className="bg-black/40 border border-white/10 rounded-2xl p-3 text-center">
-                            <span className="text-[11px] text-gray-400 block mb-1">{isUrdu ? "محسوس" : "Feels Like"}</span>
+                          <div className="bg-brand-950/70 border border-brand-700/40 rounded-2xl p-3 text-center">
+                            <span className="text-[11px] text-brand-200 block mb-1">{isUrdu ? "محسوس" : "Feels Like"}</span>
                             <span className="text-sm font-bold text-white">
                               {activeDestWeather ? convertTemp(activeDestWeather.feelsLike) : "--"}
                             </span>
                           </div>
 
-                          <div className="bg-black/40 border border-white/10 rounded-2xl p-3 text-center">
-                            <span className="text-[11px] text-gray-400 block mb-1">{isUrdu ? "ہوا کی رفتار" : "Wind Speed"}</span>
-                            <span className="text-sm font-bold text-cyan-300">
+                          <div className="bg-brand-950/70 border border-brand-700/40 rounded-2xl p-3 text-center">
+                            <span className="text-[11px] text-brand-200 block mb-1">{isUrdu ? "ہوا کی رفتار" : "Wind Speed"}</span>
+                            <span className="text-sm font-bold text-emerald-300">
                               {activeDestWeather ? `${activeDestWeather.windSpeed} km/h` : "--"}
                             </span>
                           </div>
 
-                          <div className="bg-black/40 border border-white/10 rounded-2xl p-3 text-center col-span-2 sm:col-span-1">
-                            <span className="text-[11px] text-gray-400 block mb-1">{isUrdu ? "نمی" : "Humidity"}</span>
+                          <div className="bg-brand-950/70 border border-brand-700/40 rounded-2xl p-3 text-center col-span-2 sm:col-span-1">
+                            <span className="text-[11px] text-brand-200 block mb-1">{isUrdu ? "نمی" : "Humidity"}</span>
                             <span className="text-sm font-bold text-teal-300">
                               {activeDestWeather ? `${activeDestWeather.humidity}%` : "--"}
                             </span>
@@ -727,8 +727,8 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                       </div>
 
                       {/* Travel Safety Note */}
-                      <div className={`mt-5 pt-4 border-t border-white/10 flex items-start gap-2.5 text-xs text-gray-200 ${isUrdu ? 'flex-row-reverse text-right font-urdu' : 'text-left'}`}>
-                        <ShieldCheck size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                      <div className={`mt-5 pt-4 border-t border-brand-700/40 flex items-start gap-2.5 text-xs text-brand-100 ${isUrdu ? 'flex-row-reverse text-right font-urdu' : 'text-left'}`}>
+                        <ShieldCheck size={18} className="text-amber-400 shrink-0 mt-0.5" />
                         <span>
                           {isUrdu 
                             ? "موسم کی تازہ صورتحال کے مطابق ہلکی گرم جیکٹ، واٹر پروف شوز اور کیمرہ ساتھ رکھیں۔ مزید رہنمائی کے لیے ہمارے واٹس ایپ ٹریول ایکسپرٹ سے رابطہ کریں۔" 
@@ -743,7 +743,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                         href="https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20Please%20provide%20live%20weather%20and%20road%20updates."
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm py-3 px-6 rounded-2xl shadow-lg transition ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
+                        className={`inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs sm:text-sm py-3 px-6 rounded-2xl shadow-lg transition border border-brand-400/40 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
                       >
                         <MessageCircle size={16} />
                         <span>{isUrdu ? "لائیو روٹ اور موسم پر رہنمائی لیں" : "Get Live Route & Weather Advice on WhatsApp"}</span>
@@ -762,7 +762,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                       <h3 className="text-xl sm:text-2xl font-extrabold text-white">
                         {isUrdu ? "کسٹم ٹور یا فوری بکنگ انکوائری" : "Plan Your Tour with Safar-e-Parbat™"}
                       </h3>
-                      <p className="text-xs sm:text-sm text-gray-400 mt-1">
+                      <p className="text-xs sm:text-sm text-brand-200 mt-1">
                         {isUrdu ? "اپنی تفصیلات درج کریں، ہم فوری طور پر واٹس ایپ پر پیکیج کوٹیشن فراہم کریں گے۔" : "Fill the quick form below to receive a personalized quote in minutes."}
                       </p>
                     </div>
@@ -770,7 +770,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                     <form onSubmit={handleInquirySubmit} className="space-y-4">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
-                          <label className={`text-xs font-bold text-gray-400 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                          <label className={`text-xs font-bold text-brand-200 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
                             <User size={12} /> {isUrdu ? 'آپ کا نام' : 'Full Name'}
                           </label>
                           <input
@@ -778,13 +778,13 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                             type="text"
                             value={inquiryForm.name}
                             onChange={(e) => setInquiryForm({ ...inquiryForm, name: e.target.value })}
-                            className={`w-full p-3 bg-slate-900 border border-white/15 rounded-xl text-white outline-none focus:border-brand-500 transition ${isUrdu ? 'text-right' : ''}`}
+                            className={`w-full p-3 bg-brand-950/90 border border-brand-700/60 rounded-xl text-white outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 placeholder-brand-300/40 transition ${isUrdu ? 'text-right' : ''}`}
                             placeholder={isUrdu ? 'نام درج کریں' : 'e.g. Asif Anwar'}
                           />
                         </div>
 
                         <div className="space-y-1">
-                          <label className={`text-xs font-bold text-gray-400 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                          <label className={`text-xs font-bold text-brand-200 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
                             <Phone size={12} /> {isUrdu ? 'واٹس ایپ نمبر' : 'WhatsApp Number'}
                           </label>
                           <input
@@ -792,7 +792,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                             type="tel"
                             value={inquiryForm.phone}
                             onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
-                            className={`w-full p-3 bg-slate-900 border border-white/15 rounded-xl text-white outline-none focus:border-brand-500 transition ${isUrdu ? 'text-right' : ''}`}
+                            className={`w-full p-3 bg-brand-950/90 border border-brand-700/60 rounded-xl text-white outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 placeholder-brand-300/40 transition ${isUrdu ? 'text-right' : ''}`}
                             placeholder="+92 3XX XXXXXXX"
                           />
                         </div>
@@ -800,56 +800,56 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
-                          <label className={`text-xs font-bold text-gray-400 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                          <label className={`text-xs font-bold text-brand-200 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
                             <MapPin size={12} /> {isUrdu ? 'پسندیدہ ٹور / منزل' : 'Destination'}
                           </label>
                           <select
                             value={inquiryForm.destination}
                             onChange={(e) => setInquiryForm({ ...inquiryForm, destination: e.target.value })}
-                            className={`w-full p-3 bg-slate-900 border border-white/15 rounded-xl text-white outline-none focus:border-brand-500 transition ${isUrdu ? 'text-right' : ''}`}
+                            className={`w-full p-3 bg-brand-950/90 border border-brand-700/60 rounded-xl text-white outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition ${isUrdu ? 'text-right' : ''}`}
                           >
                             <option value="">{isUrdu ? 'منتخب کریں' : 'Select Destination'}</option>
                             {packages.map((pkg) => (
-                              <option key={pkg.id} value={pkg.titleEn}>
+                              <option key={pkg.id} value={pkg.titleEn} className="bg-brand-950 text-white">
                                 {isUrdu ? pkg.titleUr : pkg.titleEn}
                               </option>
                             ))}
-                            <option value="Custom Family Tour">{isUrdu ? 'کسٹم فیملی ٹور' : 'Customized Private Tour'}</option>
+                            <option value="Custom Family Tour" className="bg-brand-950 text-white">{isUrdu ? 'کسٹم فیملی ٹور' : 'Customized Private Tour'}</option>
                           </select>
                         </div>
 
                         <div className="space-y-1">
-                          <label className={`text-xs font-bold text-gray-400 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                          <label className={`text-xs font-bold text-brand-200 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
                             <Users size={12} /> {isUrdu ? 'افراد کی تعداد' : 'Number of Travelers'}
                           </label>
                           <select
                             value={inquiryForm.travellers}
                             onChange={(e) => setInquiryForm({ ...inquiryForm, travellers: e.target.value })}
-                            className="w-full p-3 bg-slate-900 border border-white/15 rounded-xl text-white outline-none focus:border-brand-500 transition"
+                            className="w-full p-3 bg-brand-950/90 border border-brand-700/60 rounded-xl text-white outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition"
                           >
                             {['1', '2', '3-4', '5-7', '8-12', '15+ Group'].map((n) => (
-                              <option key={n} value={n}>{n}</option>
+                              <option key={n} value={n} className="bg-brand-950 text-white">{n}</option>
                             ))}
                           </select>
                         </div>
                       </div>
 
                       <div className="space-y-1">
-                        <label className={`text-xs font-bold text-gray-400 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                        <label className={`text-xs font-bold text-brand-200 uppercase flex items-center gap-1 ${isUrdu ? 'flex-row-reverse' : ''}`}>
                           <MessageCircle size={12} /> {isUrdu ? 'اضافی ضروریات یا سوال' : 'Message / Questions'}
                         </label>
                         <textarea
                           rows={3}
                           value={inquiryForm.message}
                           onChange={(e) => setInquiryForm({ ...inquiryForm, message: e.target.value })}
-                          className={`w-full p-3 bg-slate-900 border border-white/15 rounded-xl text-white outline-none focus:border-brand-500 transition resize-none ${isUrdu ? 'text-right' : ''}`}
+                          className={`w-full p-3 bg-brand-950/90 border border-brand-700/60 rounded-xl text-white outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 placeholder-brand-300/40 transition resize-none ${isUrdu ? 'text-right' : ''}`}
                           placeholder={isUrdu ? 'روانگی کا شہر، ہوٹل کیٹیگری یا دیگر تفصیلات...' : 'Pickup city, preferred date, hotel category, etc.'}
                         />
                       </div>
 
                       <button
                         type="submit"
-                        className={`w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-3.5 rounded-2xl shadow-xl transition flex items-center justify-center gap-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
+                        className={`w-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-brand-950 font-black py-3.5 rounded-2xl shadow-xl transition flex items-center justify-center gap-2 cursor-pointer ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
                       >
                         <Send size={18} />
                         <span>{isUrdu ? "واٹس ایپ پر کوٹیشن حاصل کریں" : "Send Inquiry via WhatsApp"}</span>
