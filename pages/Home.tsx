@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import RegionalTours from '../components/RegionalTours';
+import FacebookVideoShowcase from '../components/FacebookVideoShowcase';
 import SEO from '../components/SEO';
 import { Mountain, Users, Camera, Star, Quote, MapPin, Bus, Zap, Moon, Compass, Shield, Wind, Calendar, ArrowRight, ArrowLeft, Award } from 'lucide-react';
 import { Language, Comment } from '../types';
@@ -450,6 +451,9 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
         </section>
 
       </section>
+
+      {/* Facebook Video Views Section */}
+      <FacebookVideoShowcase lang={lang} />
 
       {/* Recent Travel History Section */}
       <section className="py-16 md:py-24 bg-white border-t border-gray-100">

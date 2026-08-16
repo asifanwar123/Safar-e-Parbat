@@ -3,6 +3,7 @@ import { GALLERY_IMAGES, CONTENT } from '../constants';
 import { Language } from '../types';
 import { X, ChevronLeft, ChevronRight, Facebook, ThumbsUp, Trash2, Plus, Image as ImageIcon } from 'lucide-react';
 import SEO from '../components/SEO';
+import FacebookVideoShowcase from '../components/FacebookVideoShowcase';
 
 interface GalleryProps {
   lang: Language;
@@ -184,6 +185,9 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
           </div>
         )}
       </div>
+
+      {/* Facebook Video Views & Reels Section */}
+      <FacebookVideoShowcase lang={lang} />
 
       {/* Fancy Facebook Section */}
       <section className="relative py-20 md:py-32 overflow-hidden">
