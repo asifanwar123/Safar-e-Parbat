@@ -164,13 +164,24 @@ const getWeatherHelper = (code: number) => {
 
 const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => {
   const isUrdu = lang === 'ur';
-  const { packages, updatePackage, deletePackage, isAdminAuthenticated, adminLogin, adminLogout } = useData();
+  const { packages, updatePackage, deletePackage, addPackage, isAdminAuthenticated, adminLogin, adminLogout } = useData();
 
   // Admin authentication & coming tour editing state
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [adminPinInput, setAdminPinInput] = useState('');
   const [adminError, setAdminError] = useState('');
   const [editingPackageId, setEditingPackageId] = useState<string | null>(null);
+  const [isAddingNewTour, setIsAddingNewTour] = useState(false);
+  const [newTourForm, setNewTourForm] = useState({
+    titleEn: '',
+    titleUr: '',
+    price: 'Rs. 24,500 / Person',
+    dates: new Date().toISOString().split('T')[0],
+    durationEn: '4 Days / 3 Nights',
+    facilities: ['Luxury Transport (Coaster/Grand Cabin)', 'Hotel Accommodation (Family Rooms)', 'Breakfast & Dinner', 'Professional Tour Guide']
+  });
+  const [newTourCustomFacility, setNewTourCustomFacility] = useState('');
+
   const [editForm, setEditForm] = useState({
     titleEn: '',
     titleUr: '',
@@ -201,6 +212,40 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
     "7 Days / 6 Nights",
     "10 Days / 9 Nights"
   ];
+
+  const handleCreateNewTour = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTourForm.titleEn.trim()) return;
+    const newPkg: TourPackage = {
+      id: `tour-${Date.now()}`,
+      titleEn: newTourForm.titleEn,
+      titleUr: newTourForm.titleUr || newTourForm.titleEn,
+      locationEn: 'Northern Pakistan',
+      locationUr: 'شمالی پاکستان',
+      price: newTourForm.price,
+      durationEn: newTourForm.durationEn,
+      durationUr: newTourForm.durationEn,
+      image: '/banner_Jul_2026.jpg',
+      rating: 5.0,
+      descriptionEn: 'Exclusive upcoming tour package with full guided itinerary.',
+      descriptionUr: 'خصوصی آنے والا ٹور پیکج۔',
+      itineraryEn: ['Day 1: Departure & Arrival', 'Day 2: Exploration', 'Day 3: Sightseeing', 'Day 4: Return'],
+      itineraryUr: ['پہلا دن: روانگی و آمد', 'دوسرا دن: سیر و تفریح', 'تیسرا دن: سیاحت', 'چوتھا دن: واپسی'],
+      inclusionsEn: newTourForm.facilities,
+      inclusionsUr: newTourForm.facilities,
+      dates: newTourForm.dates
+    };
+    await addPackage(newPkg);
+    setIsAddingNewTour(false);
+    setNewTourForm({
+      titleEn: '',
+      titleUr: '',
+      price: 'Rs. 24,500 / Person',
+      dates: new Date().toISOString().split('T')[0],
+      durationEn: '4 Days / 3 Nights',
+      facilities: ['Luxury Transport (Coaster/Grand Cabin)', 'Hotel Accommodation (Family Rooms)', 'Breakfast & Dinner', 'Professional Tour Guide']
+    });
+  };
 
   const handleStartEdit = (pkg: TourPackage) => {
     setEditingPackageId(pkg.id);
@@ -1121,9 +1166,161 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                       </button>
                     </div>
 
-                    <h4 className="text-sm font-black uppercase text-slate-700 tracking-wider">
-                      {isUrdu ? "ٹور پیکجز اور شیڈول میں ترمیم کریں" : "Edit Coming Tour Packages & Schedules"}
-                    </h4>
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-sm font-black uppercase text-slate-700 tracking-wider">
+                        {isUrdu ? "ٹور پیکجز اور شیڈول میں ترمیم کریں" : "Edit Coming Tour Packages & Schedules"}
+                      </h4>
+                      <button
+                        type="button"
+                        onClick={() => setIsAddingNewTour(!isAddingNewTour)}
+                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition cursor-pointer flex items-center gap-1.5"
+                      >
+                        <span>+</span>
+                        <span>{isUrdu ? "نیا ٹور شامل کریں" : "Add New Tour Detail"}</span>
+                      </button>
+                    </div>
+
+                    {/* Add New Tour Form Modal / Accordion */}
+                    {isAddingNewTour && (
+                      <form onSubmit={handleCreateNewTour} className="bg-emerald-50/70 border-2 border-emerald-300 rounded-2xl p-4 space-y-3">
+                        <h5 className="font-bold text-emerald-900 text-xs uppercase tracking-wide">
+                          {isUrdu ? "نیا آنے والا ٹور شامل کریں (آن لائن اسٹور میں مستقل محفوظ ہوگا)" : "Create New Coming Tour (Permanent Live Save)"}
+                        </h5>
+
+                        <div>
+                          <label className="text-[11px] font-bold text-slate-600 block mb-1">Tour Title (English & Urdu)</label>
+                          <input
+                            type="text"
+                            value={newTourForm.titleEn}
+                            onChange={(e) => setNewTourForm({ ...newTourForm, titleEn: e.target.value })}
+                            className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white mb-1.5"
+                            placeholder="Title (English) e.g. Skardu & Khunjerab Royal Tour"
+                            required
+                          />
+                          <input
+                            type="text"
+                            value={newTourForm.titleUr}
+                            onChange={(e) => setNewTourForm({ ...newTourForm, titleUr: e.target.value })}
+                            className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                            placeholder="ٹائٹل (اردو)"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div>
+                            <label className="text-[11px] font-bold text-slate-600 block mb-1">Departure Date</label>
+                            <input
+                              type="date"
+                              value={newTourForm.dates}
+                              onChange={(e) => setNewTourForm({ ...newTourForm, dates: e.target.value })}
+                              className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-[11px] font-bold text-slate-600 block mb-1">Tour Days</label>
+                            <select
+                              value={newTourForm.durationEn}
+                              onChange={(e) => setNewTourForm({ ...newTourForm, durationEn: e.target.value })}
+                              className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                            >
+                              {TOUR_DAYS_OPTIONS.map((opt) => (
+                                <option key={opt} value={opt}>{opt}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-bold text-slate-600 block mb-1">Price (PKR)</label>
+                          <input
+                            type="text"
+                            value={newTourForm.price}
+                            onChange={(e) => setNewTourForm({ ...newTourForm, price: e.target.value })}
+                            className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                            placeholder="e.g. Rs. 24,500 / Person"
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-bold text-slate-600 block mb-1">Facilities (Select & Tags)</label>
+                          <div className="flex flex-wrap gap-1 mb-2">
+                            {PRESET_FACILITIES.map((preset) => {
+                              const isSelected = newTourForm.facilities.includes(preset);
+                              return (
+                                <button
+                                  key={preset}
+                                  type="button"
+                                  onClick={() => {
+                                    if (isSelected) {
+                                      setNewTourForm({ ...newTourForm, facilities: newTourForm.facilities.filter(f => f !== preset) });
+                                    } else {
+                                      setNewTourForm({ ...newTourForm, facilities: [...newTourForm.facilities, preset] });
+                                    }
+                                  }}
+                                  className={`px-2.5 py-1 rounded-md text-[10px] font-bold transition cursor-pointer border ${isSelected ? 'bg-brand-600 text-white border-brand-600 shadow' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'}`}
+                                >
+                                  {isSelected ? '✓ ' : '+ '} {preset}
+                                </button>
+                              );
+                            })}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="text"
+                              value={newTourCustomFacility}
+                              onChange={(e) => setNewTourCustomFacility(e.target.value)}
+                              placeholder="Add custom facility..."
+                              className="flex-grow p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (newTourCustomFacility.trim() && !newTourForm.facilities.includes(newTourCustomFacility.trim())) {
+                                  setNewTourForm({ ...newTourForm, facilities: [...newTourForm.facilities, newTourCustomFacility.trim()] });
+                                  setNewTourCustomFacility('');
+                                }
+                              }}
+                              className="px-3 py-2 bg-slate-800 text-white rounded-lg text-xs font-bold hover:bg-slate-700 transition cursor-pointer"
+                            >
+                              Add Tag
+                            </button>
+                          </div>
+                          {newTourForm.facilities.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5 mt-2 p-2 bg-white border border-emerald-200 rounded-lg">
+                              {newTourForm.facilities.map((fac, idx) => (
+                                <span key={idx} className="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-50 text-brand-800 rounded-md text-[11px] font-bold border border-brand-200">
+                                  <span>{fac}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => setNewTourForm({ ...newTourForm, facilities: newTourForm.facilities.filter((_, i) => i !== idx) })}
+                                    className="text-brand-600 hover:text-red-600 font-bold ml-1 cursor-pointer"
+                                  >
+                                    ×
+                                  </button>
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-2 pt-2">
+                          <button
+                            type="submit"
+                            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-lg shadow cursor-pointer"
+                          >
+                            {isUrdu ? "محفوظ کریں اور لائیو شائع کریں" : "Save & Publish Permanently Live"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setIsAddingNewTour(false)}
+                            className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-lg cursor-pointer"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    )}
 
                     <div className="space-y-3">
                       {packages.map((pkg) => (
