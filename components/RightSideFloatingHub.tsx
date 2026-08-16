@@ -5,7 +5,8 @@ import {
   Maximize2, Minimize2, Flame, MapPin, RefreshCw, Sun, CloudRain, 
   CloudSnow, CloudLightning, Cloud, Wind, Droplets, ArrowUp, ArrowDown,
   ShieldCheck, ArrowRight, ArrowLeft, Phone, User, Users, Send, 
-  Sparkles, CheckCircle2, Bell, ExternalLink, HelpCircle
+  Sparkles, CheckCircle2, Bell, ExternalLink, HelpCircle, Copy, Check,
+  Download, Eye, Image as ImageIcon, ZoomIn
 } from 'lucide-react';
 import { Language, TourPackage } from '../types';
 import { useData } from '../context/DataContext';
@@ -170,6 +171,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
 
   // Floating Window state
   const [isWindowOpen, setIsWindowOpen] = useState<boolean>(false);
+  const [bannerCopied, setBannerCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<ActiveTab>('departures');
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
 
@@ -537,83 +539,53 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                       </div>
                     </div>
 
-                    {/* Image URL Generator & Direct Link Box */}
-                    <div className="bg-slate-900/90 border border-brand-500/30 rounded-2xl p-3.5 sm:p-4 shadow-inner">
-                      <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs ${isUrdu ? 'sm:flex-row-reverse text-right' : 'text-left'}`}>
-                        <div className="flex items-center gap-2 text-emerald-400 font-bold">
-                          <ExternalLink size={15} />
-                          <span>{isUrdu ? "تصویر کا براہ راست یو آر ایل لنک:" : "Official Banner Image URL Link:"}</span>
-                        </div>
-
-                        <div className="flex items-center gap-2 w-full sm:w-auto">
-                          <input
-                            type="text"
-                            readOnly
-                            value={`${window.location.origin}/banner_Jul_2026.jpg`}
-                            className="bg-black/60 border border-white/15 px-3 py-1.5 rounded-xl text-[11px] text-gray-200 w-full sm:w-80 select-all font-mono"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => {
-                              navigator.clipboard.writeText(`${window.location.origin}/banner_Jul_2026.jpg`);
-                              alert(isUrdu ? "تصویر کا لنک کاپی کر لیا گیا ہے!" : "Banner URL Link copied to clipboard!");
-                            }}
-                            className="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl text-xs whitespace-nowrap transition shadow-sm"
-                          >
-                            {isUrdu ? "کاپی لنک" : "Copy Link"}
-                          </button>
-                          <a
-                            href="/banner_Jul_2026.jpg"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-3 py-1.5 bg-white/15 hover:bg-white/25 text-white font-bold rounded-xl text-xs whitespace-nowrap transition"
-                          >
-                            {isUrdu ? "بڑے سائز میں دیکھیں" : "Open Full"}
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* THE BANNER (ONLY ITEM SHOWN) */}
-                    <div className="relative rounded-3xl overflow-hidden border-2 border-brand-500/50 shadow-2xl bg-black group">
+                    {/* Attached Banner Component */}
+                    <div id="official-banner-link-card" className="bg-gradient-to-br from-slate-900 via-slate-900/95 to-slate-950 border-2 border-brand-500/40 rounded-2xl p-2 sm:p-3 shadow-2xl space-y-4">
                       
-                      {/* Image Asset Display */}
-                      <img
-                        src="/banner_Jul_2026.jpg"
-                        alt="Safar-e-Parbat Travel & Tourism SMC Pvt Limited - 4 Days 3 Nights Babusar Top, Naran, Siri Paye Tour Banner"
-                        className="w-full h-auto object-contain max-h-[75vh] mx-auto rounded-3xl"
-                        referrerPolicy="no-referrer"
-                      />
+                      {/* Attached Banner Preview Container */}
+                      <div className="relative rounded-2xl overflow-hidden border border-brand-500/30 bg-black/90 shadow-2xl flex flex-col items-center">
+                        <img
+                          src="/banner_Jul_2026.jpg"
+                          alt="Safar-e-Parbat Travel & Tourism - 4 Days 3 Nights Babusar Top, Naran, Siri Paye Official Tour Banner"
+                          className="w-full h-auto object-contain max-h-[75vh] rounded-2xl"
+                          referrerPolicy="no-referrer"
+                        />
 
-                      {/* Floating Quick Action Overlay at Bottom */}
-                      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div className={`text-white ${isUrdu ? 'text-right font-urdu' : 'text-left'}`}>
-                          <p className="text-xs text-amber-300 font-extrabold uppercase tracking-wider">
-                            {isUrdu ? "خصوصی رعایت • نشستیں محدود ہیں" : "Rs. 22,500 / Person • Couple Rs. 50,000"}
-                          </p>
-                          <p className="text-sm sm:text-base font-black text-white">
-                            {isUrdu ? "بکنگ و معلومات: 0345-4737025 / 0333-4737025" : "Call / WhatsApp: 0345-4737025 | 0333-4737025"}
-                          </p>
-                        </div>
+                        {/* Banner Bottom Action Strip */}
+                        <div className="w-full bg-gradient-to-t from-black via-slate-950/95 to-slate-950/80 p-4 sm:p-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                          <div className={`text-white ${isUrdu ? 'text-right font-urdu' : 'text-left'}`}>
+                            <div className="flex items-center gap-2">
+                              <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-[11px] border border-amber-500/30">
+                                {isUrdu ? "4 دن / 3 راتیں ٹور" : "4 Days / 3 Nights"}
+                              </span>
+                              <span className="text-xs text-gray-300 font-medium">
+                                {isUrdu ? "ملتان، بہاولپور، خانیوال سے روانگی" : "From Multan, Bahawalpur, Khanewal"}
+                              </span>
+                            </div>
+                            <p className="text-sm sm:text-base font-black text-white mt-1">
+                              {isUrdu ? "فی کس: 22,500 روپے • کپل پیکج: 50,000 روپے" : "Rs. 22,500 / Person • Couple Package Rs. 50,000"}
+                            </p>
+                          </div>
 
-                        <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                          <a
-                            href="tel:03454737025"
-                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm rounded-2xl transition shadow-lg"
-                          >
-                            <Phone size={15} />
-                            <span>0345-4737025</span>
-                          </a>
+                          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                            <a
+                              href="tel:03454737025"
+                              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm rounded-xl transition shadow-lg"
+                            >
+                              <Phone size={14} />
+                              <span>0345-4737025</span>
+                            </a>
 
-                          <a
-                            href="https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20seats%20for%20the%204%20Days%20Babusar%20Top%20Naran%20Tour%20from%20Multan/Bahawalpur/Khanewal."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs sm:text-sm rounded-2xl transition shadow-lg"
-                          >
-                            <MessageCircle size={16} />
-                            <span>{isUrdu ? "فوری بک کریں" : "BOOK NOW"}</span>
-                          </a>
+                            <a
+                              href="https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20seats%20for%20the%204%20Days%20Babusar%20Top%20Naran%20Tour%20(Rs.%2022,500%20/%20Rs.%2050,000%20couple)."
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs sm:text-sm rounded-xl transition shadow-lg"
+                            >
+                              <MessageCircle size={15} />
+                              <span>{isUrdu ? "فوری واٹس ایپ بکنگ" : "BOOK NOW"}</span>
+                            </a>
+                          </div>
                         </div>
                       </div>
 
