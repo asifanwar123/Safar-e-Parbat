@@ -1,9 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   MapPin, Star, 
-  Home, Coffee, Compass, Camera, Search
+  Home, Coffee, Compass, Camera, Search,
+  Sparkles, X, Mountain, Waves, ArrowRight, ArrowLeft
 } from 'lucide-react';
 import { CONTENT, HERO_SLIDES } from '../constants';
 import { Language } from '../types';
@@ -12,6 +13,76 @@ interface HeroProps {
   lang: Language;
 }
 
+interface DestinationSuggestion {
+  nameEn: string;
+  nameUr: string;
+  regionEn: string;
+  regionUr: string;
+  category: 'valleys' | 'lakes' | 'peaks';
+  query: string;
+  badgeEn?: string;
+  badgeUr?: string;
+}
+
+const POPULAR_DESTINATIONS: DestinationSuggestion[] = [
+  {
+    nameEn: "Hunza Valley & Altit",
+    nameUr: "ہنزہ ویلی و التیت فورٹ",
+    regionEn: "Gilgit-Baltistan",
+    regionUr: "گلگت بلتستان",
+    category: "valleys",
+    query: "Hunza",
+    badgeEn: "Top Rated",
+    badgeUr: "بہترین درجہ بندی"
+  },
+  {
+    nameEn: "Skardu & Deosai Plains",
+    nameUr: "سکردو و دیوسائی پلینز",
+    regionEn: "Baltistan",
+    regionUr: "بلتستان",
+    category: "peaks",
+    query: "Skardu",
+    badgeEn: "Popular",
+    badgeUr: "مقبول ترین"
+  },
+  {
+    nameEn: "Gilgit & Khunjerab Pass",
+    nameUr: "گلگت و خنجراب پاس",
+    regionEn: "Pak-China Border",
+    regionUr: "پاک چین بارڈر",
+    category: "peaks",
+    query: "Khunjerab",
+    badgeEn: "Highest Border",
+    badgeUr: "بلند ترین سرحد"
+  },
+  {
+    nameEn: "Neelum Valley & Arang Kel",
+    nameUr: "وادی نیلم و ارنگ کھیل",
+    regionEn: "Azad Kashmir",
+    regionUr: "آزاد کشمیر",
+    category: "valleys",
+    query: "Kashmir",
+    badgeEn: "Paradise",
+    badgeUr: "جنت نظیر"
+  },
+  {
+    nameEn: "Attabad Lake & Passu Cones",
+    nameUr: "عطا آباد جھیل و پاسو کونز",
+    regionEn: "Upper Hunza",
+    regionUr: "اپر ہنزہ",
+    category: "lakes",
+    query: "Passu",
+  },
+  {
+    nameEn: "Swat Valley & Malam Jabba",
+    nameUr: "سوات ویلی و مالم جبہ",
+    regionEn: "Khyber Pakhtunkhwa",
+    regionUr: "خیبر پختونخوا",
+    category: "valleys",
+    query: "Swat",
+  }
+];
+
 const Hero: React.FC<HeroProps> = ({ lang }) => {
   const t = CONTENT[lang].hero;
   const isUrdu = lang === 'ur';
@@ -19,6 +90,8 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
 
   const [location, setLocation] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
 
   // Auto-play slider
   useEffect(() => {
@@ -28,15 +101,48 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSearch = () => {
-    navigate(`/packages?location=${encodeURIComponent(location)}`);
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSearch = (searchQuery?: string) => {
+    const finalQuery = (searchQuery !== undefined ? searchQuery : location).trim();
+    setIsDropdownOpen(false);
+    navigate(`/packages?location=${encodeURIComponent(finalQuery)}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-        handleSearch();
+      handleSearch();
+    } else if (e.key === 'Escape') {
+      setIsDropdownOpen(false);
     }
   };
+
+  const selectDestination = (dest: DestinationSuggestion) => {
+    const query = isUrdu ? dest.nameUr : dest.nameEn;
+    setLocation(query);
+    handleSearch(dest.query);
+  };
+
+  const filteredSuggestions = POPULAR_DESTINATIONS.filter(item => {
+    if (!location.trim()) return true;
+    const q = location.toLowerCase().trim();
+    return (
+      item.nameEn.toLowerCase().includes(q) ||
+      item.nameUr.includes(q) ||
+      item.regionEn.toLowerCase().includes(q) ||
+      item.regionUr.includes(q) ||
+      item.query.toLowerCase().includes(q)
+    );
+  });
 
   const accentColorClass = HERO_SLIDES[currentSlide].accentColor || "text-amber-300";
 
@@ -149,27 +255,166 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
                 </p>
              </div>
 
-             {/* Simple Search Bar */}
-             <div className="w-full max-w-2xl mx-auto px-4 relative z-40">
-                 <div className="bg-white/95 backdrop-blur-xl p-2 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/50 flex items-center transition-all focus-within:ring-4 focus-within:ring-white/30 focus-within:scale-105">
-                     <div className="pl-4 md:pl-6 text-gray-400">
-                         <Search size={24} />
-                     </div>
-                     <input 
-                        type="text" 
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        placeholder={isUrdu ? "آپ کہاں جانا چاہتے ہیں؟" : "Where would you like to go?"}
-                        className={`flex-grow bg-transparent border-none focus:ring-0 text-gray-800 text-lg md:text-xl placeholder-gray-500 py-3 md:py-4 px-3 md:px-4 outline-none w-full ${isUrdu ? 'text-right font-urdu' : ''}`}
-                     />
-                     <button 
-                        onClick={handleSearch}
-                        className={`${accentColorClass.replace('text-', 'bg-').replace('300', '500')} hover:brightness-110 text-white px-6 md:px-10 py-3 md:py-4 rounded-full font-bold shadow-lg transform active:scale-95 transition-all whitespace-nowrap text-base md:text-lg`}
-                     >
-                        {isUrdu ? 'تلاش' : 'Search'}
-                     </button>
-                 </div>
+             {/* Redesigned Professional Tourism Location Search Bar */}
+             <div ref={searchContainerRef} className="w-full max-w-3xl mx-auto px-2 sm:px-4 relative z-40">
+                {/* Main Search Bar Capsule */}
+                <div className={`bg-white/95 backdrop-blur-2xl p-2 sm:p-2.5 rounded-2xl md:rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.28)] border border-white/80 transition-all duration-300 flex flex-col md:flex-row items-center gap-2 focus-within:ring-4 focus-within:ring-emerald-400/30 focus-within:shadow-[0_25px_60px_rgba(0,0,0,0.4)] ${isUrdu ? 'md:flex-row-reverse' : ''}`}>
+                    
+                    {/* Location Icon & Input Group */}
+                    <div className={`flex items-center gap-2.5 sm:gap-3.5 flex-grow w-full px-3 py-1.5 sm:py-2 ${isUrdu ? 'flex-row-reverse text-right' : 'text-left'}`}>
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-inner flex-shrink-0">
+                            <MapPin size={22} className="animate-bounce-short" />
+                        </div>
+                        
+                        <div className="flex flex-col flex-grow min-w-0">
+                            <label className={`text-[10px] font-extrabold uppercase tracking-wider text-emerald-800/80 flex items-center gap-1 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+                              <Sparkles size={11} className="text-amber-500" />
+                              <span>{isUrdu ? "سیاحتی مقام یا وادی تلاش کریں" : "Tourism Destination / Valley"}</span>
+                            </label>
+                            <input 
+                               type="text" 
+                               value={location}
+                               onChange={(e) => {
+                                 setLocation(e.target.value);
+                                 setIsDropdownOpen(true);
+                               }}
+                               onFocus={() => setIsDropdownOpen(true)}
+                               onKeyDown={handleKeyDown}
+                               placeholder={isUrdu ? "ہنزہ، سکردو، خنجراب، کشمیر، سوات یا عطاء آباد..." : "Search Hunza, Skardu, Gilgit, Khunjerab, Kashmir, Swat..."}
+                               className={`w-full bg-transparent border-none focus:ring-0 text-gray-900 font-semibold text-sm sm:text-base md:text-lg placeholder-gray-400 outline-none p-0 ${isUrdu ? 'text-right font-urdu' : 'text-left'}`}
+                            />
+                        </div>
+
+                        {location && (
+                          <button 
+                            type="button"
+                            onClick={() => {
+                              setLocation('');
+                              setIsDropdownOpen(true);
+                            }}
+                            className="p-1.5 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition"
+                            title="Clear search"
+                          >
+                            <X size={16} />
+                          </button>
+                        )}
+                    </div>
+
+                    {/* Search Action Button */}
+                    <button 
+                       type="button"
+                       onClick={() => handleSearch()}
+                       className={`w-full md:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-3.5 rounded-xl md:rounded-full shadow-lg hover:shadow-emerald-600/30 active:scale-95 transition-all duration-300 flex-shrink-0 cursor-pointer ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
+                    >
+                       <Search size={18} className="stroke-[2.5]" />
+                       <span>{isUrdu ? 'ٹورز تلاش کریں' : 'Find Tours'}</span>
+                       {isUrdu ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
+                    </button>
+                </div>
+
+                {/* Smart Tourism Autocomplete Dropdown */}
+                {isDropdownOpen && (
+                  <div className={`absolute left-2 right-2 sm:left-4 sm:right-4 top-full mt-3 bg-white/98 backdrop-blur-2xl rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50 text-left transition-all animate-fadeIn ${isUrdu ? 'text-right' : ''}`}>
+                    
+                    {/* Dropdown Header */}
+                    <div className={`px-4 py-2.5 bg-gray-50/90 border-b border-gray-100 flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+                       <div className={`flex items-center gap-1.5 text-emerald-700 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                          <Sparkles size={14} className="text-amber-500" />
+                          <span>{isUrdu ? "مقبول سیاحتی مقامات اور وادیاں" : "Top Tourist Destinations"}</span>
+                       </div>
+                       <span className="text-[11px] text-gray-400 font-normal">
+                          {filteredSuggestions.length} {isUrdu ? 'مقامات' : 'locations'}
+                       </span>
+                    </div>
+
+                    {/* Suggestions List */}
+                    <div className="max-h-72 overflow-y-auto divide-y divide-gray-50 p-1.5">
+                       {filteredSuggestions.length === 0 ? (
+                          <div className="p-4 text-center text-sm text-gray-500">
+                             <p className={isUrdu ? 'font-urdu' : ''}>
+                                {isUrdu ? `"${location}" کے لیے کوئی خاص مقام نہیں ملا۔ پورا نام سرچ کرنے کے لیے انٹر دبائیں۔` : `No direct match for "${location}". Press Enter to search all packages.`}
+                             </p>
+                             <button
+                                type="button"
+                                onClick={() => handleSearch()}
+                                className="mt-2 text-xs text-emerald-600 font-bold hover:underline"
+                             >
+                                {isUrdu ? 'اس نام کے تمام پیکیجز سرچ کریں' : 'Search all packages with this keyword'}
+                             </button>
+                          </div>
+                       ) : (
+                          filteredSuggestions.map((dest, idx) => (
+                             <div
+                               key={idx}
+                               onClick={() => selectDestination(dest)}
+                               className={`px-3.5 py-2.5 rounded-xl hover:bg-emerald-50/80 cursor-pointer transition flex items-center justify-between group ${isUrdu ? 'flex-row-reverse' : ''}`}
+                             >
+                                <div className={`flex items-center gap-3 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                                   <div className="w-8 h-8 rounded-lg bg-emerald-100/70 text-emerald-700 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition">
+                                      {dest.category === 'peaks' ? (
+                                        <Mountain size={16} />
+                                      ) : dest.category === 'lakes' ? (
+                                        <Waves size={16} />
+                                      ) : (
+                                        <MapPin size={16} />
+                                      )}
+                                   </div>
+                                   <div>
+                                      <p className={`text-sm font-bold text-gray-900 group-hover:text-emerald-700 transition ${isUrdu ? 'font-urdu' : ''}`}>
+                                         {isUrdu ? dest.nameUr : dest.nameEn}
+                                      </p>
+                                      <p className={`text-xs text-gray-500 ${isUrdu ? 'font-urdu' : ''}`}>
+                                         {isUrdu ? dest.regionUr : dest.regionEn}
+                                      </p>
+                                   </div>
+                                </div>
+
+                                <div className={`flex items-center gap-2 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                                   {((isUrdu ? dest.badgeUr : dest.badgeEn)) && (
+                                     <span className="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold">
+                                        {isUrdu ? dest.badgeUr : dest.badgeEn}
+                                     </span>
+                                   )}
+                                   <span className="text-gray-300 group-hover:text-emerald-600 transition">
+                                      {isUrdu ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
+                                   </span>
+                                </div>
+                             </div>
+                          ))
+                       )}
+                    </div>
+
+                    {/* Dropdown Footer Tip */}
+                    <div className={`px-4 py-2 bg-gray-50 text-[11px] text-gray-500 border-t border-gray-100 flex items-center justify-between ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
+                       <span>{isUrdu ? "💡 کسی بھی سیاحتی مقام پر کلک کریں یا انٹر دبائیں" : "💡 Click any location to see available tours & packages"}</span>
+                       <button
+                          type="button"
+                          onClick={() => setIsDropdownOpen(false)}
+                          className="text-gray-400 hover:text-gray-600 font-medium"
+                       >
+                          {isUrdu ? "بند کریں" : "Close"}
+                       </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Popular Quick-Pick Destination Tags */}
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-2">
+                   <span className={`text-xs font-semibold text-white/90 drop-shadow flex items-center gap-1 mr-1 ${isUrdu ? 'font-urdu' : ''}`}>
+                      <Sparkles size={13} className="text-amber-300" />
+                      {isUrdu ? "مقبول سیاحتی مقامات:" : "Popular Destinations:"}
+                   </span>
+                   {POPULAR_DESTINATIONS.slice(0, 5).map((dest, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => selectDestination(dest)}
+                        className={`text-xs font-medium px-3 py-1 rounded-full bg-black/40 hover:bg-emerald-600 text-white border border-white/20 hover:border-emerald-400 shadow-md backdrop-blur-md transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer ${isUrdu ? 'font-urdu' : ''}`}
+                      >
+                        {isUrdu ? dest.nameUr.split(' ')[0] : dest.nameEn.split(' ')[0]} {dest.category === 'peaks' ? '🏔️' : dest.category === 'lakes' ? '🌊' : '🌲'}
+                      </button>
+                   ))}
+                </div>
              </div>
           </div>
 
