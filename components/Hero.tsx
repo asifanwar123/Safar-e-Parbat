@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { CONTENT, HERO_SLIDES } from '../constants';
 import { Language } from '../types';
+import { useData } from '../context/DataContext';
 
 interface HeroProps {
   lang: Language;
@@ -25,7 +26,7 @@ interface DestinationSuggestion {
   badgeUr?: string;
 }
 
-const NEWS_BULLETINS = [
+const STATIC_NEWS = [
   {
     en: "⚡ Coming Tours: Weekly departures to Hunza, Skardu & Khunjerab Pass with direct pickups from Multan & Islamabad.",
     ur: "⚡ آنے والے ٹورز: ملتان اور اسلام آباد سے براہ راست پک اپ کے ساتھ ہنزہ، سکردو اور خنجراب پاس کے ہفتہ وار ٹورز۔"
@@ -103,6 +104,16 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
   const t = CONTENT[lang].hero;
   const isUrdu = lang === 'ur';
   const navigate = useNavigate();
+  const { packages } = useData();
+
+  // Combine live coming tours updates from admin portal with static news
+  const NEWS_BULLETINS = [
+    ...packages.map(pkg => ({
+      en: `⚡ Coming Tour Update: ${pkg.titleEn} (${pkg.durationEn}) - ${pkg.price} ${pkg.dates ? `• ${pkg.dates}` : ''} ${pkg.inclusionsEn?.length ? `• Facilities: ${pkg.inclusionsEn.slice(0, 3).join(', ')}` : ''}`,
+      ur: `⚡ آنے والا ٹور اپ ڈیٹ: ${pkg.titleUr} (${pkg.durationUr}) - ${pkg.price} ${pkg.dates ? `• ${pkg.dates}` : ''}`
+    })),
+    ...STATIC_NEWS
+  ];
 
   const [location, setLocation] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -116,7 +127,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
       setActiveNewsIndex((prev) => (prev + 1) % NEWS_BULLETINS.length);
     }, 4500);
     return () => clearInterval(newsTimer);
-  }, []);
+  }, [packages.length]);
 
   // Auto-play slider
   useEffect(() => {

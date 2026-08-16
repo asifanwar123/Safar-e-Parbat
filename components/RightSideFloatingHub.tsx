@@ -6,7 +6,7 @@ import {
   CloudSnow, CloudLightning, Cloud, Wind, Droplets, ArrowUp, ArrowDown,
   ShieldCheck, ArrowRight, ArrowLeft, Phone, User, Users, Send, 
   Sparkles, CheckCircle2, Bell, ExternalLink, HelpCircle, Copy, Check,
-  Download, Eye, Image as ImageIcon, ZoomIn
+  Download, Eye, Image as ImageIcon, ZoomIn, Trash2
 } from 'lucide-react';
 import { Language, TourPackage } from '../types';
 import { useData } from '../context/DataContext';
@@ -164,7 +164,7 @@ const getWeatherHelper = (code: number) => {
 
 const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => {
   const isUrdu = lang === 'ur';
-  const { packages, updatePackage, isAdminAuthenticated, adminLogin, adminLogout } = useData();
+  const { packages, updatePackage, deletePackage, isAdminAuthenticated, adminLogin, adminLogout } = useData();
 
   // Admin authentication & coming tour editing state
   const [showAdminModal, setShowAdminModal] = useState(false);
@@ -176,8 +176,31 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
     titleUr: '',
     price: '',
     dates: '',
-    durationEn: ''
+    durationEn: '',
+    facilities: [] as string[]
   });
+  const [customFacilityInput, setCustomFacilityInput] = useState('');
+
+  const PRESET_FACILITIES = [
+    "Luxury Transport (Coaster/Grand Cabin)",
+    "Hotel Accommodation (Family Rooms)",
+    "Breakfast & Dinner",
+    "Professional Tour Guide",
+    "Bonfire & BBQ Night",
+    "Photography & Videography",
+    "All Toll Taxes & Jeep Safaris",
+    "First Aid Kit"
+  ];
+
+  const TOUR_DAYS_OPTIONS = [
+    "2 Days / 1 Night",
+    "3 Days / 2 Nights",
+    "4 Days / 3 Nights",
+    "5 Days / 4 Nights",
+    "6 Days / 5 Nights",
+    "7 Days / 6 Nights",
+    "10 Days / 9 Nights"
+  ];
 
   const handleStartEdit = (pkg: TourPackage) => {
     setEditingPackageId(pkg.id);
@@ -186,8 +209,10 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
       titleUr: pkg.titleUr,
       price: pkg.price,
       dates: pkg.dates || '',
-      durationEn: pkg.durationEn
+      durationEn: pkg.durationEn || '4 Days / 3 Nights',
+      facilities: pkg.inclusionsEn || ['Luxury Transport', 'Hotel Stay', 'Breakfast & Dinner']
     });
+    setCustomFacilityInput('');
   };
 
   const handleSavePackageEdit = async (pkg: TourPackage) => {
@@ -197,10 +222,18 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
       titleUr: editForm.titleUr,
       price: editForm.price,
       dates: editForm.dates,
-      durationEn: editForm.durationEn
+      durationEn: editForm.durationEn,
+      inclusionsEn: editForm.facilities.length > 0 ? editForm.facilities : pkg.inclusionsEn,
+      inclusionsUr: editForm.facilities.length > 0 ? editForm.facilities : pkg.inclusionsUr
     };
     await updatePackage(updated);
     setEditingPackageId(null);
+  };
+
+  const handleDeletePackage = async (id: string) => {
+    if (window.confirm(isUrdu ? "کیا آپ واقعی اس ٹور کو حذف کرنا چاہتے ہیں؟" : "Are you sure you want to delete this tour package?")) {
+      await deletePackage(id);
+    }
   };
 
   // Sidebar slider visibility state (can be collapsed or expanded)
@@ -590,55 +623,133 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                       </div>
                     </div>
 
+                    {/* 1st 3 Coming Visits - Upcoming Schedule Departures Window */}
+                    <div className="space-y-6">
+                      {packages.slice(0, 3).map((pkg, idx) => (
+                        <div key={pkg.id || idx} className="bg-white border-2 border-slate-200 rounded-3xl p-4 sm:p-6 shadow-xl space-y-4">
+                          <div className="flex flex-col md:flex-row gap-6 items-center">
+                            <div className="w-full md:w-1/3 h-48 relative rounded-2xl overflow-hidden shadow-md bg-slate-900">
+                              <img
+                                src={pkg.image || "/banner_Jul_2026.jpg"}
+                                alt={pkg.titleEn}
+                                className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
+                              />
+                              <div className="absolute top-3 left-3 bg-amber-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow">
+                                {isUrdu ? `ٹور #${idx + 1}` : `Coming Visit #${idx + 1}`}
+                              </div>
+                            </div>
+                            
+                            <div className="w-full md:w-2/3 space-y-3">
+                              <div className="flex items-center justify-between">
+                                <span className="px-3 py-1 rounded-full bg-brand-100 text-brand-800 font-extrabold text-xs">
+                                  {isUrdu ? (pkg.durationUr || pkg.durationEn || "4 Days / 3 Nights") : (pkg.durationEn || "4 Days / 3 Nights")}
+                                </span>
+                                <span className="text-lg font-black text-brand-700">{pkg.price}</span>
+                              </div>
+
+                              <h4 className="text-xl font-bold text-slate-900">
+                                {isUrdu ? pkg.titleUr : pkg.titleEn}
+                              </h4>
+
+                              {pkg.dates && (
+                                <p className="text-xs font-semibold text-slate-600 flex items-center gap-1.5">
+                                  <Calendar size={14} className="text-brand-600" />
+                                  <span>{isUrdu ? `شیڈول: ${pkg.dates}` : `Schedule: ${pkg.dates}`}</span>
+                                </p>
+                              )}
+
+                              {pkg.inclusionsEn && pkg.inclusionsEn.length > 0 && (
+                                <div>
+                                  <p className="text-xs font-bold text-slate-700 mb-1.5">{isUrdu ? "سہولیات (Facilities):" : "Facilities Included:"}</p>
+                                  <div className="flex flex-wrap gap-1.5">
+                                    {pkg.inclusionsEn.map((fac, i) => (
+                                      <span key={i} className="px-2.5 py-1 bg-slate-100 text-slate-800 rounded-lg text-[11px] font-bold border border-slate-200">
+                                        ✓ {fac}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              <div className="flex items-center gap-3 pt-2">
+                                <a
+                                  href={`https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20Coming%20Visit%20%23${idx+1}:%20${encodeURIComponent(pkg.titleEn)}%20(${pkg.price}).`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow cursor-pointer"
+                                >
+                                  <MessageCircle size={14} />
+                                  <span>{isUrdu ? "واٹس ایپ بکنگ" : "Book via WhatsApp"}</span>
+                                </a>
+                                <a
+                                  href="tel:03454737025"
+                                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition shadow cursor-pointer"
+                                >
+                                  <Phone size={14} />
+                                  <span>0345-4737025</span>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
                     {/* Attached Banner Component */}
                     <div id="official-banner-link-card" className="bg-white border-2 border-slate-200 rounded-3xl p-3 sm:p-4 shadow-xl space-y-4">
                       
                       {/* Attached Banner Preview Container */}
-                      <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-lg flex flex-col items-center">
-                        <img
-                          src="/banner_Jul_2026.jpg"
-                          alt="Safar-e-Parbat Travel & Tourism - 4 Days 3 Nights Babusar Top, Naran, Siri Paye Official Tour Banner"
-                          className="w-full h-auto object-contain max-h-[75vh] rounded-2xl"
-                          referrerPolicy="no-referrer"
-                        />
+                      {packages.slice(0, 1).map((pkg) => (
+                        <div key={pkg.id} className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-lg flex flex-col items-center">
+                          <img
+                            src={pkg.image || "/banner_Jul_2026.jpg"}
+                            alt={pkg.titleEn}
+                            className="w-full h-auto object-contain max-h-[75vh] rounded-2xl"
+                            referrerPolicy="no-referrer"
+                          />
 
-                        {/* Banner Bottom Action Strip */}
-                        <div className="w-full bg-slate-900/95 p-4 sm:p-5 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                          <div className={`text-white ${isUrdu ? 'text-right font-urdu' : 'text-left'}`}>
-                            <div className="flex items-center gap-2">
-                              <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-[11px] border border-amber-500/30">
-                                {isUrdu ? "4 دن / 3 راتیں ٹور" : "4 Days / 3 Nights"}
-                              </span>
-                              <span className="text-xs text-slate-300 font-medium">
-                                {isUrdu ? "ملتان، بہاولپور، خانیوال سے روانگی" : "From Multan, Bahawalpur, Khanewal"}
-                              </span>
+                          {/* Banner Bottom Action Strip - Live Admin Data */}
+                          <div className="w-full bg-slate-900/95 p-4 sm:p-5 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div className={`text-white ${isUrdu ? 'text-right font-urdu' : 'text-left'}`}>
+                              <div className="flex items-center gap-2">
+                                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-[11px] border border-amber-500/30">
+                                  {isUrdu ? (pkg.durationUr || "لائیو ٹور شیڈول") : (pkg.durationEn || "Live Tour Schedule")}
+                                </span>
+                                <span className="text-xs text-slate-300 font-medium">
+                                  {pkg.dates ? `📅 ${pkg.dates}` : (isUrdu ? "لائیو اپڈیٹڈ شیڈول" : "Live Admin Schedule")}
+                                </span>
+                              </div>
+                              <h4 className="text-sm sm:text-base font-black text-white mt-1">
+                                {isUrdu ? pkg.titleUr : pkg.titleEn}
+                              </h4>
+                              <p className="text-sm sm:text-base font-bold text-amber-400 mt-0.5">
+                                {pkg.price}
+                              </p>
                             </div>
-                            <p className="text-sm sm:text-base font-black text-white mt-1">
-                              {isUrdu ? "فی کس: 22,500 روپے • کپل پیکج: 50,000 روپے" : "Rs. 22,500 / Person • Couple Package Rs. 50,000"}
-                            </p>
-                          </div>
 
-                          <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                            <a
-                              href="tel:03454737025"
-                              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm rounded-xl transition shadow-lg"
-                            >
-                              <Phone size={14} />
-                              <span>0345-4737025</span>
-                            </a>
+                            <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                              <a
+                                href="tel:03454737025"
+                                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm rounded-xl transition shadow-lg"
+                              >
+                                <Phone size={14} />
+                                <span>0345-4737025</span>
+                              </a>
 
-                            <a
-                              href="https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20seats%20for%20the%204%20Days%20Babusar%20Top%20Naran%20Tour%20(Rs.%2022,500%20/%20Rs.%2050,000%20couple)."
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-black text-xs sm:text-sm rounded-xl transition shadow-lg border border-brand-400/40"
-                            >
-                              <MessageCircle size={15} />
-                              <span>{isUrdu ? "فوری واٹس ایپ بکنگ" : "BOOK NOW"}</span>
-                            </a>
+                              <a
+                                href={`https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20the%20live%20tour:%20${encodeURIComponent(pkg.titleEn)}%20(${pkg.price}).`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-black text-xs sm:text-sm rounded-xl transition shadow-lg border border-brand-400/40"
+                              >
+                                <MessageCircle size={15} />
+                                <span>{isUrdu ? "فوری واٹس ایپ بکنگ" : "BOOK NOW"}</span>
+                              </a>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      ))}
 
                     </div>
 
@@ -1025,33 +1136,134 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                           {editingPackageId === pkg.id ? (
                             <div className="space-y-3 pt-2">
                               <div>
-                                <label className="text-[11px] font-bold text-slate-600 block mb-1">Title (English)</label>
+                                <label className="text-[11px] font-bold text-slate-600 block mb-1">Tour Title (English & Urdu)</label>
                                 <input
                                   type="text"
                                   value={editForm.titleEn}
                                   onChange={(e) => setEditForm({ ...editForm, titleEn: e.target.value })}
+                                  className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white mb-1.5"
+                                  placeholder="Title (English)"
+                                />
+                                <input
+                                  type="text"
+                                  value={editForm.titleUr}
+                                  onChange={(e) => setEditForm({ ...editForm, titleUr: e.target.value })}
                                   className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                                  placeholder="ٹائٹل (اردو)"
                                 />
                               </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                  <label className="text-[11px] font-bold text-slate-600 block mb-1">Departure Date (Date Picker)</label>
+                                  <input
+                                    type="date"
+                                    value={editForm.dates.match(/^\d{4}-\d{2}-\d{2}$/) ? editForm.dates : ''}
+                                    onChange={(e) => setEditForm({ ...editForm, dates: e.target.value })}
+                                    className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                                  />
+                                  <input
+                                    type="text"
+                                    value={editForm.dates}
+                                    onChange={(e) => setEditForm({ ...editForm, dates: e.target.value })}
+                                    className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white mt-1"
+                                    placeholder="Or Schedule description (e.g. Every Friday Night)"
+                                  />
+                                </div>
+                                <div>
+                                  <label className="text-[11px] font-bold text-slate-600 block mb-1">Tour Days (Picker)</label>
+                                  <select
+                                    value={editForm.durationEn}
+                                    onChange={(e) => setEditForm({ ...editForm, durationEn: e.target.value })}
+                                    className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                                  >
+                                    {TOUR_DAYS_OPTIONS.map((opt) => (
+                                      <option key={opt} value={opt}>{opt}</option>
+                                    ))}
+                                  </select>
+                                  <input
+                                    type="text"
+                                    value={editForm.durationEn}
+                                    onChange={(e) => setEditForm({ ...editForm, durationEn: e.target.value })}
+                                    className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white mt-1"
+                                    placeholder="Or custom days"
+                                  />
+                                </div>
+                              </div>
+
                               <div>
-                                <label className="text-[11px] font-bold text-slate-600 block mb-1">Price</label>
+                                <label className="text-[11px] font-bold text-slate-600 block mb-1">Price (PKR)</label>
                                 <input
                                   type="text"
                                   value={editForm.price}
                                   onChange={(e) => setEditForm({ ...editForm, price: e.target.value })}
                                   className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                                  placeholder="e.g. Rs. 22,500 / Person"
                                 />
                               </div>
+
                               <div>
-                                <label className="text-[11px] font-bold text-slate-600 block mb-1">Dates / Schedule</label>
-                                <input
-                                  type="text"
-                                  value={editForm.dates}
-                                  onChange={(e) => setEditForm({ ...editForm, dates: e.target.value })}
-                                  className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
-                                  placeholder="e.g. Every Friday Night"
-                                />
+                                <label className="text-[11px] font-bold text-slate-600 block mb-1">Facilities (Select & Tags)</label>
+                                <div className="flex flex-wrap gap-1 mb-2">
+                                  {PRESET_FACILITIES.map((preset) => {
+                                    const isSelected = editForm.facilities.includes(preset);
+                                    return (
+                                      <button
+                                        key={preset}
+                                        type="button"
+                                        onClick={() => {
+                                          if (isSelected) {
+                                            setEditForm({ ...editForm, facilities: editForm.facilities.filter(f => f !== preset) });
+                                          } else {
+                                            setEditForm({ ...editForm, facilities: [...editForm.facilities, preset] });
+                                          }
+                                        }}
+                                        className={`px-2.5 py-1 rounded-md text-[10px] font-bold transition cursor-pointer border ${isSelected ? 'bg-brand-600 text-white border-brand-600 shadow' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'}`}
+                                      >
+                                        {isSelected ? '✓ ' : '+ '} {preset}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <input
+                                    type="text"
+                                    value={customFacilityInput}
+                                    onChange={(e) => setCustomFacilityInput(e.target.value)}
+                                    placeholder="Add custom facility..."
+                                    className="flex-grow p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      if (customFacilityInput.trim() && !editForm.facilities.includes(customFacilityInput.trim())) {
+                                        setEditForm({ ...editForm, facilities: [...editForm.facilities, customFacilityInput.trim()] });
+                                        setCustomFacilityInput('');
+                                      }
+                                    }}
+                                    className="px-3 py-2 bg-slate-800 text-white rounded-lg text-xs font-bold hover:bg-slate-700 transition cursor-pointer"
+                                  >
+                                    Add Tag
+                                  </button>
+                                </div>
+                                {editForm.facilities.length > 0 && (
+                                  <div className="flex flex-wrap gap-1.5 mt-2 p-2 bg-white border border-slate-200 rounded-lg">
+                                    {editForm.facilities.map((fac, idx) => (
+                                      <span key={idx} className="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-50 text-brand-800 rounded-md text-[11px] font-bold border border-brand-200">
+                                        <span>{fac}</span>
+                                        <button
+                                          type="button"
+                                          onClick={() => setEditForm({ ...editForm, facilities: editForm.facilities.filter((_, i) => i !== idx) })}
+                                          className="text-brand-600 hover:text-red-600 font-bold ml-1 cursor-pointer"
+                                        >
+                                          ×
+                                        </button>
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
                               </div>
+
                               <div className="flex items-center gap-2 pt-2">
                                 <button
                                   type="button"
@@ -1075,13 +1287,23 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                                 <h5 className="font-bold text-slate-900 text-sm">{pkg.titleEn}</h5>
                                 <p className="text-xs text-slate-500">{pkg.dates || pkg.durationEn}</p>
                               </div>
-                              <button
-                                type="button"
-                                onClick={() => handleStartEdit(pkg)}
-                                className="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold rounded-lg shadow-sm cursor-pointer"
-                              >
-                                {isUrdu ? "ترمیم کریں" : "Edit Tour"}
-                              </button>
+                              <div className="flex items-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => handleStartEdit(pkg)}
+                                  className="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold rounded-lg shadow-sm cursor-pointer"
+                                >
+                                  {isUrdu ? "ترمیم کریں" : "Edit Tour"}
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeletePackage(pkg.id)}
+                                  className="p-1.5 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg shadow-sm transition cursor-pointer"
+                                  title="Delete Tour"
+                                >
+                                  <Trash2 size={16} />
+                                </button>
+                              </div>
                             </div>
                           )}
                         </div>
