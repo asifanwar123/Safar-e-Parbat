@@ -1058,63 +1058,6 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                       ))}
                     </div>
 
-                    {/* Attached Banner Component */}
-                    <div id="official-banner-link-card" className="bg-white border-2 border-slate-200 rounded-3xl p-3 sm:p-4 shadow-xl space-y-4">
-                      
-                      {/* Attached Banner Preview Container */}
-                      {packages.slice(0, 1).map((pkg) => (
-                        <div key={pkg.id} className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-lg flex flex-col items-center">
-                          <img
-                            src={pkg.image || "/banner_Jul_2026.jpg"}
-                            alt={pkg.titleEn}
-                            className="w-full h-auto object-contain max-h-[75vh] rounded-2xl"
-                            referrerPolicy="no-referrer"
-                          />
-
-                          {/* Banner Bottom Action Strip - Live Admin Data */}
-                          <div className="w-full bg-slate-900/95 p-4 sm:p-5 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <div className={`text-white ${isUrdu ? 'text-right font-urdu' : 'text-left'}`}>
-                              <div className="flex items-center gap-2">
-                                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-[11px] border border-amber-500/30">
-                                  {isUrdu ? (pkg.durationUr || "لائیو ٹور شیڈول") : (pkg.durationEn || "Live Tour Schedule")}
-                                </span>
-                                <span className="text-xs text-slate-300 font-medium">
-                                  {pkg.dates ? `📅 ${pkg.dates}` : (isUrdu ? "لائیو اپڈیٹڈ شیڈول" : "Live Admin Schedule")}
-                                </span>
-                              </div>
-                              <h4 className="text-sm sm:text-base font-black text-white mt-1">
-                                {isUrdu ? pkg.titleUr : pkg.titleEn}
-                              </h4>
-                              <p className="text-sm sm:text-base font-bold text-amber-400 mt-0.5">
-                                {pkg.price}
-                              </p>
-                            </div>
-
-                            <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                              <a
-                                href="tel:03454737025"
-                                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm rounded-xl transition shadow-lg"
-                              >
-                                <Phone size={14} />
-                                <span>0345-4737025</span>
-                              </a>
-
-                              <a
-                                href={`https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20the%20live%20tour:%20${encodeURIComponent(pkg.titleEn)}%20(${pkg.price}).`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-black text-xs sm:text-sm rounded-xl transition shadow-lg border border-brand-400/40"
-                              >
-                                <MessageCircle size={15} />
-                                <span>{isUrdu ? "فوری واٹس ایپ بکنگ" : "BOOK NOW"}</span>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-
-                    </div>
-
                   </div>
                 )}
 
