@@ -3,6 +3,7 @@ import { Language, TourPackage } from '../types';
 import { 
   Calendar, Flame, Sparkles, MessageCircle, Phone, ExternalLink, CheckCircle2, Copy
 } from 'lucide-react';
+import { useData } from '../context/DataContext';
 
 interface ComingToursWidgetProps {
   lang: Language;
@@ -12,7 +13,13 @@ interface ComingToursWidgetProps {
 const ComingToursWidget: React.FC<ComingToursWidgetProps> = ({ lang }) => {
   const isUrdu = lang === 'ur';
   const [copied, setCopied] = useState(false);
-  const bannerUrl = typeof window !== 'undefined' ? `${window.location.origin}/banner_Jul_2026.jpg` : '/banner_Jul_2026.jpg';
+  const { packages: dataPackages } = useData();
+  const activePackage = dataPackages && dataPackages.length > 0 ? dataPackages[0] : null;
+  const currentTourImage = activePackage?.image || '/banner_Jul_2026.jpg';
+
+  const bannerUrl = typeof window !== 'undefined' 
+    ? (currentTourImage.startsWith('http') || currentTourImage.startsWith('data:') ? currentTourImage : `${window.location.origin}${currentTourImage}`) 
+    : currentTourImage;
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(bannerUrl);
@@ -97,10 +104,11 @@ const ComingToursWidget: React.FC<ComingToursWidgetProps> = ({ lang }) => {
         <div className="relative rounded-3xl overflow-hidden border-2 border-brand-500/50 shadow-2xl bg-black group">
           
           <img
-            src="/banner_Jul_2026.jpg"
-            alt="Safar-e-Parbat Travel & Tourism SMC Pvt Limited - 4 Days 3 Nights Babusar Top, Naran, Siri Paye Tour Banner"
+            src={currentTourImage}
+            alt={activePackage ? (isUrdu ? activePackage.titleUr : activePackage.titleEn) : "Safar-e-Parbat Coming Tour Banner"}
             className="w-full h-auto object-contain max-h-[80vh] mx-auto rounded-3xl"
             referrerPolicy="no-referrer"
+            onError={(e) => { (e.target as HTMLImageElement).src = '/banner_Jul_2026.jpg'; }}
           />
 
           {/* Action Bar */}

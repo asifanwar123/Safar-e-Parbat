@@ -6,7 +6,7 @@ import {
   CloudSnow, CloudLightning, Cloud, Wind, Droplets, ArrowUp, ArrowDown,
   ShieldCheck, ArrowRight, ArrowLeft, Phone, User, Users, Send, 
   Sparkles, CheckCircle2, Bell, ExternalLink, HelpCircle, Copy, Check,
-  Download, Eye, Image as ImageIcon, ZoomIn, Trash2
+  Download, Eye, Image as ImageIcon, ZoomIn, Trash2, Upload, Link as LinkIcon
 } from 'lucide-react';
 import { Language, TourPackage } from '../types';
 import { useData } from '../context/DataContext';
@@ -166,6 +166,58 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
   const isUrdu = lang === 'ur';
   const { packages, updatePackage, deletePackage, addPackage, isAdminAuthenticated, adminLogin, adminLogout } = useData();
 
+  // Helper to compress and convert uploaded image files to safe Base64 data URLs
+  const processImageFile = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 1200;
+          const MAX_HEIGHT = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = Math.round(width);
+          canvas.height = Math.round(height);
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', 0.85));
+          } else {
+            resolve(e.target?.result as string);
+          }
+        };
+        img.onerror = () => resolve(e.target?.result as string);
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const POPULAR_TOUR_IMAGES = [
+    { name: "July 2026 Banner", url: "/banner_Jul_2026.jpg" },
+    { name: "Hunza & Rakaposhi", url: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1200&q=80" },
+    { name: "Skardu Shangrila", url: "https://images.unsplash.com/photo-1598890777032-bde835ba27c2?auto=format&fit=crop&w=1200&q=80" },
+    { name: "Naran Saif-ul-Malook", url: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=1200&q=80" },
+    { name: "Neelum Valley", url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" },
+    { name: "Swat & Kalam", url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80" },
+  ];
+
   // Admin authentication & coming tour editing state
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [adminPinInput, setAdminPinInput] = useState('');
@@ -178,9 +230,11 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
     price: 'Rs. 24,500 / Person',
     dates: new Date().toISOString().split('T')[0],
     durationEn: '4 Days / 3 Nights',
+    image: '/banner_Jul_2026.jpg',
     facilities: ['Luxury Transport (Coaster/Grand Cabin)', 'Hotel Accommodation (Family Rooms)', 'Breakfast & Dinner', 'Professional Tour Guide']
   });
   const [newTourCustomFacility, setNewTourCustomFacility] = useState('');
+  const [isUploadingNewImage, setIsUploadingNewImage] = useState(false);
 
   const [editForm, setEditForm] = useState({
     titleEn: '',
@@ -188,9 +242,11 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
     price: '',
     dates: '',
     durationEn: '',
+    image: '/banner_Jul_2026.jpg',
     facilities: [] as string[]
   });
   const [customFacilityInput, setCustomFacilityInput] = useState('');
+  const [isUploadingEditImage, setIsUploadingEditImage] = useState(false);
 
   const PRESET_FACILITIES = [
     "Luxury Transport (Coaster/Grand Cabin)",
@@ -213,6 +269,34 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
     "10 Days / 9 Nights"
   ];
 
+  const handleFileUploadForNewTour = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    try {
+      setIsUploadingNewImage(true);
+      const dataUrl = await processImageFile(files[0]);
+      setNewTourForm(prev => ({ ...prev, image: dataUrl }));
+    } catch (err) {
+      console.error("Failed to process image file:", err);
+    } finally {
+      setIsUploadingNewImage(false);
+    }
+  };
+
+  const handleFileUploadForEdit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    try {
+      setIsUploadingEditImage(true);
+      const dataUrl = await processImageFile(files[0]);
+      setEditForm(prev => ({ ...prev, image: dataUrl }));
+    } catch (err) {
+      console.error("Failed to process image file:", err);
+    } finally {
+      setIsUploadingEditImage(false);
+    }
+  };
+
   const handleCreateNewTour = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTourForm.titleEn.trim()) return;
@@ -225,7 +309,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
       price: newTourForm.price,
       durationEn: newTourForm.durationEn,
       durationUr: newTourForm.durationEn,
-      image: '/banner_Jul_2026.jpg',
+      image: newTourForm.image || '/banner_Jul_2026.jpg',
       rating: 5.0,
       descriptionEn: 'Exclusive upcoming tour package with full guided itinerary.',
       descriptionUr: 'خصوصی آنے والا ٹور پیکج۔',
@@ -243,6 +327,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
       price: 'Rs. 24,500 / Person',
       dates: new Date().toISOString().split('T')[0],
       durationEn: '4 Days / 3 Nights',
+      image: '/banner_Jul_2026.jpg',
       facilities: ['Luxury Transport (Coaster/Grand Cabin)', 'Hotel Accommodation (Family Rooms)', 'Breakfast & Dinner', 'Professional Tour Guide']
     });
   };
@@ -255,6 +340,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
       price: pkg.price,
       dates: pkg.dates || '',
       durationEn: pkg.durationEn || '4 Days / 3 Nights',
+      image: pkg.image || '/banner_Jul_2026.jpg',
       facilities: pkg.inclusionsEn || ['Luxury Transport', 'Hotel Stay', 'Breakfast & Dinner']
     });
     setCustomFacilityInput('');
@@ -268,6 +354,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
       price: editForm.price,
       dates: editForm.dates,
       durationEn: editForm.durationEn,
+      image: editForm.image || pkg.image || '/banner_Jul_2026.jpg',
       inclusionsEn: editForm.facilities.length > 0 ? editForm.facilities : pkg.inclusionsEn,
       inclusionsUr: editForm.facilities.length > 0 ? editForm.facilities : pkg.inclusionsUr
     };
@@ -355,6 +442,20 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
   useEffect(() => {
     fetchWeather();
   }, [fetchWeather]);
+
+  useEffect(() => {
+    const handleOpenHubEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ tab: ActiveTab }>;
+      if (customEvent.detail && customEvent.detail.tab) {
+        openFloatingWindow(customEvent.detail.tab);
+        setIsSliderVisible(true);
+      }
+    };
+    window.addEventListener('open-floating-hub', handleOpenHubEvent);
+    return () => {
+      window.removeEventListener('open-floating-hub', handleOpenHubEvent);
+    };
+  }, []);
 
   const openFloatingWindow = (tab: ActiveTab) => {
     setActiveTab(tab);
@@ -673,16 +774,33 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                       {packages.slice(0, 3).map((pkg, idx) => (
                         <div key={pkg.id || idx} className="bg-white border-2 border-slate-200 rounded-3xl p-4 sm:p-6 shadow-xl space-y-4">
                           <div className="flex flex-col md:flex-row gap-6 items-center">
-                            <div className="w-full md:w-1/3 h-48 relative rounded-2xl overflow-hidden shadow-md bg-slate-900">
+                            <div className="w-full md:w-1/3 h-48 relative rounded-2xl overflow-hidden shadow-md bg-slate-900 group">
                               <img
                                 src={pkg.image || "/banner_Jul_2026.jpg"}
                                 alt={pkg.titleEn}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                                 referrerPolicy="no-referrer"
+                                onError={(e) => { (e.target as HTMLImageElement).src = '/banner_Jul_2026.jpg'; }}
                               />
                               <div className="absolute top-3 left-3 bg-amber-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow">
                                 {isUrdu ? `ٹور #${idx + 1}` : `Coming Visit #${idx + 1}`}
                               </div>
+
+                              {/* Admin quick change image shortcut */}
+                              {isAdminAuthenticated && (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setShowAdminModal(true);
+                                    handleStartEdit(pkg);
+                                  }}
+                                  className="absolute bottom-2 right-2 px-2.5 py-1 bg-black/80 hover:bg-black text-white text-[11px] font-bold rounded-lg backdrop-blur-sm border border-white/20 flex items-center gap-1.5 shadow transition cursor-pointer"
+                                  title="Change Image / Edit Details"
+                                >
+                                  <ImageIcon size={12} className="text-amber-400" />
+                                  <span>{isUrdu ? "تصویر تبدیل کریں" : "Change Image"}</span>
+                                </button>
+                              )}
                             </div>
                             
                             <div className="w-full md:w-2/3 space-y-3">
@@ -1242,6 +1360,92 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                           />
                         </div>
 
+                        {/* Tour Place Image: URL Link or File Upload */}
+                        <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
+                          <div className="flex items-center justify-between">
+                            <label className="text-[11px] font-black text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+                              <ImageIcon size={14} className="text-brand-600" />
+                              <span>{isUrdu ? "ٹور پلیس امیج (URL لنک یا تصویر اپ لوڈ کریں)" : "Tour Place Image (URL Link or Upload Image)"}</span>
+                            </label>
+                            {isUploadingNewImage && (
+                              <span className="text-[10px] text-brand-600 font-bold animate-pulse">Uploading...</span>
+                            )}
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {/* Option 1: URL input */}
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-500 block mb-1">Image URL Link</label>
+                              <div className="flex items-center gap-1.5">
+                                <span className="p-1.5 bg-slate-100 border border-slate-300 rounded-lg text-slate-500">
+                                  <LinkIcon size={13} />
+                                </span>
+                                <input
+                                  type="text"
+                                  value={newTourForm.image}
+                                  onChange={(e) => setNewTourForm({ ...newTourForm, image: e.target.value })}
+                                  placeholder="https://... or /banner_Jul_2026.jpg"
+                                  className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Option 2: Direct File Upload */}
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-500 block mb-1">Or Upload from Device</label>
+                              <label className="flex items-center justify-center gap-2 p-2 bg-slate-100 hover:bg-slate-200 border border-dashed border-slate-300 rounded-lg cursor-pointer transition text-xs font-bold text-slate-700">
+                                <Upload size={14} className="text-brand-600" />
+                                <span>{isUploadingNewImage ? "Processing..." : "Choose Image File"}</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={handleFileUploadForNewTour}
+                                  className="hidden"
+                                />
+                              </label>
+                            </div>
+                          </div>
+
+                          {/* Preset Images Quick Selector */}
+                          <div>
+                            <span className="text-[10px] font-bold text-slate-500 block mb-1">Quick Select Popular Destination Image:</span>
+                            <div className="flex flex-wrap gap-1">
+                              {POPULAR_TOUR_IMAGES.map((preset, pIdx) => (
+                                <button
+                                  key={pIdx}
+                                  type="button"
+                                  onClick={() => setNewTourForm({ ...newTourForm, image: preset.url })}
+                                  className={`px-2 py-0.5 rounded text-[10px] font-medium border transition cursor-pointer ${
+                                    newTourForm.image === preset.url
+                                      ? 'bg-brand-600 text-white border-brand-600'
+                                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                                  }`}
+                                >
+                                  {preset.name}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Image Live Preview */}
+                          {newTourForm.image && (
+                            <div className="flex items-center gap-3 pt-1 border-t border-slate-100">
+                              <div className="w-20 h-14 rounded-lg overflow-hidden border border-slate-200 bg-slate-900 shrink-0">
+                                <img
+                                  src={newTourForm.image}
+                                  alt="Preview"
+                                  className="w-full h-full object-cover"
+                                  onError={(e) => { (e.target as HTMLImageElement).src = '/banner_Jul_2026.jpg'; }}
+                                />
+                              </div>
+                              <div className="min-w-0 flex-grow text-[11px] text-slate-600 truncate">
+                                <p className="font-bold text-slate-800">Current Image Selected</p>
+                                <p className="truncate text-[10px] text-slate-500">{newTourForm.image.startsWith('data:') ? 'Custom Uploaded File (Base64)' : newTourForm.image}</p>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
                         <div>
                           <label className="text-[11px] font-bold text-slate-600 block mb-1">Facilities (Select & Tags)</label>
                           <div className="flex flex-wrap gap-1 mb-2">
@@ -1397,6 +1601,92 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                                   className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
                                   placeholder="e.g. Rs. 22,500 / Person"
                                 />
+                              </div>
+
+                              {/* Tour Place Image: URL Link or File Upload in Edit Mode */}
+                              <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
+                                <div className="flex items-center justify-between">
+                                  <label className="text-[11px] font-black text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+                                    <ImageIcon size={14} className="text-brand-600" />
+                                    <span>{isUrdu ? "ٹور پلیس امیج (URL لنک یا تصویر اپ لوڈ کریں)" : "Tour Place Image (URL Link or Upload Image)"}</span>
+                                  </label>
+                                  {isUploadingEditImage && (
+                                    <span className="text-[10px] text-brand-600 font-bold animate-pulse">Uploading...</span>
+                                  )}
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                  {/* Option 1: URL input */}
+                                  <div>
+                                    <label className="text-[10px] font-bold text-slate-500 block mb-1">Image URL Link</label>
+                                    <div className="flex items-center gap-1.5">
+                                      <span className="p-1.5 bg-slate-100 border border-slate-300 rounded-lg text-slate-500">
+                                        <LinkIcon size={13} />
+                                      </span>
+                                      <input
+                                        type="text"
+                                        value={editForm.image}
+                                        onChange={(e) => setEditForm({ ...editForm, image: e.target.value })}
+                                        placeholder="https://... or /banner_Jul_2026.jpg"
+                                        className="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  {/* Option 2: Direct File Upload */}
+                                  <div>
+                                    <label className="text-[10px] font-bold text-slate-500 block mb-1">Or Upload from Device</label>
+                                    <label className="flex items-center justify-center gap-2 p-2 bg-slate-100 hover:bg-slate-200 border border-dashed border-slate-300 rounded-lg cursor-pointer transition text-xs font-bold text-slate-700">
+                                      <Upload size={14} className="text-brand-600" />
+                                      <span>{isUploadingEditImage ? "Processing..." : "Choose Image File"}</span>
+                                      <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleFileUploadForEdit}
+                                        className="hidden"
+                                      />
+                                    </label>
+                                  </div>
+                                </div>
+
+                                {/* Preset Images Quick Selector */}
+                                <div>
+                                  <span className="text-[10px] font-bold text-slate-500 block mb-1">Quick Select Popular Destination Image:</span>
+                                  <div className="flex flex-wrap gap-1">
+                                    {POPULAR_TOUR_IMAGES.map((preset, pIdx) => (
+                                      <button
+                                        key={pIdx}
+                                        type="button"
+                                        onClick={() => setEditForm({ ...editForm, image: preset.url })}
+                                        className={`px-2 py-0.5 rounded text-[10px] font-medium border transition cursor-pointer ${
+                                          editForm.image === preset.url
+                                            ? 'bg-brand-600 text-white border-brand-600'
+                                            : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                                        }`}
+                                      >
+                                        {preset.name}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {/* Image Live Preview */}
+                                {editForm.image && (
+                                  <div className="flex items-center gap-3 pt-1 border-t border-slate-100">
+                                    <div className="w-20 h-14 rounded-lg overflow-hidden border border-slate-200 bg-slate-900 shrink-0">
+                                      <img
+                                        src={editForm.image}
+                                        alt="Preview"
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => { (e.target as HTMLImageElement).src = '/banner_Jul_2026.jpg'; }}
+                                      />
+                                    </div>
+                                    <div className="min-w-0 flex-grow text-[11px] text-slate-600 truncate">
+                                      <p className="font-bold text-slate-800">Current Image Selected</p>
+                                      <p className="truncate text-[10px] text-slate-500">{editForm.image.startsWith('data:') ? 'Custom Uploaded File (Base64)' : editForm.image}</p>
+                                    </div>
+                                  </div>
+                                )}
                               </div>
 
                               <div>

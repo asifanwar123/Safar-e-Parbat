@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Globe, ChevronDown, Smartphone, Download, Share, PlusSquare, ArrowLeftRight } from 'lucide-react';
+import { Menu, X, Phone, Globe, ChevronDown, Smartphone, Download, Share, PlusSquare, ArrowLeftRight, LayoutGrid, Sparkles, Compass, Navigation, Mountain, History, Camera, CloudSun } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { LOGO_URL, CONTENT } from '../constants';
 import { Language } from '../types';
@@ -67,23 +67,13 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
 
   const navLinks = [
     { name: t.home, path: "/" },
-    { 
-      name: t.about, 
-      path: "/about",
-      children: [
-        { name: t.travelHistory, path: "/travel-history" },
-        { name: t.gallery, path: "/gallery" }
-      ]
-    },
+    { name: isUrdu ? "ہمارے بارے میں" : "About Us", path: "/about" },
+    { name: isUrdu ? "آنے والے ٹورز" : "Coming Tours", path: "#coming-tours", isEvent: true },
     { name: t.packages, path: "/packages" },
     { name: t.contact, path: "/contact" },
-  ];
+  ] as any[];
 
   const isActive = (path: string) => location.pathname === path;
-  
-  const isParentActive = (children: {path: string}[]) => {
-     return children.some(c => location.pathname === c.path);
-  };
 
   return (
     <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-md transition-all duration-300">
@@ -109,52 +99,28 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
           <div className={`hidden md:flex items-center space-x-6 lg:space-x-8 ${isUrdu ? 'flex-row-reverse space-x-reverse' : ''}`}>
             {navLinks.map((link) => (
               <div key={link.path} className="relative group">
-                {link.children ? (
-                   <>
-                     <Link
-                        to={link.path}
-                        className={`${
-                          isActive(link.path) || isParentActive(link.children) ? 'text-brand-600 font-bold' : 'text-gray-600 hover:text-brand-600'
-                        } transition-colors duration-200 whitespace-nowrap flex items-center gap-1 ${isUrdu ? 'font-urdu text-lg flex-row-reverse' : 'font-sans text-sm lg:text-base'}`}
-                      >
-                        {link.name}
-                        <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
-                      </Link>
-                      
-                      {/* Dropdown Menu */}
-                      <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden transform opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 invisible group-hover:visible z-50 ${isUrdu ? 'text-right' : 'text-left'}`}>
-                          {link.children.map(child => (
-                              <Link 
-                                  key={child.path}
-                                  to={child.path}
-                                  className={`block px-4 py-3 text-gray-600 hover:bg-brand-50 hover:text-brand-600 transition border-b border-gray-50 last:border-0 ${isActive(child.path) ? 'bg-brand-50 text-brand-600 font-semibold' : ''} ${isUrdu ? 'font-urdu' : 'text-sm'}`}
-                              >
-                                  {child.name}
-                              </Link>
-                          ))}
-                      </div>
-                   </>
+                {link.isEvent ? (
+                  <button
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: 'departures' } }));
+                    }}
+                    className={`text-gray-600 hover:text-brand-600 transition-colors duration-200 whitespace-nowrap cursor-pointer ${isUrdu ? 'font-urdu text-lg' : 'font-sans text-sm lg:text-base'}`}
+                  >
+                    {link.name}
+                  </button>
                 ) : (
-                    <Link
-                        to={link.path}
-                        className={`${
-                        isActive(link.path) ? 'text-brand-600 font-bold' : 'text-gray-600 hover:text-brand-600'
-                        } transition-colors duration-200 whitespace-nowrap ${isUrdu ? 'font-urdu text-lg' : 'font-sans text-sm lg:text-base'}`}
-                    >
-                        {link.name}
-                    </Link>
+                  <Link
+                    to={link.path}
+                    className={`${
+                      isActive(link.path) ? 'text-brand-600 font-bold' : 'text-gray-600 hover:text-brand-600'
+                    } transition-colors duration-200 whitespace-nowrap ${isUrdu ? 'font-urdu text-lg' : 'font-sans text-sm lg:text-base'}`}
+                  >
+                    {link.name}
+                  </Link>
                 )}
               </div>
             ))}
             
-            <button
-              onClick={toggleLang}
-              className="flex items-center gap-1 px-3 py-1 rounded-full border border-gray-200 hover:bg-gray-50 text-brand-700 transition"
-            >
-              <Globe size={16} />
-              <span className="text-sm font-semibold">{lang === 'en' ? 'UR' : 'EN'}</span>
-            </button>
-
             {!isStandaloneMode && (
               <button
                 onClick={handleInstallClick}
@@ -172,6 +138,110 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
               <Phone size={16} />
               {t.bookNow}
             </Link>
+
+            {/* Toggle Icon & Dropdown Menu */}
+            <div className="relative group/toggle">
+              <button
+                className="p-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white transition shadow-sm border border-emerald-200 flex items-center justify-center cursor-pointer group-hover/toggle:scale-105"
+                title="Toggle Menu"
+              >
+                <LayoutGrid size={20} />
+              </button>
+
+              <div className={`absolute top-full right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-emerald-100 p-2 opacity-0 translate-y-2 group-hover/toggle:opacity-100 group-hover/toggle:translate-y-0 transition-all duration-300 invisible group-hover/toggle:visible z-50 ${isUrdu ? 'text-right' : 'text-left'}`}>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 py-1.5 border-b border-gray-100 mb-1">
+                  {isUrdu ? "فوری مینو" : "Quick Navigation"}
+                </div>
+                
+                <button 
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: 'departures' } }));
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 text-left cursor-pointer"
+                >
+                  <Sparkles size={16} className="text-emerald-600" />
+                  <span>{isUrdu ? "آنے والے ٹورز" : "Coming Tours"}</span>
+                </button>
+
+                <Link to="/packages" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200">
+                  <Compass size={16} className="text-emerald-600" />
+                  <span>{isUrdu ? "ٹور پیکجز" : "Packages"}</span>
+                </Link>
+
+                <button 
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: 'inquiry' } }));
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 text-left cursor-pointer"
+                >
+                  <Phone size={16} className="text-emerald-600" />
+                  <span>{isUrdu ? "بکنگ" : "Bookings"}</span>
+                </button>
+
+                <button 
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: 'inquiry' } }));
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 text-left cursor-pointer"
+                >
+                  <Navigation size={16} className="text-emerald-600" />
+                  <span>{isUrdu ? "ٹور پلان کریں" : "Plan Trip"}</span>
+                </button>
+
+                <Link to="/packages" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200">
+                  <Mountain size={16} className="text-emerald-600" />
+                  <span>{isUrdu ? "منزلیں" : "Destinations"}</span>
+                </Link>
+
+                <Link to="/travel-history" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200">
+                  <History size={16} className="text-emerald-600" />
+                  <span>{isUrdu ? "سفر کی تاریخ" : "Travel History"}</span>
+                </Link>
+
+                <Link to="/gallery" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200">
+                  <Camera size={16} className="text-emerald-600" />
+                  <span>{isUrdu ? "گیلری پیج" : "Gallery Page"}</span>
+                </Link>
+
+                <button 
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: 'weather' } }));
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 text-left cursor-pointer"
+                >
+                  <CloudSun size={16} className="text-emerald-600" />
+                  <span>{isUrdu ? "لائیو موسم" : "Live Weather"}</span>
+                </button>
+
+                <div className="my-1.5 border-t border-gray-100"></div>
+
+                {/* Urdu / English language switcher inside dropdown */}
+                <button
+                  onClick={toggleLang}
+                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 text-left cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <Globe size={16} className="text-emerald-600" />
+                    <span>{isUrdu ? "English language" : "اردو زبان"}</span>
+                  </div>
+                  <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
+                    {lang === 'en' ? 'UR' : 'EN'}
+                  </span>
+                </button>
+
+                <div className="my-1 border-t border-gray-100"></div>
+
+                {!isStandaloneMode && (
+                  <button
+                    onClick={handleInstallClick}
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 text-left cursor-pointer"
+                  >
+                    <Download size={16} className="text-emerald-600" />
+                    <span>{isUrdu ? "ایپ ڈاؤن لوڈ کریں" : "Get App Button"}</span>
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -198,50 +268,25 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
           <div className={`px-4 pt-2 pb-6 space-y-2 flex flex-col ${isUrdu ? 'items-end' : 'items-start'}`}>
             {navLinks.map((link) => (
               <div key={link.path} className="w-full">
-                 {link.children ? (
-                     <div className="w-full border-b border-gray-50 last:border-0">
-                         <div className={`flex items-center justify-between w-full ${isUrdu ? 'flex-row-reverse' : ''}`}>
-                             <Link
-                                to={link.path}
-                                onClick={() => setIsOpen(false)}
-                                className={`block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 flex-grow ${isUrdu ? 'text-right font-urdu text-xl' : 'text-left'}`}
-                             >
-                                 {link.name}
-                             </Link>
-                             <button
-                                 onClick={(e) => {
-                                     e.preventDefault();
-                                     setMobileSubmenuOpen(mobileSubmenuOpen === link.path ? null : link.path);
-                                 }}
-                                 className="p-3 text-gray-400 hover:text-brand-600 focus:outline-none"
-                             >
-                                 <ChevronDown size={20} className={`transform transition-transform duration-200 ${mobileSubmenuOpen === link.path ? 'rotate-180' : ''}`} />
-                             </button>
-                         </div>
-                         <div className={`overflow-hidden transition-all duration-300 ease-in-out ${mobileSubmenuOpen === link.path ? 'max-h-48 opacity-100 mb-2' : 'max-h-0 opacity-0'}`}>
-                             <div className={`bg-gray-50 rounded-lg py-1 px-2 ${isUrdu ? 'mr-4' : 'ml-4'}`}>
-                                 {link.children.map(child => (
-                                     <Link
-                                         key={child.path}
-                                         to={child.path}
-                                         onClick={() => setIsOpen(false)}
-                                         className={`block px-3 py-2.5 rounded-md text-sm font-medium text-gray-600 hover:text-brand-600 hover:bg-white transition mb-1 last:mb-0 ${isUrdu ? 'text-right font-urdu text-lg' : 'text-left'}`}
-                                     >
-                                         {child.name}
-                                     </Link>
-                                 ))}
-                             </div>
-                         </div>
-                     </div>
-                 ) : (
-                    <Link
-                        to={link.path}
-                        onClick={() => setIsOpen(false)}
-                        className={`block w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 border-b border-gray-50 last:border-0 ${isUrdu ? 'text-right font-urdu text-xl' : 'text-left'}`}
-                    >
-                        {link.name}
-                    </Link>
-                 )}
+                {link.isEvent ? (
+                  <button
+                    onClick={() => {
+                      setIsOpen(false);
+                      window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: 'departures' } }));
+                    }}
+                    className={`block w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 border-b border-gray-50 last:border-0 cursor-pointer ${isUrdu ? 'text-right font-urdu text-xl' : 'text-left'}`}
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`block w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 border-b border-gray-50 last:border-0 ${isUrdu ? 'text-right font-urdu text-xl' : 'text-left'}`}
+                  >
+                    {link.name}
+                  </Link>
+                )}
               </div>
             ))}
             <Link
