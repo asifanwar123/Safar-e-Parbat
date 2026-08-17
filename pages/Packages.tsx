@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { CONTENT } from '../constants';
 import { Language } from '../types';
 import { useData } from '../context/DataContext';
-import { MapPin, Clock, Star, ArrowRight, ArrowLeft, Calendar, Compass, Sparkles } from 'lucide-react';
+import { MapPin, Clock, Star, ArrowRight, ArrowLeft, Calendar, Compass, Sparkles, Phone, MessageCircle } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import SEO from '../components/SEO';
 
@@ -17,6 +17,16 @@ const Packages: React.FC<PackagesProps> = ({ lang }) => {
   const [searchParams] = useSearchParams();
   const locationQuery = searchParams.get('location')?.toLowerCase() || '';
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto-advance banner slider every 7 seconds
+  useEffect(() => {
+    if (!packages || packages.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % packages.length);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [packages?.length]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -114,6 +124,177 @@ const Packages: React.FC<PackagesProps> = ({ lang }) => {
             )}
         </div>
       </div>
+
+      {/* Dynamic Upcoming departures Banner / Slider */}
+      {packages && packages.length > 0 && (
+        <section className="py-12 md:py-16 bg-slate-900 text-white relative overflow-hidden mb-12 rounded-[40px] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 shadow-xl">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.08),transparent_45%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(245,158,11,0.05),transparent_40%)]"></div>
+          
+          <div className="relative z-10">
+            {/* Header section of banner */}
+            <div className={`text-center max-w-3xl mx-auto mb-8 sm:mb-10 ${isUrdu ? 'font-urdu' : ''}`}>
+              <span className="inline-flex items-center gap-2 text-xs font-black bg-emerald-500/10 text-emerald-300 px-4 py-1.5 rounded-full border border-emerald-500/20 uppercase tracking-widest mb-3">
+                <Sparkles size={14} className="text-emerald-400" />
+                {isUrdu ? "خصوصی آنے والے ٹور شیڈول" : "Live Scheduled Departures"}
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                {isUrdu ? "ہفتہ وار روانگیاں اور خصوصی ٹور پیکیجز" : "Upcoming Scheduled Departures"}
+              </h2>
+              <p className="text-slate-400 text-xs sm:text-sm mt-2 font-medium">
+                {isUrdu ? "ملتان، لاہور اور اسلام آباد سے ہر ہفتے روانہ ہونے والے ہمارے آفیشل ٹورز" : "Guaranteed departures with luxury transport, prime hotels, and expert guides."}
+              </p>
+            </div>
+
+            {/* Banner Slider Container */}
+            <div id="official-banner-link-card" className="bg-slate-950/80 backdrop-blur border border-slate-800 rounded-[32px] overflow-hidden shadow-2xl relative">
+              {packages.length > 1 && (
+                <>
+                  {/* Left Arrow Button */}
+                  <button
+                    onClick={() => setCurrentSlide((prev) => (prev - 1 + packages.length) % packages.length)}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-white flex items-center justify-center shadow-lg border border-slate-800 hover:border-slate-700 transition cursor-pointer"
+                    aria-label="Previous Slide"
+                  >
+                    <ArrowLeft size={20} />
+                  </button>
+                  {/* Right Arrow Button */}
+                  <button
+                    onClick={() => setCurrentSlide((prev) => (prev + 1) % packages.length)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-white flex items-center justify-center shadow-lg border border-slate-800 hover:border-slate-700 transition cursor-pointer"
+                    aria-label="Next Slide"
+                  >
+                    <ArrowRight size={20} />
+                  </button>
+                </>
+              )}
+
+              {/* Slider wrapper */}
+              <div className="relative min-h-[580px] sm:min-h-[520px] lg:min-h-[460px]">
+                {packages.map((pkg, idx) => {
+                  const isActive = idx === currentSlide;
+                  return (
+                    <div
+                      key={pkg.id}
+                      className={`transition-all duration-700 ease-in-out absolute inset-0 flex flex-col lg:flex-row items-stretch ${
+                        isActive ? 'opacity-100 pointer-events-auto scale-100' : 'opacity-0 pointer-events-none scale-[0.98]'
+                      }`}
+                    >
+                      {/* Left: Beautiful Dynamic Image with Overlays */}
+                      <div className="w-full lg:w-1/2 relative min-h-[250px] sm:min-h-[300px] lg:min-h-full overflow-hidden bg-slate-900">
+                        <img
+                          src={pkg.image || "/banner_Jul_2026.jpg"}
+                          alt={pkg.titleEn}
+                          className="w-full h-full object-cover absolute inset-0"
+                          referrerPolicy="no-referrer"
+                          onError={(e) => { (e.target as HTMLImageElement).src = '/banner_Jul_2026.jpg'; }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-slate-950/10 lg:to-slate-950"></div>
+                        
+                        {/* Rating Badge */}
+                        <div className="absolute top-6 left-6 bg-slate-900/85 backdrop-blur border border-slate-700 px-3.5 py-1.5 rounded-2xl flex items-center gap-1.5 text-xs font-black text-amber-400 shadow-xl">
+                          <Star size={14} fill="currentColor" className="text-amber-400" />
+                          <span>{pkg.rating} Rating</span>
+                        </div>
+
+                        {/* Slide Progress Indicator Badge */}
+                        <div className="absolute bottom-6 left-6 bg-emerald-500 text-slate-950 font-black text-[10px] sm:text-xs uppercase px-3.5 py-1.5 rounded-xl shadow-xl tracking-wider">
+                          {isUrdu ? `ٹور شیڈول ${idx + 1} / ${packages.length}` : `Tour Schedule ${idx + 1} / ${packages.length}`}
+                        </div>
+                      </div>
+
+                      {/* Right: Comprehensive Details Section */}
+                      <div className={`w-full lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center space-y-4 sm:space-y-5 ${isUrdu ? 'text-right font-urdu' : 'text-left'}`}>
+                        <div className={`flex flex-wrap items-center gap-2.5 ${isUrdu ? 'justify-end' : 'justify-start'}`}>
+                          <span className="px-3 py-1 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-black text-xs uppercase tracking-wider">
+                            {isUrdu ? (pkg.durationUr || pkg.durationEn || "ٹور پیکیج") : (pkg.durationEn || "Tour Package")}
+                          </span>
+                          {pkg.dates && (
+                            <span className="px-3 py-1 rounded-xl bg-slate-850 text-slate-300 font-bold text-xs flex items-center gap-1.5 border border-slate-800">
+                              <Calendar size={13} className="text-emerald-400" />
+                              {pkg.dates}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                            {isUrdu ? pkg.titleUr : pkg.titleEn}
+                          </h3>
+                          <p className="text-emerald-400 font-extrabold text-xl sm:text-2xl">
+                            {pkg.price} <span className="text-xs text-slate-400 font-medium">{isUrdu ? "/ فی کس مکمل ٹور" : "/ per traveler"}</span>
+                          </p>
+                        </div>
+
+                        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed line-clamp-3 font-medium">
+                          {isUrdu ? pkg.descriptionUr : pkg.descriptionEn}
+                        </p>
+
+                        {/* Facilities Included List */}
+                        {pkg.inclusionsEn && pkg.inclusionsEn.length > 0 && (
+                          <div className="space-y-2">
+                            <span className="block text-xs font-black text-slate-400 uppercase tracking-widest">
+                              {isUrdu ? "شامل سہولیات (Facilities included):" : "Premium Services Included:"}
+                            </span>
+                            <div className={`flex flex-wrap gap-1.5 ${isUrdu ? 'justify-end' : 'justify-start'}`}>
+                              {(isUrdu && pkg.inclusionsUr ? pkg.inclusionsUr : pkg.inclusionsEn).map((inc, i) => (
+                                <span
+                                  key={i}
+                                  className="px-2.5 py-1 bg-slate-900 border border-slate-800 rounded-lg text-[11px] font-bold text-slate-200 flex items-center gap-1 shadow-sm hover:border-emerald-500/30 transition-colors"
+                                >
+                                  <span className="text-emerald-400 font-bold">✓</span>
+                                  {inc}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Actions Strip */}
+                        <div className="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                          <a
+                            href={`https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20instantly%20book%20seats%20for%20the%20upcoming%20tour:%20${encodeURIComponent(pkg.titleEn)}%20(${pkg.price}).`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-xl transition-all hover:scale-[1.01] active:scale-[0.99] border border-emerald-500 cursor-pointer text-center"
+                          >
+                            <MessageCircle size={16} fill="currentColor" />
+                            <span>{isUrdu ? "واٹس ایپ پر سیٹ بک کریں" : "BOOK VIA WHATSAPP"}</span>
+                          </a>
+
+                          <a
+                            href="tel:03454737025"
+                            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-xl transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer text-center"
+                          >
+                            <Phone size={14} />
+                            <span>0345-4737025</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Slider Dots indicators */}
+              {packages.length > 1 && (
+                <div className="absolute bottom-4 right-1/2 translate-x-1/2 z-20 flex items-center gap-1.5">
+                  {packages.map((_, dotIdx) => (
+                    <button
+                      key={dotIdx}
+                      onClick={() => setCurrentSlide(dotIdx)}
+                      className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                        dotIdx === currentSlide ? 'w-6 bg-emerald-500' : 'w-2 bg-slate-700 hover:bg-slate-500'
+                      }`}
+                      aria-label={`Go to slide ${dotIdx + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {isLoading ? (

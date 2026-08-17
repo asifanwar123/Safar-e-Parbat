@@ -18,13 +18,11 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
     { name: CONTENT[lang].nav.about, path: "/about" },
     { 
       name: isUrdu ? "آنے والے ٹورز" : "Coming Tours", 
-      path: "#coming-tours", 
-      isEvent: true, 
-      tab: 'departures' 
+      path: "/packages"
     },
     { name: CONTENT[lang].nav.packages, path: "/packages" },
     { name: CONTENT[lang].nav.contact, path: "/contact" },
-  ];
+  ] as any[];
 
   const otherPages = [
     { name: isUrdu ? "سیاحتی مقامات" : "Destinations", path: "/packages" },
@@ -42,7 +40,7 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
     },
     { name: CONTENT[lang].nav.travelHistory, path: "/travel-history" },
     { name: CONTENT[lang].nav.gallery, path: "/gallery" },
-  ];
+  ] as any[];
 
   return (
     <footer className="bg-brand-900 text-white pt-16 pb-8 border-t border-brand-800">

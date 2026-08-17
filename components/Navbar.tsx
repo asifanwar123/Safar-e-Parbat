@@ -68,8 +68,7 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
   const navLinks = [
     { name: t.home, path: "/" },
     { name: isUrdu ? "ہمارے بارے میں" : "About Us", path: "/about" },
-    { name: isUrdu ? "آنے والے ٹورز" : "Coming Tours", path: "#coming-tours", isEvent: true },
-    { name: t.packages, path: "/packages" },
+    { name: isUrdu ? "آنے والے ٹورز" : "Coming Tours", path: "/packages" },
     { name: t.contact, path: "/contact" },
   ] as any[];
 
@@ -99,25 +98,14 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
           <div className={`hidden md:flex items-center space-x-6 lg:space-x-8 ${isUrdu ? 'flex-row-reverse space-x-reverse' : ''}`}>
             {navLinks.map((link) => (
               <div key={link.path} className="relative group">
-                {link.isEvent ? (
-                  <button
-                    onClick={() => {
-                      window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: 'departures' } }));
-                    }}
-                    className={`text-gray-600 hover:text-brand-600 transition-colors duration-200 whitespace-nowrap cursor-pointer ${isUrdu ? 'font-urdu text-lg' : 'font-sans text-sm lg:text-base'}`}
-                  >
-                    {link.name}
-                  </button>
-                ) : (
-                  <Link
-                    to={link.path}
-                    className={`${
-                      isActive(link.path) ? 'text-brand-600 font-bold' : 'text-gray-600 hover:text-brand-600'
-                    } transition-colors duration-200 whitespace-nowrap ${isUrdu ? 'font-urdu text-lg' : 'font-sans text-sm lg:text-base'}`}
-                  >
-                    {link.name}
-                  </Link>
-                )}
+                <Link
+                  to={link.path}
+                  className={`${
+                    isActive(link.path) ? 'text-brand-600 font-bold' : 'text-gray-600 hover:text-brand-600'
+                  } transition-colors duration-200 whitespace-nowrap ${isUrdu ? 'font-urdu text-lg' : 'font-sans text-sm lg:text-base'}`}
+                >
+                  {link.name}
+                </Link>
               </div>
             ))}
             
@@ -153,19 +141,12 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
                   {isUrdu ? "فوری مینو" : "Quick Navigation"}
                 </div>
                 
-                <button 
-                  onClick={() => {
-                    window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: 'departures' } }));
-                  }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 text-left cursor-pointer"
+                <Link 
+                  to="/packages"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <Sparkles size={16} className="text-emerald-600" />
                   <span>{isUrdu ? "آنے والے ٹورز" : "Coming Tours"}</span>
-                </button>
-
-                <Link to="/packages" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-emerald-600 hover:text-white hover:shadow-[0_4px_14px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200">
-                  <Compass size={16} className="text-emerald-600" />
-                  <span>{isUrdu ? "ٹور پیکجز" : "Packages"}</span>
                 </Link>
 
                 <button 
@@ -268,25 +249,13 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
           <div className={`px-4 pt-2 pb-6 space-y-2 flex flex-col ${isUrdu ? 'items-end' : 'items-start'}`}>
             {navLinks.map((link) => (
               <div key={link.path} className="w-full">
-                {link.isEvent ? (
-                  <button
-                    onClick={() => {
-                      setIsOpen(false);
-                      window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: 'departures' } }));
-                    }}
-                    className={`block w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 border-b border-gray-50 last:border-0 cursor-pointer ${isUrdu ? 'text-right font-urdu text-xl' : 'text-left'}`}
-                  >
-                    {link.name}
-                  </button>
-                ) : (
-                  <Link
-                    to={link.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`block w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 border-b border-gray-50 last:border-0 ${isUrdu ? 'text-right font-urdu text-xl' : 'text-left'}`}
-                  >
-                    {link.name}
-                  </Link>
-                )}
+                <Link
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`block w-full px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 border-b border-gray-50 last:border-0 ${isUrdu ? 'text-right font-urdu text-xl' : 'text-left'}`}
+                >
+                  {link.name}
+                </Link>
               </div>
             ))}
             <Link

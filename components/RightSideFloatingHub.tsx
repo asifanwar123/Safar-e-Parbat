@@ -17,7 +17,7 @@ interface RightSideFloatingHubProps {
   lang: Language;
 }
 
-type ActiveTab = 'departures' | 'weather' | 'inquiry' | 'assistant';
+type ActiveTab = 'weather' | 'inquiry' | 'assistant';
 
 interface UpcomingTourItem {
   id: string;
@@ -374,7 +374,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
   // Floating Window state
   const [isWindowOpen, setIsWindowOpen] = useState<boolean>(false);
   const [bannerCopied, setBannerCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<ActiveTab>('departures');
+  const [activeTab, setActiveTab] = useState<ActiveTab>('assistant');
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
 
   // Weather sub-state
@@ -464,9 +464,13 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
 
   useEffect(() => {
     const handleOpenHubEvent = (e: Event) => {
-      const customEvent = e as CustomEvent<{ tab: ActiveTab }>;
+      const customEvent = e as CustomEvent<{ tab: any }>;
       if (customEvent.detail && customEvent.detail.tab) {
-        openFloatingWindow(customEvent.detail.tab);
+        if (customEvent.detail.tab === 'departures') {
+          openFloatingWindow('assistant');
+        } else {
+          openFloatingWindow(customEvent.detail.tab);
+        }
         setIsSliderVisible(true);
       }
     };
@@ -729,10 +733,9 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
           </div>
 
-          {/* Button 1: Upcoming Scheduled Departures */}
-          <button
-            type="button"
-            onClick={() => openFloatingWindow('departures')}
+          {/* Link 1: Upcoming Scheduled Departures (Proper Page) */}
+          <Link
+            to="/packages"
             className={`w-full p-2.5 rounded-2xl bg-gradient-to-r from-brand-900 to-brand-800 hover:from-brand-800 hover:to-brand-700 border border-brand-500/40 text-white text-left transition-all duration-300 hover:scale-[1.03] shadow-md group flex items-center justify-between gap-2.5 ${isUrdu ? 'flex-row-reverse text-right' : ''}`}
           >
             <div className="flex items-center gap-2">
@@ -753,7 +756,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
             <span className="px-1.5 py-0.5 rounded-full bg-amber-500 text-brand-950 text-[9px] font-black uppercase tracking-wider animate-pulse shrink-0">
               HOT
             </span>
-          </button>
+          </Link>
 
           {/* Button 2: Live Travel Weather Forecast */}
           <button
@@ -835,20 +838,6 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                 {/* Left: Window Tabs */}
                 <div className={`flex items-center gap-1.5 sm:gap-2 overflow-x-auto ${isUrdu ? 'flex-row-reverse' : ''}`}>
                   
-                  {/* Departures Tab */}
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('departures')}
-                    className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer border ${
-                      activeTab === 'departures'
-                        ? 'bg-brand-600 hover:bg-brand-500 text-white border-brand-500 shadow-md'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 border-slate-200'
-                    } ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
-                  >
-                    <Calendar size={15} />
-                    <span>{isUrdu ? "آنے والے شیڈولڈ ٹورز" : "Upcoming Scheduled Departures"}</span>
-                  </button>
-
                   {/* Weather Tab */}
                   <button
                     type="button"
@@ -932,134 +921,7 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
               {/* Window Content Body with Scroll */}
               <div className="p-4 sm:p-6 overflow-y-auto flex-grow custom-scrollbar bg-slate-50/50">
                 
-                {/* ------------------------------------------------------------- */}
-                {/* TAB 1: UPCOMING SCHEDULED DEPARTURES (BANNER ONLY)            */}
-                {/* ------------------------------------------------------------- */}
-                {activeTab === 'departures' && (
-                  <div className="space-y-6 w-full max-w-5xl lg:max-w-6xl mx-auto">
-                    
-                    {/* Header Strip with Live Badge & Shareable URL */}
-                    <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 ${isUrdu ? 'sm:flex-row-reverse text-right' : 'text-left'}`}>
-                      <div>
-                        <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-800 text-xs font-black uppercase tracking-wider mb-2 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}>
-                          <Flame size={14} className="text-amber-600 animate-pulse" />
-                          <span>{isUrdu ? "آنے والے ٹورز کا آفیشل شیڈول" : "Official Coming Tours Schedule"}</span>
-                          <Sparkles size={13} className="text-amber-600" />
-                        </div>
-                        <h3 className={`text-2xl sm:text-3xl font-black text-slate-900 tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>
-                          {isUrdu ? "آنے والے ٹورز کا شیڈول" : "Coming Tours Schedules"}
-                        </h3>
-                        <p className={`text-xs sm:text-sm text-slate-600 mt-1 ${isUrdu ? 'font-urdu' : ''}`}>
-                          {isUrdu ? "تمام آنے والے ٹورز اور روانگی کے شیڈول" : "All upcoming tours and scheduled departures with live details."}
-                        </p>
-                      </div>
 
-                      {/* Direct Booking Phone Numbers & WhatsApp */}
-                      <div className={`flex flex-wrap items-center gap-2 ${isUrdu ? 'flex-row-reverse' : ''}`}>
-                        <a
-                          href="https://wa.me/923454737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20seats%20for%20the%204%20Days%20Naran%20Babusar%20Tour%20(Rs.%2022,500%20/%20Rs.%2050,000%20couple)."
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs sm:text-sm transition shadow-lg hover:scale-105 border border-brand-500 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
-                        >
-                          <MessageCircle size={16} />
-                          <span>{isUrdu ? "واٹس ایپ بکنگ" : "Book on WhatsApp"}</span>
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* 1st 3 Coming Visits - Upcoming Schedule Departures Window */}
-                    <div className="space-y-6">
-                      {packages.slice(0, 3).map((pkg, idx) => (
-                        <div key={pkg.id || idx} className="bg-white border-2 border-slate-200 rounded-3xl p-4 sm:p-6 shadow-xl space-y-4">
-                          <div className="flex flex-col md:flex-row gap-6 items-center">
-                            <div className="w-full md:w-1/3 h-48 relative rounded-2xl overflow-hidden shadow-md bg-slate-900 group">
-                              <img
-                                src={pkg.image || "/banner_Jul_2026.jpg"}
-                                alt={pkg.titleEn}
-                                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                                referrerPolicy="no-referrer"
-                                onError={(e) => { (e.target as HTMLImageElement).src = '/banner_Jul_2026.jpg'; }}
-                              />
-                              <div className="absolute top-3 left-3 bg-amber-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow">
-                                {isUrdu ? `ٹور #${idx + 1}` : `Coming Visit #${idx + 1}`}
-                              </div>
-
-                              {/* Admin quick change image shortcut */}
-                              {isAdminAuthenticated && (
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setShowAdminModal(true);
-                                    handleStartEdit(pkg);
-                                  }}
-                                  className="absolute bottom-2 right-2 px-2.5 py-1 bg-black/80 hover:bg-black text-white text-[11px] font-bold rounded-lg backdrop-blur-sm border border-white/20 flex items-center gap-1.5 shadow transition cursor-pointer"
-                                  title="Change Image / Edit Details"
-                                >
-                                  <ImageIcon size={12} className="text-amber-400" />
-                                  <span>{isUrdu ? "تصویر تبدیل کریں" : "Change Image"}</span>
-                                </button>
-                              )}
-                            </div>
-                            
-                            <div className="w-full md:w-2/3 space-y-3">
-                              <div className="flex items-center justify-between">
-                                <span className="px-3 py-1 rounded-full bg-brand-100 text-brand-800 font-extrabold text-xs">
-                                  {isUrdu ? (pkg.durationUr || pkg.durationEn || "4 Days / 3 Nights") : (pkg.durationEn || "4 Days / 3 Nights")}
-                                </span>
-                                <span className="text-lg font-black text-brand-700">{pkg.price}</span>
-                              </div>
-
-                              <h4 className="text-xl font-bold text-slate-900">
-                                {isUrdu ? pkg.titleUr : pkg.titleEn}
-                              </h4>
-
-                              {pkg.dates && (
-                                <p className="text-xs font-semibold text-slate-600 flex items-center gap-1.5">
-                                  <Calendar size={14} className="text-brand-600" />
-                                  <span>{isUrdu ? `شیڈول: ${pkg.dates}` : `Schedule: ${pkg.dates}`}</span>
-                                </p>
-                              )}
-
-                              {pkg.inclusionsEn && pkg.inclusionsEn.length > 0 && (
-                                <div>
-                                  <p className="text-xs font-bold text-slate-700 mb-1.5">{isUrdu ? "سہولیات (Facilities):" : "Facilities Included:"}</p>
-                                  <div className="flex flex-wrap gap-1.5">
-                                    {pkg.inclusionsEn.map((fac, i) => (
-                                      <span key={i} className="px-2.5 py-1 bg-slate-100 text-slate-800 rounded-lg text-[11px] font-bold border border-slate-200">
-                                        ✓ {fac}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-
-                              <div className="flex items-center gap-3 pt-2">
-                                <a
-                                  href={`https://wa.me/923334737025?text=Hello%20Safar-e-Parbat!%20I%20want%20to%20book%20Coming%20Visit%20%23${idx+1}:%20${encodeURIComponent(pkg.titleEn)}%20(${pkg.price}).`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow cursor-pointer"
-                                >
-                                  <MessageCircle size={14} />
-                                  <span>{isUrdu ? "واٹس ایپ بکنگ" : "Book via WhatsApp"}</span>
-                                </a>
-                                <a
-                                  href="tel:03454737025"
-                                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition shadow cursor-pointer"
-                                >
-                                  <Phone size={14} />
-                                  <span>0345-4737025</span>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                  </div>
-                )}
 
                 {/* ------------------------------------------------------------- */}
                 {/* TAB 2: LIVE TRAVEL WEATHER FORECAST                           */}

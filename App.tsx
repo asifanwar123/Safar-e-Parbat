@@ -15,6 +15,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import FloatingInquiry from './components/FloatingInquiry';
 import RightSideFloatingHub from './components/RightSideFloatingHub';
+import FloatingDepartureBanner from './components/FloatingDepartureBanner';
 import { Language, VisitorLog } from './types';
 import { DataProvider, useData } from './context/DataContext';
 
@@ -138,6 +139,7 @@ const App: React.FC = () => {
               </main>
               <RightSideFloatingHub lang={lang} />
               <FloatingInquiry lang={lang} />
+              <FloatingDepartureBanner lang={lang} />
               <Footer lang={lang} />
           </div>
         </Router>
