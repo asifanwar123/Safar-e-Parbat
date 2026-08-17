@@ -30,39 +30,45 @@ const PinEntry: React.FC<PinEntryProps> = ({ onUnlock }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4 animate-fade-in">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/85 backdrop-blur-md p-4 animate-fade-in">
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-scale-up border-4 border-white/80 ring-1 ring-gray-300"
+        className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-scale-up border border-gray-100 ring-1 ring-black/5"
       >
-        <div className="bg-gray-50 p-6 flex flex-col items-center border-b border-gray-200">
-          <img src={LOGO_URL} alt="Logo" className="h-20 w-20 rounded-full shadow-lg border-2 border-white" referrerPolicy="no-referrer" />
+        <div className="bg-gradient-to-br from-brand-950 via-brand-900 to-emerald-950 p-8 flex flex-col items-center border-b border-brand-800/20 text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none"></div>
+
+          <img src={LOGO_URL} alt="Logo" className="h-24 w-24 rounded-2xl shadow-2xl border-4 border-white/10 backdrop-blur-md relative z-10 transform hover:rotate-3 transition duration-300" referrerPolicy="no-referrer" />
           <a
             href="https://www.asifanwar.online"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 text-lg font-bold text-gray-800 hover:text-brand-700 transition group flex items-center gap-2"
+            className="mt-5 text-xl font-black tracking-tight text-white hover:text-emerald-300 transition group flex items-center gap-2 relative z-10"
           >
             www.asifanwar.online
-            <ExternalLink size={16} className="opacity-50 group-hover:opacity-100" />
+            <ExternalLink size={16} className="opacity-65 group-hover:opacity-100 text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </a>
+          <p className="text-xs text-brand-300 font-medium mt-1 tracking-wider uppercase relative z-10">
+            Official Tourism Portal Partner
+          </p>
         </div>
 
         <div className="p-8 space-y-6">
-          <div className="space-y-4 text-center">
+          <div className="space-y-3.5 bg-gray-50/80 border border-gray-100 p-4 rounded-2xl text-center">
             <div className="flex items-center justify-center gap-3">
-                <Mail size={16} className="text-gray-500" />
-                <p className="text-gray-700">m.asif.anwar@gmail.com</p>
+                <Mail size={15} className="text-emerald-600" />
+                <p className="text-gray-700 font-medium text-sm">m.asif.anwar@gmail.com</p>
             </div>
             <div className="flex items-center justify-center gap-3">
-                <MessageCircle size={16} className="text-gray-500" />
-                <p className="text-gray-700" dir="ltr">+92 302 6834300 / +92 300 8885072</p>
+                <MessageCircle size={15} className="text-emerald-600" />
+                <p className="text-gray-700 font-semibold text-sm" dir="ltr">+92 302 6834300 / +92 300 8885072</p>
             </div>
           </div>
           
           <div className="relative">
-             <div className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 pointer-events-none">
-                <ShieldCheck size={20} />
+             <div className="absolute inset-y-0 left-0 flex items-center pl-4 text-emerald-600 pointer-events-none">
+                <ShieldCheck size={22} className="animate-pulse" />
              </div>
              <input
               type="password"
@@ -70,26 +76,26 @@ const PinEntry: React.FC<PinEntryProps> = ({ onUnlock }) => {
               onChange={(e) => setPin(e.target.value)}
               maxLength={7}
               placeholder="Enter 7-Digit PIN"
-              className="w-full text-center tracking-[8px] font-bold text-lg px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition"
+              className="w-full text-center tracking-[12px] placeholder:tracking-normal font-black text-xl pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 outline-none transition-all duration-300 bg-gray-50/50 focus:bg-white text-gray-800 shadow-sm"
               required
             />
           </div>
 
           {error && (
-            <p className="text-red-600 text-sm text-center flex items-center justify-center gap-2">
+            <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-2.5 rounded-xl text-sm font-semibold text-center flex items-center justify-center gap-2 animate-pulse">
                 <AlertTriangle size={16} /> {error}
-            </p>
+            </div>
           )}
 
           <button
             type="submit"
-            className="w-full bg-brand-600 text-white font-bold py-4 rounded-xl hover:bg-brand-700 transition-colors shadow-lg transform active:scale-95"
+            className="w-full bg-gradient-to-r from-emerald-600 to-brand-600 hover:from-emerald-700 hover:to-brand-700 text-white font-extrabold py-4 rounded-xl shadow-lg shadow-emerald-600/10 hover:shadow-emerald-600/20 transition-all duration-300 transform active:scale-95 text-base tracking-wide"
           >
-            Enter Website
+            Unlock Portal Access
           </button>
           
-          <p className="text-xs text-gray-500 text-center">
-            Please contact the admin to request your personal PIN for access.
+          <p className="text-xs text-gray-400 text-center font-normal leading-relaxed">
+            Please contact the administration or support line to request your secure 7-digit access PIN.
           </p>
         </div>
       </form>

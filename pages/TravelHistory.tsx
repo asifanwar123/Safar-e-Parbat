@@ -3,7 +3,7 @@ import React from 'react';
 import { useData } from '../context/DataContext';
 import { Language } from '../types';
 import { CONTENT } from '../constants';
-import { MapPin, Calendar, Users, Camera } from 'lucide-react';
+import { MapPin, Calendar, Users, Camera, Compass, Sparkles } from 'lucide-react';
 import SEO from '../components/SEO';
 
 interface TravelHistoryProps {
@@ -23,14 +23,66 @@ const TravelHistory: React.FC<TravelHistoryProps> = ({ lang }) => {
         canonicalUrl="/travel-history"
         lang={lang}
       />
-      <div className="bg-brand-900 text-white py-16 mb-12">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-            <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${isUrdu ? 'font-urdu' : ''}`}>
-                {CONTENT[lang].nav.travelHistory}
+      {/* Fancy Scenic Hero Banner - 100% Width, Borderless & Fully Responsive */}
+      <div className="w-full relative overflow-hidden bg-gradient-to-br from-slate-950 via-brand-950 to-slate-900 text-white py-12 sm:py-16 md:py-20 lg:py-24 mb-8 sm:mb-12 shadow-2xl border-none">
+        {/* Decorative Glowing Orbs & Parallax Light Accents */}
+        <div className="absolute top-0 left-1/4 -translate-x-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-brand-500/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 translate-x-1/2 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:20px_20px] opacity-40 pointer-events-none"></div>
+
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            {/* Top Fancy Badge */}
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-emerald-300 text-xs sm:text-sm font-semibold mb-4 sm:mb-6 backdrop-blur-md shadow-lg">
+              <Compass size={15} className="text-emerald-400 flex-shrink-0" />
+              <span>{isUrdu ? "سفرِ پربت کامیاب مہمات" : "Chronicles of Adventure"}</span>
+              <Sparkles size={13} className="text-amber-300 flex-shrink-0" />
+            </div>
+
+            {/* Main Title with Styled Border Stroke & Gradient Accent */}
+            <h1 className={`text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4 sm:mb-5 leading-tight sm:leading-tight md:leading-tight ${isUrdu ? 'font-urdu leading-relaxed sm:leading-relaxed' : ''}`}>
+              {isUrdu ? (
+                <>
+                  <span 
+                    className="text-white inline-block"
+                    style={{
+                      WebkitTextStroke: '1.5px #ffffff',
+                      paintOrder: 'stroke fill',
+                      textShadow: '0 4px 24px rgba(0,0,0,0.7)'
+                    }}
+                  >
+                    سفری تاریخ و
+                  </span>{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 inline-block">
+                    یادیں
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span 
+                    className="text-white inline-block"
+                    style={{
+                      WebkitTextStroke: '1.5px #ffffff',
+                      paintOrder: 'stroke fill',
+                      textShadow: '0 4px 24px rgba(0,0,0,0.7)'
+                    }}
+                  >
+                    Travel
+                  </span>{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 inline-block">
+                    History & Diaries
+                  </span>
+                </>
+              )}
             </h1>
-            <p className={`text-brand-100 text-lg ${isUrdu ? 'font-urdu' : ''}`}>
-                {isUrdu ? "ہمارے حالیہ دوروں کی جھلکیاں" : "Highlights from our recent expeditions"}
-            </p>
+
+            {/* Subtitle with Frosted Backing */}
+            <div className="max-w-2xl mx-auto px-2">
+              <p className={`text-gray-200 text-xs sm:text-base md:text-lg lg:text-xl font-normal leading-relaxed px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-black/35 border border-white/10 backdrop-blur-sm shadow-xl inline-block ${isUrdu ? 'font-urdu' : ''}`}>
+                {isUrdu 
+                  ? "ہمارے حالیہ اور ماضی کے تاریخی کامیاب دوروں کے یادگار لمحات" 
+                  : "Take a look at the milestones and passenger journals from our recent high-altitude expeditions."}
+              </p>
+            </div>
         </div>
       </div>
 

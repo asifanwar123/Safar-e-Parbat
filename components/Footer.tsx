@@ -16,19 +16,41 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
   const quickLinks = [
     { name: CONTENT[lang].nav.home, path: "/" },
     { name: CONTENT[lang].nav.about, path: "/about" },
+    { 
+      name: isUrdu ? "آنے والے ٹورز" : "Coming Tours", 
+      path: "#coming-tours", 
+      isEvent: true, 
+      tab: 'departures' 
+    },
     { name: CONTENT[lang].nav.packages, path: "/packages" },
+    { name: CONTENT[lang].nav.contact, path: "/contact" },
+  ];
+
+  const otherPages = [
+    { name: isUrdu ? "سیاحتی مقامات" : "Destinations", path: "/packages" },
+    { 
+      name: isUrdu ? "ٹور پلان کریں" : "Plan Trip", 
+      path: "#plan-trip", 
+      isEvent: true, 
+      tab: 'inquiry' 
+    },
+    { 
+      name: isUrdu ? "بکنگز" : "Bookings", 
+      path: "#bookings", 
+      isEvent: true, 
+      tab: 'inquiry' 
+    },
     { name: CONTENT[lang].nav.travelHistory, path: "/travel-history" },
     { name: CONTENT[lang].nav.gallery, path: "/gallery" },
-    { name: CONTENT[lang].nav.contact, path: "/contact" },
   ];
 
   return (
     <footer className="bg-brand-900 text-white pt-16 pb-8 border-t border-brand-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`grid grid-cols-1 md:grid-cols-3 gap-12 ${isUrdu ? 'text-right' : 'text-left'}`}>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 ${isUrdu ? 'text-right' : 'text-left'}`}>
           
           {/* Brand Info */}
-          <div className={`space-y-6 ${isUrdu ? 'order-last md:order-first' : ''}`}>
+          <div className={`space-y-6 ${isUrdu ? 'order-last lg:order-first' : ''}`}>
             <div className={`flex items-center gap-3 ${isUrdu ? 'flex-row-reverse justify-start' : ''}`}>
                <img src={LOGO_URL} alt="Safar-e-Parbat" className="h-14 w-14 rounded-full border-2 border-brand-500 shadow-lg" referrerPolicy="no-referrer" />
                <div className={`flex flex-col leading-tight ${isUrdu ? 'items-end' : 'items-start'}`}>
@@ -59,17 +81,74 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
              <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
-                    <Link 
-                      to={link.path} 
-                      className={`text-gray-300 hover:text-white hover:pl-2 transition-all duration-300 flex items-center gap-2 group ${isUrdu ? 'flex-row-reverse hover:pr-2 hover:pl-0' : ''}`}
-                    >
-                      {isUrdu ? (
-                        <ChevronLeft size={16} className="text-brand-500 group-hover:text-brand-300 transition" />
-                      ) : (
-                        <ChevronRight size={16} className="text-brand-500 group-hover:text-brand-300 transition" />
-                      )}
-                      <span className={isUrdu ? 'font-urdu text-lg' : ''}>{link.name}</span>
-                    </Link>
+                    {link.isEvent ? (
+                      <button
+                        onClick={() => {
+                          window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: link.tab } }));
+                        }}
+                        className={`text-gray-300 hover:text-white hover:pl-2 transition-all duration-300 flex items-center gap-2 group cursor-pointer w-full ${isUrdu ? 'flex-row-reverse hover:pr-2 hover:pl-0 text-right justify-start' : 'text-left justify-start'}`}
+                      >
+                        {isUrdu ? (
+                          <ChevronLeft size={16} className="text-brand-500 group-hover:text-brand-300 transition flex-shrink-0" />
+                        ) : (
+                          <ChevronRight size={16} className="text-brand-500 group-hover:text-brand-300 transition flex-shrink-0" />
+                        )}
+                        <span className={isUrdu ? 'font-urdu text-lg' : 'text-sm md:text-base'}>{link.name}</span>
+                      </button>
+                    ) : (
+                      <Link 
+                        to={link.path} 
+                        className={`text-gray-300 hover:text-white hover:pl-2 transition-all duration-300 flex items-center gap-2 group ${isUrdu ? 'flex-row-reverse hover:pr-2 hover:pl-0' : ''}`}
+                      >
+                        {isUrdu ? (
+                          <ChevronLeft size={16} className="text-brand-500 group-hover:text-brand-300 transition flex-shrink-0" />
+                        ) : (
+                          <ChevronRight size={16} className="text-brand-500 group-hover:text-brand-300 transition flex-shrink-0" />
+                        )}
+                        <span className={isUrdu ? 'font-urdu text-lg' : 'text-sm md:text-base'}>{link.name}</span>
+                      </Link>
+                    )}
+                  </li>
+                ))}
+             </ul>
+          </div>
+
+          {/* Other Pages */}
+          <div className={`${isUrdu ? 'md:text-right' : ''}`}>
+             <h3 className={`text-xl font-bold mb-6 text-brand-100 relative inline-block ${isUrdu ? 'font-urdu' : ''}`}>
+                {isUrdu ? 'دیگر صفحات' : 'Other Pages'}
+                <span className={`absolute bottom-0 ${isUrdu ? 'right-0' : 'left-0'} w-1/2 h-0.5 bg-brand-500`}></span>
+             </h3>
+             <ul className="space-y-3">
+                {otherPages.map((link, index) => (
+                  <li key={index}>
+                    {link.isEvent ? (
+                      <button
+                        onClick={() => {
+                          window.dispatchEvent(new CustomEvent('open-floating-hub', { detail: { tab: link.tab } }));
+                        }}
+                        className={`text-gray-300 hover:text-white hover:pl-2 transition-all duration-300 flex items-center gap-2 group cursor-pointer w-full ${isUrdu ? 'flex-row-reverse hover:pr-2 hover:pl-0 text-right justify-start' : 'text-left justify-start'}`}
+                      >
+                        {isUrdu ? (
+                          <ChevronLeft size={16} className="text-brand-500 group-hover:text-brand-300 transition flex-shrink-0" />
+                        ) : (
+                          <ChevronRight size={16} className="text-brand-500 group-hover:text-brand-300 transition flex-shrink-0" />
+                        )}
+                        <span className={isUrdu ? 'font-urdu text-lg' : 'text-sm md:text-base'}>{link.name}</span>
+                      </button>
+                    ) : (
+                      <Link 
+                        to={link.path} 
+                        className={`text-gray-300 hover:text-white hover:pl-2 transition-all duration-300 flex items-center gap-2 group ${isUrdu ? 'flex-row-reverse hover:pr-2 hover:pl-0' : ''}`}
+                      >
+                        {isUrdu ? (
+                          <ChevronLeft size={16} className="text-brand-500 group-hover:text-brand-300 transition flex-shrink-0" />
+                        ) : (
+                          <ChevronRight size={16} className="text-brand-500 group-hover:text-brand-300 transition flex-shrink-0" />
+                        )}
+                        <span className={isUrdu ? 'font-urdu text-lg' : 'text-sm md:text-base'}>{link.name}</span>
+                      </Link>
+                    )}
                   </li>
                 ))}
              </ul>

@@ -17,7 +17,7 @@ interface RightSideFloatingHubProps {
   lang: Language;
 }
 
-type ActiveTab = 'departures' | 'weather' | 'inquiry';
+type ActiveTab = 'departures' | 'weather' | 'inquiry' | 'assistant';
 
 interface UpcomingTourItem {
   id: string;
@@ -393,6 +393,25 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
     message: ''
   });
 
+  // Chatbot State
+  interface ChatMessage {
+    id: string;
+    sender: 'user' | 'assistant';
+    text: string;
+    timestamp: Date;
+  }
+
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
+    {
+      id: 'welcome-1',
+      sender: 'assistant',
+      text: `🏔️ **Assalam-o-Alaikum!** I am **Safar Assistant**, your 24/7 automated WhatsApp AI concierge for **Safar-e-Parbat**.\n\nI can assist you with:\n• 📍 Popular northern destinations (Hunza, Skardu, Kashmir, Swat)\n• 🚌 Our easy **4-Step Booking Process**\n• 📅 Upcoming active tour schedules\n• 📄 Cancellation & Refund Policies\n• 🏢 Company mission, safety & history\n\nHow can I help you plan your next dream adventure today? ✨`,
+      timestamp: new Date()
+    }
+  ]);
+  const [chatInput, setChatInput] = useState<string>('');
+  const [isChatTyping, setIsChatTyping] = useState<boolean>(false);
+
   // Category filter for tours
   const [tourCategory, setTourCategory] = useState<'all' | 'hunza' | 'skardu' | 'kashmir'>('all');
 
@@ -482,6 +501,172 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
     window.open(`https://wa.me/923334737025?text=${msg}`, '_blank');
     setIsWindowOpen(false);
   };
+
+  const handleSendMessage = (textToSend: string) => {
+    if (!textToSend.trim()) return;
+
+    const userMsgId = `user-${Date.now()}`;
+    const userMsg: ChatMessage = {
+      id: userMsgId,
+      sender: 'user',
+      text: textToSend,
+      timestamp: new Date()
+    };
+
+    setChatMessages(prev => [...prev, userMsg]);
+    setChatInput('');
+    setIsChatTyping(true);
+
+    setTimeout(() => {
+      const lowerText = textToSend.toLowerCase();
+      let replyText = '';
+
+      if (isUrdu) {
+        if (lowerText.includes('ہنزہ') || lowerText.includes('hunza') || lowerText.includes('عطا') || lowerText.includes('پاسو')) {
+          replyText = `🏔️ **ہنزہ اور خنجراب مہم (6 دن / 5 راتیں):**\n\n` +
+            `• **اہم مقامات:** عطا آباد جھیل، بلتت فورٹ، پاسو کونز، سوست بازار اور خنجراب پاس (پاک چین بارڈر)۔\n` +
+            `• **قیمت:** صرف **35,000 روپے** فی کس۔\n` +
+            `• **روانگی:** ہر جمعہ کی رات ملتان، لاہور اور اسلام آباد سے۔\n` +
+            `• **سفری اشیاء:** گرم اور ہوا سے بچانے والی جیکٹس اور اچھے ہائیکنگ بوٹس ساتھ لائیں۔\n\n` +
+            `👉 *ہنزہ ٹور بک کرنے کے لیے ہماری ویب سائٹ **safareparbat.com** وزٹ کریں یا 'Book / Inquire' فارم پُر کریں۔*`;
+        } else if (lowerText.includes('سکردو') || lowerText.includes('skardu') || lowerText.includes('دیوسائی') || lowerText.includes('شنگریلا')) {
+          replyText = `🏔️ **سکردو اور دیوسائی پلینز ٹور (8 دن / 7 راتیں):**\n\n` +
+            `• **اہم مقامات:** شنگریلا ریزورٹ، کٹپانہ ٹھنڈا صحرا، شگر فورٹ، منتوکھا آبشار اور دنیا کا دوسرا بلند ترین سطح مرتفع **دیوسائی پلینز**۔\n` +
+            `• **قیمت:** صرف **45,000 روپے** فی کس۔\n` +
+            `• **روانگی:** ملتان، لاہور اور اسلام آباد سے خصوصی ٹورز۔\n\n` +
+            `👉 *مزید تفصیلات اور بکنگ کے لیے ہماری آفیشل ویب سائٹ **safareparbat.com** وزٹ کریں یا ہمیں واٹس ایپ پر پیغام بھیجیں۔*`;
+        } else if (lowerText.includes('کشمیر') || lowerText.includes('kashmir') || lowerText.includes('نیلم') || lowerText.includes('ارنگ')) {
+          replyText = `🏔️ **وادی نیلم اور ارنگ کھیل ٹور (3 دن / 2 راتیں):**\n\n` +
+            `• **اہم مقامات:** کٹن آبشار، کیرن، شاردا، اور سرسبز و شاداب **ارنگ کھیل**۔\n` +
+            `• **قیمت:** صرف **18,500 روپے** فی کس (ویک اینڈ اسپیشل)۔\n` +
+            `• **روانگی:** ملتان اور اسلام آباد سے ہر جمعرات کی رات۔\n\n` +
+            `👉 *فوری بکنگ اور سیٹ کنفرمیشن کے لیے ہمارے واٹس ایپ نمبر **+92 333 4737025** پر رابطہ کریں۔*`;
+        } else if (lowerText.includes('سوات') || lowerText.includes('swat') || lowerText.includes('کالام') || lowerText.includes('مالم')) {
+          replyText = `🏔️ **سوات، کالام اور مالم جبہ فیملی ٹور (4 دن / 3 راتیں):**\n\n` +
+            `• **اہم مقامات:** مالم جبہ سکی ریزورٹ، بحرین، کالام ویلی اور اوشو فارسٹ۔\n` +
+            `• **قیمت:** صرف **22,000 روپے** فی کس۔\n\n` +
+            `👉 *بکنگ اور سیٹ کے لائیو شیڈول کے لیے **safareparbat.com** پر کلک کریں۔*`;
+        } else if (lowerText.includes('بک') || lowerText.includes('book') || lowerText.includes('طریقہ') || lowerText.includes('روپیہ') || lowerText.includes('پیسہ') || lowerText.includes('جازکیش') || lowerText.includes('ادائیگی')) {
+          replyText = `📄 **سفرِ پربت آسان 4 سٹیپ بکنگ کا طریقہ کار:**\n\n` +
+            `1️⃣ **سٹیپ 1:** ہماری آفیشل ویب سائٹ **safareparbat.com** پر اپنا پسندیدہ ٹور منتخب کریں۔\n` +
+            `2️⃣ **سٹیپ 2:** اپنی تفصیلات (نام، شناختی کارڈ/پاسپورٹ، رابطہ نمبر اور تاریخ) فراہم کریں۔\n` +
+            `3️⃣ **سٹیپ 3:** منظور شدہ ذرائع (بینک ٹرانسفر، ایزی پیسہ یا جاز کیش) کے ذریعے ایڈوانس رقم جمع کروائیں۔\n` +
+            `4️⃣ **سٹیپ 4:** واٹس ایپ پر رسید کا اسکرین شاٹ شیئر کریں اور فوری ڈیجیٹل کنفرمیشن رسید حاصل کریں۔\n\n` +
+            `👉 *کیا آپ ابھی 'Book / Inquire' فارم پُر کرنا چاہیں گے؟ یا ہمارے نمائندے سے واٹس ایپ پر رابطہ کریں!*`;
+        } else if (lowerText.includes('منسوخ') || lowerText.includes('cancel') || lowerText.includes('ریفنڈ') || lowerText.includes('refund') || lowerText.includes('پالیسی') || lowerText.includes('قواعد')) {
+          replyText = `📄 **سفرِ پربت منسوخی اور ریفنڈ پالیسی:**\n\n` +
+            `• **100٪ مکمل ریفنڈ:** روانگی سے **7 دن** پہلے منسوخی پر۔\n` +
+            `• **50٪ جزوی ریفنڈ:** روانگی سے **3 دن** پہلے منسوخی پر۔\n` +
+            `• **کوئی ریفنڈ نہیں:** روانگی کے آخری **72 گھنٹوں** کے اندر منسوخی پر رقم ناقابلِ واپسی ہے۔\n\n` +
+            `📋 **نوٹ:** تمام مسافروں کے لیے اصل قومی شناختی کارڈ یا پاسپورٹ ساتھ رکھنا اور حفاظتی اصولوں کی پیروی لازمی ہے۔\n\n` +
+            `👉 *تفصیلی قواعد کے لیے safareparbat.com وزٹ کریں۔*`;
+        } else if (lowerText.includes('ہسٹری') || lowerText.includes('history') || lowerText.includes('تعارف') || lowerText.includes('شاہد') || lowerText.includes('yasir') || lowerText.includes('بانی') || lowerText.includes('امین')) {
+          replyText = `🏢 **سفرِ پربت تعارف و مشن:**\n\n` +
+            `سفرِ پربت کی بنیاد **شاہد امین یاسر** نے پاکستان کے خوبصورت شمالی علاقہ جات میں محفوظ، ماحول دوست اور پائیدار سیاحت کے فروغ کے لیے رکھی۔ ہم مقامی ہنرمند گائیڈز، جدید ترین سفری گاڑیوں اور بہترین ہوٹل رہائش کی ضمانت دیتے ہے۔\n\n` +
+            `👉 *ہمارے ساتھ سفر کر کے پاکستان کو ایک نئے انداز میں دیکھیں۔ کیا آپ ہمارے آنے والے ٹورز دیکھنا چاہیں گے؟*`;
+        } else if (lowerText.includes('نمبر') || lowerText.includes('رابطہ') || lowerText.includes('فون') || lowerText.includes('whatsapp') || lowerText.includes('سپورٹ') || lowerText.includes('کنسلٹنٹ')) {
+          replyText = `📞 **رابطہ اور واٹس ایپ سپورٹ:**\n\n` +
+            `• **آفیشل واٹس ایپ نمبر:** **+92 333 4737025**\n` +
+            `• **ای میل:** \`m.asif.anwar@gmail.com\`\n` +
+            `• **روانگی کے مرکزی دفاتر:** ملتان، لاہور اور اسلام آباد۔\n\n` +
+            `👉 *میں آپ کا چیٹ ابھی ہمارے ٹریول کنسلٹنٹ کو منتقل کر سکتا ہوں!*`;
+        } else {
+          replyText = `👋 **محترم کسٹمر! سفرِ پربت اسسٹنٹ میں خوش آمدید۔**\n\n` +
+            `آپ مجھ سے **ہنزہ، سکردو، نیلم کشمیر، سوات** کے ٹورز، **بکنگ کے طریقہ کار**، **ریفنڈ پالیسی** اور ایڈوانس ادائیگی کی تفصیلات پوچھ سکتے ہیں۔\n\n` +
+            `👉 *مزید معلومات کے لیے ہماری مرکزی ویب سائٹ **safareparbat.com** وزٹ کریں یا براہِ راست واٹس ایپ پر بات کریں۔*`;
+        }
+      } else {
+        if (lowerText.includes('hunza') || lowerText.includes('passu') || lowerText.includes('attabad')) {
+          replyText = `🏔 *Hunza & Khunjerab Expedition (6 Days / 5 Nights):*\n\n` +
+            `• *Highlights:* Attabad Lake, Baltit Fort, Passu Cones, Sost, and Khunjerab Pass (China Border).\n` +
+            `• *Starting Price:* **PKR 35,000** per head.\n` +
+            `• *Weekly Departures:* Every Friday night from Multan, Lahore & Islamabad.\n` +
+            `• *Gear Checklist:* Bring thermal layers, a windbreaker jacket, and sturdy trekking shoes.\n\n` +
+            `👉 *Visit **safareparbat.com** to complete your booking, or fill out our instant Inquiry Form!*`;
+        } else if (lowerText.includes('skardu') || lowerText.includes('deosai') || lowerText.includes('shangrila')) {
+          replyText = `🏔 *Skardu & Deosai Plains Expedition (8 Days / 7 Nights):*\n\n` +
+            `• *Highlights:* Shangrila Resort, Katpana Cold Desert, Shigar Fort, Manthoka Waterfall, and Deosai Plains (second-highest plateau in the world).\n` +
+            `• *Starting Price:* **PKR 45,000** per head.\n` +
+            `• *Departures:* Regular departures from Multan, Lahore & Islamabad.\n\n` +
+            `👉 *Go to **safareparbat.com** to lock in your seats before slots fill up!*`;
+        } else if (lowerText.includes('kashmir') || lowerText.includes('neelum') || lowerText.includes('kel')) {
+          replyText = `🏔 *Neelum Valley & Arang Kel (3 Days / 2 Nights):*\n\n` +
+            `• *Highlights:* Kutton Waterfall, Keran, Sharda River-front, and lush green **Arang Kel** meadows.\n` +
+            `• *Starting Price:* **PKR 18,500** (Weekend Special Package).\n` +
+            `• *Departures:* Every Thursday night from Multan & Islamabad.\n\n` +
+            `👉 *Ready to book? Reach us on WhatsApp support or fill the inquiry form.*`;
+        } else if (lowerText.includes('swat') || lowerText.includes('kalam') || lowerText.includes('malam')) {
+          replyText = `🏔 *Swat Valley, Kalam & Malam Jabba (4 Days / 3 Nights):*\n\n` +
+            `• *Highlights:* Malam Jabba Ski Resort, Fizagat, Kalam Valley, and Ushu Pine Forest.\n` +
+            `• *Starting Price:* **PKR 22,000** per head.\n\n` +
+            `👉 *Book directly at **safareparbat.com** to secure your spots.*`;
+        } else if (lowerText.includes('book') || lowerText.includes('confirm') || lowerText.includes('deposit') || lowerText.includes('procedure') || lowerText.includes('pay') || lowerText.includes('easypaisa') || lowerText.includes('jazzcash')) {
+          replyText = `📄 **Safar-e-Parbat Easy 4-Step Booking Procedure:**\n\n` +
+            `1️⃣ **Step 1:** Select your active tour package on **safareparbat.com**.\n` +
+            `2️⃣ **Step 2:** Provide traveler details (Names, CNICs/Passports, and dates).\n` +
+            `3️⃣ **Step 3:** Deposit the advance fee via approved channels (**Bank Transfer, EasyPaisa, or JazzCash**).\n` +
+            `4️⃣ **Step 4:** Send the payment receipt on WhatsApp for instant confirmation.\n\n` +
+            `👉 *Would you like to speak to our live booking agent on WhatsApp at +92 333 4737025?*`;
+        } else if (lowerText.includes('cancel') || lowerText.includes('refund') || lowerText.includes('policy') || lowerText.includes('rules')) {
+          replyText = `📄 **Safar-e-Parbat Cancellation & Refund Rules:**\n\n` +
+            `✅ **100% Refund:** Up to **7 days** before departure.\n` +
+            `⚠️ **50% Refund:** Up to **3 days** prior to departure.\n` +
+            `❌ **Non-Refundable:** Less than **72 hours** before departure.\n\n` +
+            `📋 **Important:** Carrying a valid national ID/Passport is mandatory for all checkpoints.\n\n` +
+            `👉 *Check **safareparbat.com** for full terms.*`;
+        } else if (lowerText.includes('about') || lowerText.includes('history') || lowerText.includes('who') || lowerText.includes('shahid') || lowerText.includes('yasir') || lowerText.includes('mission')) {
+          replyText = `🏢 **Our Story & Mission:**\n\n` +
+            `Founded by **Shahid Amin Yasir**, Safar-e-Parbat is committed to sustainable, safe, and fully authentic mountain tourism in Northern Pakistan. We employ highly-trained local guides and follow safety-first protocols for absolute comfort.\n\n` +
+            `👉 *Would you like to browse our upcoming Scheduled departures?*`;
+        } else if (lowerText.includes('contact') || lowerText.includes('phone') || lowerText.includes('whatsapp') || lowerText.includes('support') || lowerText.includes('consultant') || lowerText.includes('agent')) {
+          replyText = `📞 **Safar-e-Parbat Helpdesk Details:**\n\n` +
+            `• **WhatsApp / Direct Line:** **+92 333 4737025**\n` +
+            `• **Support Email:** \`m.asif.anwar@gmail.com\`\n` +
+            `• **Primary Portals:** **safareparbat.com** / \`safar-e-parbat.vercel.app\`\n\n` +
+            `👉 *Let me transfer you to our travel consultant at +92 333 4737025 for rapid custom arrangements.*`;
+        } else {
+          replyText = `👋 **Hello traveler! I am Safar Assistant.**\n\n` +
+            `Ask me anything about our **Hunza, Skardu, Kashmir, Swat** expeditions, **Booking process**, **Refund rules**, or **WhatsApp support**.\n\n` +
+            `👉 *Visit our upcoming portal **safareparbat.com** to lock in your next dream escape!*`;
+        }
+      }
+
+      const botMsgId = `bot-${Date.now()}`;
+      const botMsg: ChatMessage = {
+        id: botMsgId,
+        sender: 'assistant',
+        text: replyText,
+        timestamp: new Date()
+      };
+
+      setChatMessages(prev => [...prev, botMsg]);
+      setIsChatTyping(false);
+    }, 1200);
+  };
+
+  useEffect(() => {
+    if (chatMessages.length === 1 && (chatMessages[0].id === 'welcome-1' || chatMessages[0].id === 'welcome-ur')) {
+      if (isUrdu) {
+        setChatMessages([
+          {
+            id: 'welcome-ur',
+            sender: 'assistant',
+            text: `🏔️ **السلام علیکم!** میں **سفر اسسٹنٹ** ہوں، **سفرِ پربت** کے لیے آپ کا 24/7 خودکار واٹس ایپ اے آئی معاون۔\n\nمیں آپ کی درج ذیل موضوعات پر رہنمائی کر سکتا ہوں:\n• 📍 مقبول شمالی مقامات (ہنزہ، سکردو، کشمیر، سوات)\n• 🚌 ہمارا آسان **4 سٹیپ بکنگ کا طریقہ کار**\n• 📅 آنے والے فعال ٹور شیڈول اور قیمتیں\n• 📄 منسوخی اور ریفنڈ پالیسی\n• 🏢 ہماری کمپنی، حفاظت اور تاریخ\n\nآج آپ کے اگلے یادگار ایڈونچر کی منصوبہ بندی میں میں کس طرح مدد کر سکتا ہوں؟ ✨`,
+            timestamp: new Date()
+          }
+        ]);
+      } else {
+        setChatMessages([
+          {
+            id: 'welcome-1',
+            sender: 'assistant',
+            text: `🏔️ **Assalam-o-Alaikum!** I am **Safar Assistant**, your 24/7 automated WhatsApp AI concierge for **Safar-e-Parbat**.\n\nI can assist you with:\n• 📍 Popular northern destinations (Hunza, Skardu, Kashmir, Swat)\n• 🚌 Our easy **4-Step Booking Process**\n• 📅 Upcoming active tour schedules\n• 📄 Cancellation & Refund Policies\n• 🏢 Company mission, safety & history\n\nHow can I help you plan your next dream adventure today? ✨`,
+            timestamp: new Date()
+          }
+        ]);
+      }
+    }
+  }, [isUrdu]);
 
   const getTourWhatsAppLink = (tour: UpcomingTourItem) => {
     const text = isUrdu
@@ -690,6 +875,20 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                   >
                     <MessageCircle size={15} />
                     <span>{isUrdu ? "ٹریول انکوائری" : "Book / Inquire"}</span>
+                  </button>
+
+                  {/* Safar AI Assistant Tab */}
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('assistant')}
+                    className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer border ${
+                      activeTab === 'assistant'
+                        ? 'bg-emerald-600 hover:bg-emerald-500 text-white border-emerald-500 shadow-md animate-pulse-subtle'
+                        : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border-emerald-200'
+                    } ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
+                  >
+                    <Sparkles size={15} className={activeTab === 'assistant' ? 'text-white' : 'text-emerald-600'} />
+                    <span>{isUrdu ? "سفر اے آئی اسسٹنٹ" : "Safar AI Assistant"}</span>
                   </button>
 
                 </div>
@@ -1197,6 +1396,142 @@ const RightSideFloatingHub: React.FC<RightSideFloatingHubProps> = ({ lang }) => 
                       >
                         <Send size={18} />
                         <span>{isUrdu ? "واٹس ایپ پر کوٹیشن حاصل کریں" : "Send Inquiry via WhatsApp"}</span>
+                      </button>
+                    </form>
+                  </div>
+                )}
+
+                {/* ------------------------------------------------------------- */}
+                {/* TAB 4: SAFAR AI ASSISTANT CHAT                              */}
+                {/* ------------------------------------------------------------- */}
+                {activeTab === 'assistant' && (
+                  <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xl flex flex-col h-[650px] max-h-[70vh]">
+                    {/* Assistant Profile Header */}
+                    <div className="bg-gradient-to-r from-emerald-950 via-brand-950 to-slate-900 text-white p-4 px-6 flex items-center justify-between border-b border-brand-800/20">
+                      <div className={`flex items-center gap-3.5 ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                        <div className="relative">
+                          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400 to-brand-500 flex items-center justify-center shadow-lg border border-white/20">
+                            <Sparkles className="text-white" size={22} />
+                          </div>
+                          <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white animate-pulse"></span>
+                        </div>
+                        <div className={isUrdu ? 'text-right' : 'text-left'}>
+                          <h4 className={`font-black text-base tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>
+                            {isUrdu ? "سفر اسسٹنٹ (AI)" : "Safar Assistant"}
+                          </h4>
+                          <p className="text-[11px] text-emerald-300 font-bold tracking-wider uppercase flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            {isUrdu ? "خودکار واٹس ایپ معاون" : "WhatsApp AI Concierge"}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Official WhatsApp Redirect badge */}
+                      <a
+                        href="https://wa.me/923334737025"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 rounded-xl text-xs font-extrabold text-white shadow-md transition"
+                      >
+                        <MessageCircle size={13} />
+                        <span>WhatsApp</span>
+                      </a>
+                    </div>
+
+                    {/* Chat Messages Log */}
+                    <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-slate-50/50">
+                      {chatMessages.map((msg) => {
+                        const isAssistant = msg.sender === 'assistant';
+                        return (
+                          <div
+                            key={msg.id}
+                            className={`flex ${isAssistant ? (isUrdu ? 'justify-end' : 'justify-start') : (isUrdu ? 'justify-start' : 'justify-end')}`}
+                          >
+                            <div
+                              className={`max-w-[85%] sm:max-w-[75%] rounded-2xl p-4 shadow-sm border ${
+                                isAssistant
+                                  ? 'bg-white text-slate-800 border-slate-200/80 rounded-tl-none'
+                                  : 'bg-brand-600 text-white border-brand-700 rounded-tr-none shadow-md'
+                              }`}
+                            >
+                              {/* Message body split by double newlines for paragraph spacing */}
+                              <div className={`text-xs sm:text-sm leading-relaxed whitespace-pre-wrap ${isUrdu ? 'font-urdu text-right' : 'text-left'}`}>
+                                {msg.text.split('\n').map((para, idx) => {
+                                  // Emphasize bold formatting in chat
+                                  if (para.startsWith('•')) {
+                                    return <div key={idx} className="pl-4 mt-1 font-medium">{para}</div>;
+                                  }
+                                  return <p key={idx} className="mb-1.5 last:mb-0">{para}</p>;
+                                })}
+                              </div>
+                              <span className={`block text-[10px] mt-2 opacity-60 ${isAssistant ? 'text-slate-500' : 'text-brand-100'} ${isUrdu ? 'text-left' : 'text-right'}`}>
+                                {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      {/* Typing Loader */}
+                      {isChatTyping && (
+                        <div className={`flex ${isUrdu ? 'justify-end' : 'justify-start'}`}>
+                          <div className="bg-white text-slate-500 border border-slate-200 rounded-2xl rounded-tl-none p-3.5 px-5 flex items-center gap-1.5 shadow-sm">
+                            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce"></span>
+                            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Predefined Quick Suggestion Chips */}
+                    <div className="bg-slate-100/50 px-4 sm:px-6 py-2.5 border-t border-slate-200/60 overflow-x-auto shrink-0 flex items-center gap-2 whitespace-nowrap scrollbar-none">
+                      <span className="text-[11px] font-black text-slate-500 uppercase tracking-wider shrink-0 mr-1">
+                        {isUrdu ? "فوری سوالات:" : "Quick Guides:"}
+                      </span>
+                      {[
+                        { labelEn: "Hunza Expedition", labelUr: "ہنزہ ٹور پیکیج", q: "Hunza Expedition details" },
+                        { labelEn: "Skardu Tour", labelUr: "سکردو ٹور پیکیج", q: "Skardu Tour details" },
+                        { labelEn: "Neelum Valley Kashmir", labelUr: "وادی نیلم کشمیر", q: "Kashmir Tour details" },
+                        { labelEn: "Swat & Kalam Package", labelUr: "سوات و کالام", q: "Swat tour details" },
+                        { labelEn: "Easy 4-Step Booking", labelUr: "بکنگ کا طریقہ کار", q: "How to book a tour?" },
+                        { labelEn: "Cancellation Policy", labelUr: "ریفنڈ اور کینسل پالیسی", q: "Cancellation Refund Policy" },
+                        { labelEn: "Contact Live Support", labelUr: "سپورٹ واٹس ایپ نمبر", q: "WhatsApp support number" },
+                        { labelEn: "Who is the Founder?", labelUr: "کمپنی بانی کی معلومات", q: "Who is the founder of Safar-e-Parbat?" }
+                      ].map((item, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => handleSendMessage(item.q)}
+                          className="px-3.5 py-2 bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-200 rounded-full text-xs font-bold text-slate-700 hover:text-emerald-800 shadow-sm transition shrink-0 cursor-pointer"
+                        >
+                          {isUrdu ? item.labelUr : item.labelEn}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Chat Footer Input Area */}
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        if (!chatInput.trim()) return;
+                        handleSendMessage(chatInput);
+                      }}
+                      className="p-4 bg-white border-t border-slate-200 shrink-0 flex items-center gap-2"
+                    >
+                      <input
+                        type="text"
+                        value={chatInput}
+                        onChange={(e) => setChatInput(e.target.value)}
+                        placeholder={isUrdu ? "سفر اسسٹنٹ سے سوال پوچھیں..." : "Ask Safar Assistant anything..."}
+                        className={`flex-1 p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm transition ${isUrdu ? 'text-right' : 'text-left'}`}
+                      />
+                      <button
+                        type="submit"
+                        className="p-3.5 bg-gradient-to-r from-emerald-600 to-brand-600 hover:from-emerald-500 hover:to-brand-500 text-white rounded-2xl shadow-md hover:shadow-lg transition transform active:scale-95 flex items-center justify-center shrink-0 cursor-pointer"
+                        title="Send Message"
+                      >
+                        <Send size={18} />
                       </button>
                     </form>
                   </div>

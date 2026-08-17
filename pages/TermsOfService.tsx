@@ -1,6 +1,6 @@
 import React from 'react';
 import { Language } from '../types';
-import { Scale, Compass, CheckCircle, HelpCircle, ShieldAlert } from 'lucide-react';
+import { Scale, Compass, CheckCircle, HelpCircle, ShieldAlert, Sparkles } from 'lucide-react';
 import SEO from '../components/SEO';
 
 interface TermsOfServiceProps {
@@ -109,17 +109,66 @@ const TermsOfService: React.FC<TermsOfServiceProps> = ({ lang }) => {
         lang={lang}
       />
       
-      {/* Banner */}
-      <div className="bg-brand-900 text-white py-12 md:py-20 mb-8 md:mb-12 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          <Scale className="w-12 h-12 md:w-16 md:h-16 text-amber-400 mx-auto mb-4 animate-bounce" />
-          <h1 className={`text-3xl md:text-5xl font-bold mb-3 ${isUrdu ? 'font-urdu' : ''}`}>
-            {t.title}
-          </h1>
-          <p className="text-brand-200 text-sm md:text-base font-mono">
-            {t.subtitle}
-          </p>
+      {/* Fancy Scenic Hero Banner - 100% Width, Borderless & Fully Responsive */}
+      <div className="w-full relative overflow-hidden bg-gradient-to-br from-slate-950 via-brand-950 to-slate-900 text-white py-12 sm:py-16 md:py-20 lg:py-24 mb-8 sm:mb-12 shadow-2xl border-none">
+        {/* Decorative Glowing Orbs & Parallax Light Accents */}
+        <div className="absolute top-0 left-1/4 -translate-x-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-brand-500/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 translate-x-1/2 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:20px_20px] opacity-40 pointer-events-none"></div>
+
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            {/* Top Fancy Badge */}
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-emerald-300 text-xs sm:text-sm font-semibold mb-4 sm:mb-6 backdrop-blur-md shadow-lg">
+              <Scale size={15} className="text-emerald-400 flex-shrink-0" />
+              <span>{isUrdu ? "سفرِ پربت ضابطہ اخلاق" : "Legal Terms & Travel Agreements"}</span>
+              <Sparkles size={13} className="text-amber-300 flex-shrink-0" />
+            </div>
+
+            {/* Main Title with Styled Border Stroke & Gradient Accent */}
+            <h1 className={`text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4 sm:mb-5 leading-tight sm:leading-tight md:leading-tight ${isUrdu ? 'font-urdu leading-relaxed sm:leading-relaxed' : ''}`}>
+              {isUrdu ? (
+                <>
+                  <span 
+                    className="text-white inline-block"
+                    style={{
+                      WebkitTextStroke: '1.5px #ffffff',
+                      paintOrder: 'stroke fill',
+                      textShadow: '0 4px 24px rgba(0,0,0,0.7)'
+                    }}
+                  >
+                    سروس کی
+                  </span>{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 inline-block">
+                    شرائط
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span 
+                    className="text-white inline-block"
+                    style={{
+                      WebkitTextStroke: '1.5px #ffffff',
+                      paintOrder: 'stroke fill',
+                      textShadow: '0 4px 24px rgba(0,0,0,0.7)'
+                    }}
+                  >
+                    Terms of
+                  </span>{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 inline-block">
+                    Service
+                  </span>
+                </>
+              )}
+            </h1>
+
+            {/* Subtitle with Frosted Backing */}
+            <div className="max-w-2xl mx-auto px-2">
+              <p className={`text-gray-200 text-xs sm:text-base md:text-lg lg:text-xl font-normal leading-relaxed px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-black/35 border border-white/10 backdrop-blur-sm shadow-xl inline-block ${isUrdu ? 'font-urdu' : ''}`}>
+                {isUrdu 
+                  ? `آخری تجدید: 24 مئی 2026 - ہماری تمام سفری خدمات، بکنگ کی شرائط اور ریفنڈ قواعد کی تفصیلات` 
+                  : `Last updated: May 24, 2026 - Review our travel policies, booking agreements and refund rules.`}
+              </p>
+            </div>
         </div>
       </div>
 

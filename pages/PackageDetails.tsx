@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { CONTENT } from '../constants';
 import { Language } from '../types';
 import { useData } from '../context/DataContext';
-import { MapPin, Clock, Star, Phone, CheckCircle, Calendar, Users, X, Send } from 'lucide-react';
+import { MapPin, Clock, Star, Phone, CheckCircle, Calendar, Users, X, Send, Sparkles } from 'lucide-react';
 import SEO from '../components/SEO';
 
 interface PackageDetailsProps {
@@ -220,28 +220,47 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
 
       {/* Booking Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden relative animate-scale-up">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/75 backdrop-blur-md p-4 animate-fade-in">
+            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden relative animate-scale-up border border-gray-100 ring-1 ring-black/5">
                 {/* Modal Header */}
-                <div className={`bg-brand-600 p-5 md:p-6 text-white flex justify-between items-center ${isUrdu ? 'flex-row-reverse' : ''}`}>
-                    <h3 className={`text-xl font-bold ${isUrdu ? 'font-urdu' : ''}`}>
-                        {t.modalTitle}
-                    </h3>
-                    <button onClick={() => setIsModalOpen(false)} className="hover:bg-brand-700 p-1 rounded-full transition text-white/80 hover:text-white">
-                        <X size={24} />
+                <div className={`bg-gradient-to-r from-brand-950 via-brand-900 to-emerald-950 p-6 text-white flex justify-between items-center relative overflow-hidden ${isUrdu ? 'flex-row-reverse' : ''}`}>
+                    {/* Glowing Accent Effects */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none"></div>
+                    
+                    <div className={`flex items-center gap-3 relative z-10 ${isUrdu ? 'flex-row-reverse text-right' : ''}`}>
+                      <div className="p-2.5 bg-white/10 rounded-xl border border-white/10 backdrop-blur-md shadow-inner">
+                        <Sparkles size={20} className="text-emerald-300" />
+                      </div>
+                      <div>
+                        <h3 className={`text-lg sm:text-xl font-extrabold tracking-tight ${isUrdu ? 'font-urdu' : ''}`}>
+                            {t.modalTitle}
+                        </h3>
+                        <p className={`text-xs text-brand-200 mt-0.5 ${isUrdu ? 'font-urdu' : ''}`}>
+                            {isUrdu ? "فوری اور محفوظ بکنگ انکوائری" : "Secure Booking Inquiry"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <button 
+                      onClick={() => setIsModalOpen(false)} 
+                      className="hover:bg-white/10 p-2 rounded-full transition text-white/80 hover:text-white relative z-10"
+                      aria-label="Close modal"
+                    >
+                        <X size={20} />
                     </button>
                 </div>
                 
                 {/* Modal Body */}
                 <div className="p-6 md:p-8">
-                    <p className={`text-gray-600 mb-6 text-sm ${isUrdu ? 'text-right font-urdu' : ''}`}>
+                    <p className={`text-gray-500 mb-6 text-xs sm:text-sm leading-relaxed ${isUrdu ? 'text-right font-urdu' : ''}`}>
                         {t.modalDesc}
                     </p>
                     
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {/* Name */}
-                        <div>
-                            <label className={`block text-sm font-bold text-gray-700 mb-1 ${isUrdu ? 'text-right font-urdu' : ''}`}>
+                        <div className="relative">
+                            <label className={`block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 ${isUrdu ? 'text-right font-urdu' : ''}`}>
                                 {t.labelName}
                             </label>
                             <input
@@ -250,13 +269,13 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
                                 name="name"
                                 value={formData.name}
                                 onChange={handleInputChange}
-                                className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition ${isUrdu ? 'text-right' : ''}`}
+                                className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 outline-none transition bg-gray-50/50 focus:bg-white hover:border-gray-300 shadow-sm text-gray-800 ${isUrdu ? 'text-right' : ''}`}
                             />
                         </div>
 
                         {/* Phone */}
                         <div>
-                            <label className={`block text-sm font-bold text-gray-700 mb-1 ${isUrdu ? 'text-right font-urdu' : ''}`}>
+                            <label className={`block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 ${isUrdu ? 'text-right font-urdu' : ''}`}>
                                 {t.labelPhone}
                             </label>
                             <input
@@ -265,14 +284,14 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
                                 name="phone"
                                 value={formData.phone}
                                 onChange={handleInputChange}
-                                className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition ${isUrdu ? 'text-right' : ''}`}
+                                className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 outline-none transition bg-gray-50/50 focus:bg-white hover:border-gray-300 shadow-sm text-gray-800 ${isUrdu ? 'text-right' : ''}`}
                             />
                         </div>
 
                         {/* Date & Travelers Row */}
                         <div className={`flex flex-col sm:flex-row gap-4 ${isUrdu ? 'sm:flex-row-reverse' : ''}`}>
                             <div className="flex-1">
-                                <label className={`block text-sm font-bold text-gray-700 mb-1 ${isUrdu ? 'text-right font-urdu' : ''}`}>
+                                <label className={`block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 ${isUrdu ? 'text-right font-urdu' : ''}`}>
                                     {t.labelDate}
                                 </label>
                                 <input
@@ -281,11 +300,11 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
                                     name="date"
                                     value={formData.date}
                                     onChange={handleInputChange}
-                                    className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition ${isUrdu ? 'text-right' : ''}`}
+                                    className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 outline-none transition bg-gray-50/50 focus:bg-white hover:border-gray-300 shadow-sm text-gray-800 ${isUrdu ? 'text-right' : ''}`}
                                 />
                             </div>
                             <div className="flex-1">
-                                <label className={`block text-sm font-bold text-gray-700 mb-1 ${isUrdu ? 'text-right font-urdu' : ''}`}>
+                                <label className={`block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 ${isUrdu ? 'text-right font-urdu' : ''}`}>
                                     {t.labelTravelers}
                                 </label>
                                 <input
@@ -295,14 +314,14 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
                                     name="travelers"
                                     value={formData.travelers}
                                     onChange={handleInputChange}
-                                    className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition ${isUrdu ? 'text-right' : ''}`}
+                                    className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 outline-none transition bg-gray-50/50 focus:bg-white hover:border-gray-300 shadow-sm text-gray-800 ${isUrdu ? 'text-right' : ''}`}
                                 />
                             </div>
                         </div>
 
                         {/* Message */}
                         <div>
-                            <label className={`block text-sm font-bold text-gray-700 mb-1 ${isUrdu ? 'text-right font-urdu' : ''}`}>
+                            <label className={`block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 ${isUrdu ? 'text-right font-urdu' : ''}`}>
                                 {t.labelMessage}
                             </label>
                             <textarea
@@ -310,16 +329,16 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ lang }) => {
                                 value={formData.message}
                                 onChange={handleInputChange}
                                 rows={3}
-                                className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition resize-none ${isUrdu ? 'text-right' : ''}`}
+                                className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 outline-none transition bg-gray-50/50 focus:bg-white hover:border-gray-300 shadow-sm text-gray-800 resize-none ${isUrdu ? 'text-right' : ''}`}
                             ></textarea>
                         </div>
 
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className={`w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition transform active:scale-95 flex items-center justify-center gap-2 mt-4 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
+                            className={`w-full bg-gradient-to-r from-emerald-600 to-brand-600 hover:from-emerald-700 hover:to-brand-700 text-white font-extrabold py-3.5 rounded-xl shadow-lg shadow-emerald-600/10 hover:shadow-emerald-600/20 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2 mt-6 ${isUrdu ? 'flex-row-reverse font-urdu' : ''}`}
                         >
-                            <Send size={20} />
+                            <Send size={18} />
                             {t.submitBtn}
                         </button>
                     </form>

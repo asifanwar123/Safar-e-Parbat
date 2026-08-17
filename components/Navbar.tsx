@@ -317,8 +317,8 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang }) => {
 
       {/* Custom PWA Installation Guide Modal */}
       {showInstallGuide && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in" id="pwa-install-modal">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform scale-up relative">
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-md animate-fade-in" id="pwa-install-modal">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform scale-up relative">
             
             {/* Header Design */}
             <div className="bg-brand-950 text-white p-6 relative overflow-hidden">
