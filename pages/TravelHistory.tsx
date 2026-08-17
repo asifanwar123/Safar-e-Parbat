@@ -17,9 +17,9 @@ const TravelHistory: React.FC<TravelHistoryProps> = ({ lang }) => {
   return (
     <div className="pt-20 min-h-screen bg-gray-50 pb-20">
       <SEO 
-        title={isUrdu ? "سفری تاریخ و یادیں - سفرِ پربت" : "Travel History & Past Expeditions - Safar-e-Parbat"}
-        description={isUrdu ? "سفرِ پربت کے ماضی کے کامیاب ٹورز، مسافروں کے نام، یادگار مناظر اور خوشگوار یادوں کی تفصیلات۔" : "View highlights, memories, and traveler lists from Safar-e-Parbat's past expeditions across Hunza, Skardu, Kashmir, and Khunjerab."}
-        keywords="Safar-e-Parbat travel history, past group tours Pakistan, expedition diaries, traveler memories Pakistan"
+        title={isUrdu ? "ماضی کے کامیاب ٹورز اور یادیں - کشمیر، ہنزہ، سکردو" : "Travel History & Past Expeditions - Kashmir, Hunza, Skardu, Swat"}
+        description={isUrdu ? "سفرِ پربت کے ماضی کے کامیاب ٹورز، فیملی کاروانز، اور یادگار ترین لمحات کی تفصیلات۔ ہنزہ، سکردو، کشمیر اور سوات کے خوبصورت سفر۔" : "Take a look at Safar-e-Parbat's successful past expeditions to Kashmir, Hunza, Skardu, Swat, and the China Border. View traveler diaries, feedback, and photos."}
+        keywords="Safar-e-Parbat travel history, past group tours Pakistan, Kashmir tour diaries, Hunza past trips, Skardu traveler list, Swat valley memories, corporate retreats Pakistan"
         canonicalUrl="/travel-history"
         lang={lang}
       />

@@ -103,9 +103,9 @@ const About: React.FC<AboutProps> = ({ lang }) => {
   return (
     <div className="pt-16 md:pt-20 bg-white min-h-screen pb-16 md:pb-20">
       <SEO 
-        title={isUrdu ? "ہمارے بارے میں - سفرِ پربت" : "About Us - Safar-e-Parbat Travel & Tourism"}
-        description={isUrdu ? "سفرِ پربت ٹریول اینڈ ٹورازم کی کہانی، مشن اور بانی شاہد امین یاسر کا پیغام۔ ہم محفوظ، معیاری اور یادگار سیاحتی خدمات فراہم کرتے ہیں۔" : "Learn about Safar-e-Parbat, our journey since 2008, mission, SECP registration, DTS license, and CEO message from Shahid Amin Yasir."}
-        keywords="About Safar-e-Parbat, Shahid Amin Yasir, Pakistan travel agency, SECP registered tourism, DTS licensed tour operator, tourism in Pakistan"
+        title={isUrdu ? "ہمارے بارے میں - سفرِ پربت ٹریول اینڈ ٹورازم" : "About Us - Safar-e-Parbat Travel & Tourism Pakistan"}
+        description={isUrdu ? "سفرِ پربت ٹریول اینڈ ٹورازم کی کہانی، مشن اور بانی شاہد امین یاسر کا پیغام۔ ہم کشمیر، سوات، ہنزہ اور سکردو کے لیے رجسٹرڈ اور محفوظ سیاحتی خدمات فراہم کرتے ہیں۔" : "Learn about Safar-e-Parbat, our journey, mission, SECP registration, DTS license, and message from founder Shahid Amin Yasir. We specialize in tours to Kashmir, Hunza, Skardu, Swat, and across Pakistan."}
+        keywords="About Safar-e-Parbat, Shahid Amin Yasir, Pakistan travel agency, registered tour operator Pakistan, SECP tourism company, Kashmir Hunza Skardu Swat tours, licensed travel agent Pakistan"
         canonicalUrl="/about"
         lang={lang}
       />

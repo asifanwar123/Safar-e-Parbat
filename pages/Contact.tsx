@@ -16,9 +16,9 @@ const Contact: React.FC<ContactProps> = ({ lang }) => {
   return (
     <div className="pt-20 min-h-screen bg-gray-50 pb-20">
       <SEO 
-        title={isUrdu ? "ہم سے رابطہ کریں - سفرِ پربت" : "Contact Us - Safar-e-Parbat Travel & Tourism"}
-        description={isUrdu ? "سفرِ پربت ٹریول اینڈ ٹورازم سے رابطہ کریں۔ فون: 0333-4737025، ای میل: shahidaminyasir2@gmail.com، پتہ: کبیروالہ، پاکستان۔" : "Get in touch with Safar-e-Parbat for tour bookings, customized corporate itineraries, and travel support. Phone: +92 333 4737025."}
-        keywords="Contact Safar-e-Parbat, book Pakistan tour, travel agency Kabirwala, Multan tour operator phone, Pakistan tourism contact"
+        title={isUrdu ? "ہم سے رابطہ کریں - ٹور بکنگ ہاٹ لائن" : "Contact Us - Book Kashmir, Hunza, Skardu, Swat Tours"}
+        description={isUrdu ? "سفرِ پربت ٹریول اینڈ ٹورازم سے رابطہ کریں۔ ہنزہ، سکردو، کشمیر اور سوات ٹور بکنگ ہاٹ لائن: 0333-4737025، ای میل: shahidaminyasir2@gmail.com" : "Contact Safar-e-Parbat for tour bookings to Kashmir, Hunza, Skardu, Swat, and China Border. Plan custom honeymoon, corporate, or family group tours. Phone: +92 333 4737025."}
+        keywords="Book Pakistan tour, contact Safar-e-Parbat, Kashmir tour booking, Hunza tour reservations, Skardu trip contact, Swat travel agency, tourism office Kabirwala, tour operator phone Pakistan"
         canonicalUrl="/contact"
         lang={lang}
       />

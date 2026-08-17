@@ -48,9 +48,9 @@ const Packages: React.FC<PackagesProps> = ({ lang }) => {
   return (
     <div className="pt-20 bg-gray-50 min-h-screen pb-20">
       <SEO 
-        title={isUrdu ? "ٹور پیکیجز - سفرِ پربت" : "Tour Packages - Explore Pakistan with Safar-e-Parbat"}
-        description={isUrdu ? "گلگت، ہنزہ، سکردو، خنجراب پاس اور وادی نیلم کشمیر کے بہترین ٹور پیکیجز۔ ملتان اور پاکستان بھر سے روانگی کے ساتھ۔" : "Explore our top tour packages: Gilgit & Hunza, Skardu Gateway to Heaven, Khunjerab Pass China Border, and Azad Kashmir Paradise. Book your dream vacation now!"}
-        keywords="Pakistan tour packages, Hunza package price, Skardu travel cost, Gilgit Khunjerab tour, Azad Kashmir Neelum tour, Northern Pakistan travel rates"
+        title={isUrdu ? "ٹور پیکیجز اور قیمتیں - کشمیر، ہنزہ، سکردو، سوات" : "Tour Packages & Prices - Kashmir, Hunza, Skardu, Swat, China Border"}
+        description={isUrdu ? "کشمیر، ہنزہ، سکردو، سوات، گلگت اور خنجراب پاس کے فیملی اور گروپ ٹور پیکیجز کی قیمتیں اور تفصیلات۔ ملتان، لاہور اور اسلام آباد سے روانگی۔" : "Explore our premium tour packages to Kashmir, Hunza Valley, Skardu, Swat Valley, and China Border (Khunjerab Pass). Find competitive prices for family, corporate, and honeymoon tours in Pakistan."}
+        keywords="Pakistan tour packages, Hunza package price, Skardu travel cost, Kashmir tour packages, Swat tour rates, China Border tour cost, Khunjerab Pass trip prices, Pakistan tourism packages, luxury tour rates Pakistan"
         canonicalUrl="/packages"
         lang={lang}
       />

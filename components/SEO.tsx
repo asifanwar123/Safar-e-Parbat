@@ -12,11 +12,11 @@ interface SEOProps {
   lang?: Language;
 }
 
-const defaultDescriptionEn = "Safar-e-Parbat is Pakistan's premier registered travel & tourism agency offering curated tour packages to Hunza, Skardu, Gilgit, Khunjerab Pass, Kashmir, and Swat with luxury transport from Multan and nationwide.";
-const defaultDescriptionUr = "سفرِ پربت پاکستان کی مستند رجسٹرڈ ٹریول اینڈ ٹورازم کمپنی ہے۔ گلگت، ہنزہ، سکردو، خنجراب، کشمیر اور سوات کے لیے پرتعیش اور فیملی ٹور پیکیجز۔";
+const defaultDescriptionEn = "Safar-e-Parbat is Pakistan's premier registered travel & tourism agency offering curated tour packages to Kashmir, Hunza, Skardu, Swat, Gilgit, and the China Border (Khunjerab Pass) with luxury transport from Multan, Lahore, Islamabad, and nationwide.";
+const defaultDescriptionUr = "سفرِ پربت پاکستان کی مستند رجسٹرڈ ٹریول اینڈ ٹورازم کمپنی ہے۔ کشمیر، ہنزہ، سکردو، سوات، گلگت اور پاک چین بارڈر (خنجراب پاس) کے لیے پرتعیش فیملی اور ہنی مون ٹور پیکیجز۔";
 
-const defaultKeywordsEn = "Pakistan tour packages, Northern Pakistan tours, Hunza valley tour, Skardu tour package, Gilgit Khunjerab trip, Neelum valley Kashmir tours, Safar-e-Parbat travel, Multan to northern areas, Pakistan tourism company, family vacation packages Pakistan";
-const defaultKeywordsUr = "پاکستان ٹور پیکیجز, شمالی علاقہ جات کی سیر, ہنزہ ویلی ٹور, سکردو ٹور پیکیج, گلگت خنجراب ٹرپ, آزاد کشمیر ٹور, سفر پربت ٹریول, ملتان سے ٹورز, فیملی ٹور پیکیجز";
+const defaultKeywordsEn = "Pakistan tour packages, Kashmir tours, China Border tour, Khunjerab Pass trip, Hunza valley tour, Skardu tour package, Swat valley tourism, Northern Pakistan tours, Malam Jabba Kalam, Neelum Valley Azad Kashmir, Safar-e-Parbat travel, Multan to northern areas, Lahore to Hunza, Islamabad to Skardu, Pakistan tourism company, family vacation packages Pakistan, customized tour operator Pakistan";
+const defaultKeywordsUr = "پاکستان ٹور پیکیجز, کشمیر ٹور, پاک چین بارڈر ٹرپ, خنجراب پاس, ہنزہ ویلی ٹور, سکردو ٹور پیکیج, سوات ویلی ٹورز, شمالی علاقہ جات کی سیر, سفر پربت ٹریول, فیملی ٹور پیکیجز, ہنی مون ٹور پیکیج, ملتان سے ٹورز";
 
 const defaultImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXNfoOW8gkcMJT4oB8U9ek5VU99sbX8iN5Wexb90sxtida_FpqS5MKUeyMvyn29CQ0HPckkRVAcweYacBGuW6-AgKMiyEifswoBmrp17rS_6zZQcqCzPto3M1skyEW4EFpMTdUrKs-91Tv-ehgGdZw9vvoajqt0L58-PI3S60idcSSNmTBeuuPffrKph0/s1600/Saif-ul-malook%20Lake.jpg";
 

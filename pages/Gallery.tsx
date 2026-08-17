@@ -56,9 +56,9 @@ const Gallery: React.FC<GalleryProps> = ({ lang }) => {
   return (
     <div className="pt-20 min-h-screen bg-white pb-0">
       <SEO 
-        title={isUrdu ? "گیلری - سفرِ پربت کے حسین مناظر" : "Photo Gallery - Northern Pakistan Tourism & Landscapes"}
-        description={isUrdu ? "پاکستان کے دلکش قدرتی مناظر، ہنزہ، سکردو، عطا آباد جھیل، پاسو کونز اور خنجراب پاس کی خوبصورت تصاویر۔" : "Explore photos of Pakistan's breathtaking natural landscapes: Hunza Valley, Skardu, Attabad Lake, Passu Cones, and Saif-ul-Malook Lake with Safar-e-Parbat."}
-        keywords="Pakistan tourism photos, Hunza valley gallery, Skardu pictures, Saif-ul-Malook photos, Passu cones wallpaper, Northern Pakistan landscapes"
+        title={isUrdu ? "گیلری - کشمیر، ہنزہ، سکردو اور سوات کے حسین مناظر" : "Photo Gallery - Kashmir, Hunza, Skardu, Swat Tourism Landscapes"}
+        description={isUrdu ? "کشمیر، ہنزہ، سکردو، سوات، عطا آباد جھیل، جھیل سیف الملوک اور خنجراب پاس کی دلکش اور خوبصورت تصاویر۔" : "Explore breathtaking high-resolution photos of Kashmir, Hunza Valley, Skardu, Swat Valley, Attabad Lake, and China Border (Khunjerab Pass) with Safar-e-Parbat."}
+        keywords="Pakistan tourism photos, Kashmir valley pictures, Hunza valley gallery, Skardu landscapes, Swat Kalam photos, Saif-ul-Malook lake, Attabad lake photography, northern areas gallery"
         canonicalUrl="/gallery"
         lang={lang}
       />

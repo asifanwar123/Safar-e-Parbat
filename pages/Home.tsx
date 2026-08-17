@@ -147,9 +147,9 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
   return (
     <div className="bg-gray-50">
       <SEO 
-        title={isUrdu ? "ہوم - پاکستان کے بہترین ٹور پیکیجز" : "Home - Pakistan's Premier Travel & Tourism Agency"}
-        description={isUrdu ? "سفرِ پربت: پاکستان کے دلکش سیاحتی مقامات، گلگت، ہنزہ، سکردو، خنجراب پاس اور وادی نیلم کشمیر کے لیے پرتعیش اور فیملی ٹور پیکیجز۔" : "Safar-e-Parbat is Pakistan's premier registered tourism agency offering luxury and customized tour packages to Hunza, Skardu, Gilgit, Khunjerab, and Kashmir from Multan & nationwide."}
-        keywords="Safar-e-Parbat, Pakistan tour packages, northern areas tour, Hunza valley, Skardu tour, Gilgit travel, Neelum valley Kashmir, luxury travel Pakistan, Multan tours"
+        title={isUrdu ? "پاکستان کے بہترین ٹور پیکیجز - ہنزہ، سکردو، کشمیر، سوات" : "Pakistan's Best Tour Packages - Kashmir, Hunza, Skardu, Swat, China Border"}
+        description={isUrdu ? "سفرِ پربت: پاکستان کے دلکش سیاحتی مقامات، گلگت، ہنزہ، سکردو، خنجراب پاس، سوات اور وادی نیلم کشمیر کے لیے فیملی، گروپ اور ہنی مون ٹور پیکیجز۔" : "Safar-e-Parbat is Pakistan's premier registered tourism agency offering luxury, budget, and customized tour packages to Kashmir, Hunza, Skardu, Swat, Gilgit, and the China Border (Khunjerab) with premium transport and hotel stays."}
+        keywords="Safar-e-Parbat, Pakistan tour packages, Kashmir tours, China Border tour, Khunjerab Pass travel, Hunza valley tour, Skardu tour package, Swat valley trip, Neelum Valley Kashmir, Malam Jabba Kalam, Pakistan tourism agency, family tour packages Pakistan, corporate tours Pakistan"
         canonicalUrl="/"
         lang={lang}
       />
